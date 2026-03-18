@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grand Junction — Heritage Hub · All Variations</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Open Sans',sans-serif;background:#111;overflow-x:hidden;}
+button,a{cursor:pointer;font-family:'Open Sans',sans-serif;text-decoration:none;}
+.toolbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(8,8,8,0.97);border-bottom:1px solid rgba(154,125,58,0.3);display:flex;align-items:center;gap:4px;padding:0 12px;min-height:48px;flex-wrap:wrap;backdrop-filter:blur(20px);}
+.tb-brand{font-size:0.54rem;font-weight:700;letter-spacing:0.2em;color:#9a7d3a;text-transform:uppercase;white-space:nowrap;margin-right:6px;display:flex;align-items:center;gap:5px;}
+.tb-sep{width:1px;height:20px;background:rgba(255,255,255,0.08);margin:0 4px;flex-shrink:0;}
+.tb-lbl{font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;}
+.vbtn{padding:5px 10px;font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);transition:all 180ms;white-space:nowrap;}
+.vbtn:hover{border-color:rgba(154,125,58,0.5);color:rgba(255,255,255,0.7);}
+.vbtn.active{background:#9a7d3a;border-color:#9a7d3a;color:#1a1a18;font-weight:700;}
+.tb-badge{margin-left:auto;font-size:0.48rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(154,125,58,0.3);color:#9a7d3a;padding:3px 7px;white-space:nowrap;}
+.tmask{position:fixed;inset:0;z-index:8888;pointer-events:none;background:#060606;opacity:0;transition:opacity 200ms;}
+.tmask.on{opacity:1;}
+.variation{display:none;padding-top:48px;}
+.variation.active{display:block;animation:pgIn 380ms cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+:root{--gold:#9a7d3a;--gold-lt:#c4a055;--teal:#1a5e3a;}
+.ph-dk{background:#1c1c1a;position:relative;overflow:hidden;}
+.ph-dk::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center;padding:12px;line-height:1.5;color:rgba(255,255,255,0.1);background:repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(255,255,255,0.01) 18px,rgba(255,255,255,0.01) 19px);}
+.ph-lt{background:#e2ddd5;position:relative;overflow:hidden;}
+.ph-lt::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center;padding:12px;line-height:1.5;color:rgba(0,0,0,0.15);background:repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(0,0,0,0.02) 18px,rgba(0,0,0,0.02) 19px);}
+.gj-diamond{display:inline-block;width:8px;height:8px;background:#9a7d3a;transform:rotate(45deg);margin:0 6px;position:relative;top:-1px;flex-shrink:0;}
+.gj-wordmark{font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:inline-flex;align-items:center;}
+.pill{display:inline-block;font-size:0.48rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 7px;color:#fff;line-height:1;}
+.pill-heritage{background:#8a6e30;}.pill-tour{background:#1a5e3a;}.pill-free{background:#1a1a18;}
+/* Shared footer */
+.gj-footer{background:#0a0a08;border-top:2px solid #9a7d3a;padding:48px 0 20px;}
+.gj-footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1280px;margin:0 auto;padding:0 48px 36px;}
+.gj-footer-col h4{font-size:0.48rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:12px;}
+.gj-footer-col a{display:block;font-size:0.66rem;color:rgba(255,255,255,0.24);margin-bottom:6px;cursor:pointer;line-height:1.5;}
+.gj-footer-wm{font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:inline-flex;align-items:center;margin-bottom:8px;}
+.gj-footer-addr{font-size:0.66rem;color:rgba(255,255,255,0.22);line-height:1.6;margin-bottom:8px;}
+.gj-footer-about{display:inline-block;font-size:0.6rem;color:rgba(255,255,255,0.2);text-decoration:underline;cursor:pointer;}
+.gj-footer-bottom{border-top:1px solid rgba(255,255,255,0.04);padding:14px 48px 0;max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.gj-footer-bottom p{font-size:0.52rem;color:rgba(255,255,255,0.12);}
+.gj-footer-links{display:flex;gap:12px;}
+.gj-footer-links a{font-size:0.5rem;color:rgba(255,255,255,0.14);cursor:pointer;}
+@media(max-width:768px){.gj-footer-grid{grid-template-columns:1fr 1fr;padding:0 16px 28px;}.gj-footer-bottom{padding:12px 16px 0;flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<div class="tmask" id="tmask"></div>
+<div class="toolbar">
+  <div class="tb-brand"><svg width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" transform="rotate(45 6 6)" fill="#9a7d3a"/></svg>GJ · Heritage Hub</div>
+  <div class="tb-sep"></div>
+  <span class="tb-lbl">Direction:</span>
+  <button class="vbtn active" id="vbtn-a" onclick="showVar('a')">A · Editorial Ink</button>
+  <button class="vbtn" id="vbtn-b" onclick="showVar('b')">B · Living Stone</button>
+  <button class="vbtn" id="vbtn-c" onclick="showVar('c')">C · Modernist Nave</button>
+  <button class="vbtn" id="vbtn-d" onclick="showVar('d')">D · Open Access</button>
+  <button class="vbtn" id="vbtn-e" onclick="showVar('e')">E · Stained Glass Bold</button>
+  <div class="tb-badge">Heritage Hub · Secondary Page</div>
+</div>
+
+<!-- ═══════════════ VAR A — EDITORIAL INK · Heritage Hub ═══════════════
+  Concept: Dark magazine-editorial. The building history as a printed essay.
+  Large pull quotes, full-bleed image alternating with typeset text columns.
+  Timeline as typographic vertical sequence. Gallery as masonry.
+  DM Serif Display italic for all narrative headings.
+ ═══════════════════════════════════════════════════════════════════════ -->
+<div class="variation active" id="var-a">
+<style>
+.ha{background:#f2ede5;--ha-bg:#f2ede5;--ha-bg2:#e8e2d8;--ha-dark:#111110;--ha-mid:#6a6050;--ha-border:#ccc4b4;--ha-gold:#9a7d3a;}
+
+/* NAV A */
+.ha-nav{height:64px;background:#111110;display:grid;grid-template-columns:max-content auto max-content;align-items:stretch;padding:0 40px;position:sticky;top:48px;z-index:200;border-bottom:1px solid rgba(255,255,255,0.05);}
+.ha-nav-left,.ha-nav-right{display:flex;align-items:stretch;}
+.ha-nav-center{display:flex;align-items:center;justify-content:center;padding:0 32px;border-left:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);}
+.ha-nav-link{display:flex;align-items:center;padding:0 13px;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);border-bottom:2px solid transparent;transition:all 180ms;white-space:nowrap;}
+.ha-nav-link:hover,.ha-nav-link.act{color:#fff;border-bottom-color:#9a7d3a;}
+.ha-nav-actions{display:flex;align-items:center;gap:8px;padding-left:12px;}
+.ha-nav-donate{background:#9a7d3a;color:#111110!important;font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 15px;border:none;}
+.ha-nav-member{color:rgba(255,255,255,0.55)!important;border:1px solid rgba(255,255,255,0.16);font-size:0.56rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:6px 12px;background:transparent;}
+.ha-nav-search{width:30px;height:30px;background:transparent;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.4);font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.ha-mob-tog{display:none;background:none;border:none;color:#fff;font-size:1.1rem;padding:8px;}
+.ha-mob-menu{display:none;background:#111110;border-bottom:2px solid #9a7d3a;flex-direction:column;}
+.ha-mob-menu.open{display:flex;}
+.ha-mob-link{padding:12px 20px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.04);}
+@media(max-width:900px){.ha-nav{grid-template-columns:1fr auto 48px;padding:0 16px;}.ha-nav-left,.ha-nav-right .ha-nav-link{display:none;}.ha-nav-actions{display:none;}.ha-mob-tog{display:flex;align-items:center;}}
+
+/* HERO A */
+.ha-hero{position:relative;min-height:80vh;overflow:hidden;background:#111110;}
+.ha-hero-img{position:absolute;inset:0;z-index:0;}
+.ha-hero-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.ha-hero-grad{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(17,17,16,0.98) 0%,rgba(17,17,16,0.7) 45%,rgba(17,17,16,0.2) 75%,rgba(17,17,16,0.05) 100%);}
+.ha-hero-content{position:relative;z-index:2;padding:80px 64px;display:flex;flex-direction:column;justify-content:flex-end;height:100%;min-height:80vh;}
+.ha-hero-eyebrow{font-size:0.52rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#9a7d3a;margin-bottom:16px;display:flex;align-items:center;gap:12px;}
+.ha-hero-eyebrow::before{content:'';display:block;width:28px;height:1px;background:#9a7d3a;}
+.ha-hero-h1{font-family:'DM Serif Display',Georgia,serif;font-size:5.5rem;font-style:italic;color:#fff;line-height:0.88;margin-bottom:14px;}
+.ha-hero-sub{font-size:0.95rem;color:rgba(255,255,255,0.45);line-height:1.75;max-width:580px;margin-bottom:24px;}
+.ha-hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.ha-btn-gold{background:#9a7d3a;color:#111110;border:none;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:12px 24px;transition:background 160ms;}
+.ha-btn-gold:hover{background:#c4a055;}
+.ha-btn-outline{background:transparent;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.25);font-size:0.62rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:11px 20px;transition:all 160ms;}
+.ha-btn-outline:hover{border-color:rgba(255,255,255,0.6);color:#fff;}
+.ha-hero-badge{position:absolute;top:32px;right:48px;z-index:3;background:rgba(17,17,16,0.85);border:1px solid rgba(154,125,58,0.3);padding:12px 18px;text-align:center;}
+.ha-hero-badge-n{font-family:'DM Serif Display',Georgia,serif;font-size:2.8rem;font-style:italic;color:#9a7d3a;line-height:1;display:block;}
+.ha-hero-badge-l{font-size:0.44rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.35);}
+@media(max-width:1024px){.ha-hero-h1{font-size:4rem;}.ha-hero-content{padding:48px 32px;min-height:60vh;}}
+@media(max-width:600px){.ha-hero-h1{font-size:2.8rem;}.ha-hero-content{padding:28px 20px;min-height:auto;}.ha-hero-badge{top:16px;right:20px;}}
+
+/* SUB-NAV A */
+.ha-subnav{background:#111110;border-bottom:1px solid rgba(255,255,255,0.05);display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.ha-sn-item{padding:14px 20px;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.38);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all 160ms;}
+.ha-sn-item:hover,.ha-sn-item.act{color:#fff;border-bottom-color:#9a7d3a;}
+
+/* INTRO SPLIT A */
+.ha-intro{display:grid;grid-template-columns:1fr 1fr;background:#111110;}
+.ha-intro-text{padding:64px 72px 64px 64px;}
+.ha-intro-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:14px;}
+.ha-intro-h2{font-family:'DM Serif Display',Georgia,serif;font-size:2.6rem;font-style:italic;color:#fff;line-height:1.0;margin-bottom:20px;}
+.ha-intro-body{font-size:0.85rem;line-height:1.85;color:rgba(255,255,255,0.45);}
+.ha-intro-body p{margin-bottom:14px;}
+.ha-intro-img{position:relative;}
+.ha-intro-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+@media(max-width:1024px){.ha-intro{grid-template-columns:1fr;}.ha-intro-img{min-height:280px;}.ha-intro-text{padding:40px 32px;}}
+@media(max-width:600px){.ha-intro-text{padding:28px 20px;}.ha-intro-h2{font-size:2rem;}}
+
+/* KEY FACTS STRIP A */
+.ha-facts{background:var(--ha-bg2);padding:40px 64px;border-top:3px solid #9a7d3a;}
+.ha-facts-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;}
+.ha-fact{border-left:2px solid #9a7d3a;padding-left:20px;}
+.ha-fact-n{font-family:'DM Serif Display',Georgia,serif;font-size:2.8rem;font-style:italic;color:#111110;line-height:1;}
+.ha-fact-l{font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#6a6050;margin-top:3px;}
+@media(max-width:768px){.ha-facts{padding:32px 20px;}.ha-facts-inner{grid-template-columns:1fr 1fr;gap:20px;}}
+
+/* TIMELINE A */
+.ha-timeline{background:var(--ha-bg);padding:72px 0;}
+.ha-timeline-inner{max-width:900px;margin:0 auto;padding:0 48px;}
+.ha-tl-header{margin-bottom:48px;}
+.ha-tl-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:8px;}
+.ha-tl-h2{font-family:'DM Serif Display',Georgia,serif;font-size:2.2rem;font-style:italic;color:#111110;}
+.ha-tl-item{display:grid;grid-template-columns:100px 1fr;gap:0 32px;padding-bottom:48px;position:relative;}
+.ha-tl-item::before{content:'';position:absolute;left:88px;top:12px;bottom:0;width:1px;background:var(--ha-border);}
+.ha-tl-item:last-child::before{display:none;}
+.ha-tl-year{font-family:'DM Serif Display',Georgia,serif;font-size:2rem;font-style:italic;color:#9a7d3a;line-height:1;text-align:right;padding-right:16px;padding-top:2px;flex-shrink:0;}
+.ha-tl-year::after{content:'';display:block;width:10px;height:10px;border-radius:50%;background:#9a7d3a;margin:8px 0 0 auto;position:relative;right:-26px;top:-6px;}
+.ha-tl-content{}
+.ha-tl-era{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#6a6050;margin-bottom:5px;}
+.ha-tl-h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.4rem;font-style:italic;color:#111110;margin-bottom:8px;line-height:1.1;}
+.ha-tl-body{font-size:0.8rem;color:#6a6050;line-height:1.8;}
+@media(max-width:768px){.ha-timeline-inner{padding:0 16px;}.ha-tl-item{grid-template-columns:70px 1fr;gap:0 20px;}.ha-tl-item::before{left:60px;}.ha-tl-year{font-size:1.4rem;}}
+
+/* GALLERY A */
+.ha-gallery{background:#111110;padding:72px 0;}
+.ha-gallery-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.ha-gallery-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+.ha-gallery-h2{font-family:'DM Serif Display',Georgia,serif;font-size:2rem;font-style:italic;color:#fff;}
+.ha-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:auto;gap:2px;}
+.ha-gallery-item{position:relative;overflow:hidden;cursor:pointer;}
+.ha-gallery-item.tall{grid-row:span 2;}
+.ha-gallery-item .ph-dk{width:100%;}
+.ha-gallery-item.short .ph-dk{height:220px;}
+.ha-gallery-item.tall .ph-dk{height:100%;position:absolute;inset:0;}
+.ha-gallery-item.tall{min-height:440px;}
+.ha-gallery-item-label{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(17,17,16,0.9) 0%,transparent 100%);padding:16px;z-index:1;}
+.ha-gallery-item-label span{font-size:0.52rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);}
+@media(max-width:900px){.ha-gallery-inner{padding:0 16px;}.ha-gallery-grid{grid-template-columns:1fr 1fr;}.ha-gallery-item.tall{grid-row:span 1;min-height:auto;}.ha-gallery-item.tall .ph-dk{position:relative;height:220px;}.ha-gallery-item.short .ph-dk{height:200px;}}
+
+/* TOURS A */
+.ha-tours{background:var(--ha-bg);padding:72px 0;}
+.ha-tours-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.ha-tours-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px;}
+.ha-tours-h2{font-family:'DM Serif Display',Georgia,serif;font-size:2rem;font-style:italic;color:#111110;}
+.ha-tour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.ha-tour-card{background:#111110;overflow:hidden;cursor:pointer;transition:transform 160ms;}
+.ha-tour-card:hover{transform:translateY(-4px);}
+.ha-tour-img{height:200px;position:relative;}
+.ha-tour-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.ha-tour-body{padding:20px 24px 24px;}
+.ha-tour-type{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;}
+.ha-tour-h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.3rem;font-style:italic;color:#fff;line-height:1.1;margin-bottom:8px;}
+.ha-tour-desc{font-size:0.74rem;color:rgba(255,255,255,0.4);line-height:1.7;margin-bottom:14px;}
+.ha-tour-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.ha-tour-meta-chip{font-size:0.48rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.38);}
+.ha-tour-cta{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#111110;border:none;padding:9px 18px;transition:background 160ms;}
+.ha-tour-cta:hover{background:#c4a055;}
+@media(max-width:900px){.ha-tour-grid{grid-template-columns:1fr;}.ha-tours-inner{padding:0 16px;}}
+
+/* PULL QUOTE A */
+.ha-pullquote{background:#111110;padding:72px 64px;text-align:center;}
+.ha-pq-rule{width:40px;height:2px;background:#9a7d3a;margin:0 auto 24px;}
+.ha-pq-text{font-family:'DM Serif Display',Georgia,serif;font-size:2.2rem;font-style:italic;color:#fff;line-height:1.2;max-width:740px;margin:0 auto 16px;}
+.ha-pq-attr{font-size:0.56rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+@media(max-width:768px){.ha-pullquote{padding:48px 24px;}.ha-pq-text{font-size:1.6rem;}}
+
+/* RELATED EVENTS A */
+.ha-related{background:var(--ha-bg2);padding:64px 0;}
+.ha-related-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.ha-related-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:28px;}
+.ha-related-h2{font-family:'DM Serif Display',Georgia,serif;font-size:1.8rem;font-style:italic;color:#111110;}
+.ha-related-see{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;cursor:pointer;}
+.ha-related-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.ha-rel-card{background:#fff;border:1px solid var(--ha-border);display:flex;flex-direction:column;overflow:hidden;cursor:pointer;transition:transform 160ms,box-shadow 160ms;}
+.ha-rel-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.07);}
+.ha-rel-img{height:150px;position:relative;}
+.ha-rel-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.ha-rel-pill{position:absolute;top:0;left:0;z-index:2;}
+.ha-rel-body{padding:14px 16px 18px;}
+.ha-rel-date{font-size:0.54rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.ha-rel-h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.0rem;font-style:italic;color:#111110;line-height:1.2;margin-bottom:8px;}
+.ha-rel-meta{font-size:0.56rem;color:#6a6050;margin-bottom:10px;}
+.ha-rel-cta{font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#111110;color:#fff;border:none;padding:7px 14px;transition:background 160ms;}
+.ha-rel-cta:hover{background:#9a7d3a;color:#111110;}
+@media(max-width:900px){.ha-related-row{grid-template-columns:1fr 1fr;}.ha-related-inner{padding:0 16px;}}
+@media(max-width:600px){.ha-related-row{grid-template-columns:1fr;}}
+</style>
+
+<div class="ha">
+<nav class="ha-nav">
+  <div class="ha-nav-left"><a class="ha-nav-link">What's On</a><a class="ha-nav-link act">Visit</a><a class="ha-nav-link">Hire</a></div>
+  <div class="ha-nav-center"><span class="gj-wordmark" style="color:#fff;">GRAND<span class="gj-diamond"></span>JUNCTION</span></div>
+  <div class="ha-nav-right"><a class="ha-nav-link">Get Involved</a><div class="ha-nav-actions"><button class="ha-nav-search">&#9906;</button><button class="ha-nav-member">Join as Member</button><button class="ha-nav-donate">Donate</button></div></div>
+  <button class="ha-mob-tog" onclick="this.closest('.ha-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="ha-mob-menu"><a class="ha-mob-link">What's On</a><a class="ha-mob-link">Visit</a><a class="ha-mob-link">Hire</a><a class="ha-mob-link">Get Involved</a></div>
+
+<section class="ha-hero">
+  <div class="ha-hero-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Heritage Hero — St Mary Magdalene interior / stained glass / dramatic atmospheric lighting"></div></div>
+  <div class="ha-hero-grad" aria-hidden="true"></div>
+  <div class="ha-hero-content">
+    <div class="ha-hero-eyebrow">Visit › Heritage Hub</div>
+    <h1 class="ha-hero-h1">Nine centuries<br>of stories</h1>
+    <p class="ha-hero-sub">St Mary Magdalene Church is one of North Paddington's most extraordinary buildings — Norman in origin, Victorian in character, and alive with community arts today.</p>
+    <div class="ha-hero-btns">
+      <button class="ha-btn-gold">Book a Heritage Tour</button>
+      <button class="ha-btn-outline">Explore the History</button>
+    </div>
+  </div>
+  <div class="ha-hero-badge" aria-label="Over 900 years of history">
+    <span class="ha-hero-badge-n">900+</span>
+    <span class="ha-hero-badge-l">Years of history</span>
+  </div>
+</section>
+
+<nav class="ha-subnav" aria-label="Heritage sections">
+  <div class="ha-sn-item act">The Building</div>
+  <div class="ha-sn-item">Our History</div>
+  <div class="ha-sn-item">Heritage Tours</div>
+  <div class="ha-sn-item">North Paddington</div>
+  <div class="ha-sn-item">Research &amp; Archives</div>
+</nav>
+
+<section class="ha-intro">
+  <div class="ha-intro-text">
+    <div class="ha-intro-eyebrow">The Building</div>
+    <h2 class="ha-intro-h2">St Mary Magdalene Church</h2>
+    <div class="ha-intro-body">
+      <p>The current Victorian Gothic church was designed by the eminent architect George Edmund Street and consecrated in 1868. It stands on a site of Christian worship dating back to the 12th century — making it one of North Paddington's most enduring landmarks.</p>
+      <p>The interior is a masterwork of Victorian ecclesiastical craftsmanship. The chancel contains remarkable decorative work by William Morris and Edward Burne-Jones — two of the most celebrated figures of the Arts and Crafts movement — alongside extraordinary carved stonework and one of London's finest collections of Victorian stained glass.</p>
+      <p>Today the building is Grade II listed and in the care of Grand Junction and Paddington Development Trust, who have transformed it into a thriving community arts venue while preserving and celebrating its exceptional heritage.</p>
+    </div>
+  </div>
+  <div class="ha-intro-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church interior — nave looking east / architectural detail"></div></div>
+</section>
+
+<div class="ha-facts">
+  <div class="ha-facts-inner">
+    <div class="ha-fact"><div class="ha-fact-n">12c</div><div class="ha-fact-l">Original founding</div></div>
+    <div class="ha-fact"><div class="ha-fact-n">1868</div><div class="ha-fact-l">Current building consecrated</div></div>
+    <div class="ha-fact"><div class="ha-fact-n">Grade II</div><div class="ha-fact-l">Listed building status</div></div>
+    <div class="ha-fact"><div class="ha-fact-n">Free</div><div class="ha-fact-l">Entry to the building</div></div>
+  </div>
+</div>
+
+<section class="ha-timeline">
+  <div class="ha-timeline-inner">
+    <div class="ha-tl-header">
+      <div class="ha-tl-eyebrow">Our History</div>
+      <h2 class="ha-tl-h2">Nine centuries in North Paddington</h2>
+    </div>
+    <div class="ha-tl-item">
+      <div class="ha-tl-year">12c</div>
+      <div class="ha-tl-content"><div class="ha-tl-era">Norman Origins</div><h3 class="ha-tl-h3">The First Church</h3><div class="ha-tl-body">A chapel is established on the site of present-day St Mary Magdalene, serving the scattered community of North Paddington — then a largely rural area beyond the city limits of London.</div></div>
+    </div>
+    <div class="ha-tl-item">
+      <div class="ha-tl-year">1866</div>
+      <div class="ha-tl-content"><div class="ha-tl-era">Victorian Era</div><h3 class="ha-tl-h3">George Edmund Street Commissioned</h3><div class="ha-tl-body">The eminent Gothic Revival architect George Edmund Street — designer of the Royal Courts of Justice — is commissioned to design a new church to serve a rapidly expanding North Paddington population.</div></div>
+    </div>
+    <div class="ha-tl-item">
+      <div class="ha-tl-year">1868</div>
+      <div class="ha-tl-content"><div class="ha-tl-era">Consecration</div><h3 class="ha-tl-h3">The Building Opens</h3><div class="ha-tl-body">The new St Mary Magdalene Church is consecrated. William Morris and Edward Burne-Jones collaborate on decorative elements including painted panels, stained glass and decorative textiles — work which survives to this day.</div></div>
+    </div>
+    <div class="ha-tl-item">
+      <div class="ha-tl-year">2000</div>
+      <div class="ha-tl-content"><div class="ha-tl-era">New Chapter</div><h3 class="ha-tl-h3">Grand Junction Founded</h3><div class="ha-tl-body">Paddington Development Trust establishes Grand Junction as a community arts venue in the building, beginning the transformation of St Mary Magdalene from a declining parish church into a thriving hub for music, arts, heritage and community life.</div></div>
+    </div>
+    <div class="ha-tl-item">
+      <div class="ha-tl-year">Today</div>
+      <div class="ha-tl-content"><div class="ha-tl-era">Present Day</div><h3 class="ha-tl-h3">Arts, Heritage &amp; Community</h3><div class="ha-tl-body">St Mary Magdalene hosts over 300 events a year — from concerts and theatre to heritage tours, community workshops and free family activities — while preserving one of North London's finest Victorian interiors for future generations.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ha-gallery">
+  <div class="ha-gallery-inner">
+    <div class="ha-gallery-header">
+      <div>
+        <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;">The Building</div>
+        <h2 class="ha-gallery-h2">Stained glass, stonework &amp; craftsmanship</h2>
+      </div>
+      <button style="font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:1px solid rgba(154,125,58,0.3);padding:7px 14px;cursor:pointer;">View all images →</button>
+    </div>
+    <div class="ha-gallery-grid">
+      <div class="ha-gallery-item tall"><div class="ph-dk" data-label="Main nave — looking east / ceiling vault / atmospheric light"></div><div class="ha-gallery-item-label"><span>The Nave</span></div></div>
+      <div class="ha-gallery-item short"><div class="ph-dk" style="height:220px;" data-label="East window — stained glass / William Morris / Burne-Jones"></div><div class="ha-gallery-item-label"><span>East Window · William Morris</span></div></div>
+      <div class="ha-gallery-item short"><div class="ph-dk" style="height:220px;" data-label="Carved stonework / decorative capitals / detail"></div><div class="ha-gallery-item-label"><span>Victorian Stonework</span></div></div>
+      <div class="ha-gallery-item short"><div class="ph-dk" style="height:220px;" data-label="Chancel / altar / chancel arch"></div><div class="ha-gallery-item-label"><span>The Chancel</span></div></div>
+      <div class="ha-gallery-item short"><div class="ph-dk" style="height:220px;" data-label="Side aisle / window / light streaming through coloured glass"></div><div class="ha-gallery-item-label"><span>South Aisle</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="ha-pullquote">
+  <div class="ha-pq-rule" aria-hidden="true"></div>
+  <blockquote class="ha-pq-text">"One of the finest examples of High Victorian Gothic architecture in London — and one of the least known."</blockquote>
+  <div class="ha-pq-attr">Historic England · Grade II Listing Notes</div>
+</div>
+
+<section class="ha-tours">
+  <div class="ha-tours-inner">
+    <div class="ha-tours-header">
+      <div>
+        <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;">Heritage Tours</div>
+        <h2 class="ha-tours-h2">Explore the building with a guide</h2>
+      </div>
+      <button style="font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;cursor:pointer;">View all tours →</button>
+    </div>
+    <div class="ha-tour-grid">
+      <div class="ha-tour-card"><div class="ha-tour-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Walking tour — interior / guide / group"></div></div><div class="ha-tour-body"><div class="ha-tour-type">Guided Tour · Weekly</div><h3 class="ha-tour-h3">Chapel of St Sepulchre Walking Tour</h3><p class="ha-tour-desc">A guided tour of the church interior exploring nine centuries of history, the Arts and Crafts decorations and the building's community role.</p><div class="ha-tour-meta"><span class="ha-tour-meta-chip">Every Sunday 2pm</span><span class="ha-tour-meta-chip">Free</span><span class="ha-tour-meta-chip">Step-free</span></div><button class="ha-tour-cta">Reserve a place</button></div></div>
+      <div class="ha-tour-card"><div class="ha-tour-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Stained glass detail / close-up / coloured light"></div></div><div class="ha-tour-body"><div class="ha-tour-type">Specialist Tour · Monthly</div><h3 class="ha-tour-h3">Stained Glass Deep Dive</h3><p class="ha-tour-desc">A specialist-led exploration of the church's extraordinary Victorian stained glass — William Morris, Burne-Jones and their contemporaries.</p><div class="ha-tour-meta"><span class="ha-tour-meta-chip">Monthly · Saturdays</span><span class="ha-tour-meta-chip">Free</span><span class="ha-tour-meta-chip">Adult</span></div><button class="ha-tour-cta">Reserve a place</button></div></div>
+      <div class="ha-tour-card"><div class="ha-tour-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="North Paddington streets / community / outdoor walk"></div></div><div class="ha-tour-body"><div class="ha-tour-type">Walking Tour · Quarterly</div><h3 class="ha-tour-h3">North Paddington History Walk</h3><p class="ha-tour-desc">A guided walk through the streets and canal-side of North Paddington, exploring the area's community history and social change.</p><div class="ha-tour-meta"><span class="ha-tour-meta-chip">Quarterly</span><span class="ha-tour-meta-chip">Free</span><span class="ha-tour-meta-chip">Outdoor</span></div><button class="ha-tour-cta">Reserve a place</button></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="ha-related">
+  <div class="ha-related-inner">
+    <div class="ha-related-header">
+      <h2 class="ha-related-h2">Heritage events coming up</h2>
+      <button class="ha-related-see">View all heritage events →</button>
+    </div>
+    <div class="ha-related-row">
+      <div class="ha-rel-card"><div class="ha-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;"></div><div class="ha-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="ha-rel-body"><div class="ha-rel-date">Sun 2 Mar · 2:00pm</div><h3 class="ha-rel-h3">Chapel of St Sepulchre Walking Tour</h3><div class="ha-rel-meta">Free · Adult · Guided</div><button class="ha-rel-cta">Reserve</button></div></div>
+      <div class="ha-rel-card"><div class="ha-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;"></div><div class="ha-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="ha-rel-body"><div class="ha-rel-date">Sun 9 Mar · 2:00pm</div><h3 class="ha-rel-h3">Stained Glass Deep Dive</h3><div class="ha-rel-meta">Free · Adult · Specialist</div><button class="ha-rel-cta">Reserve</button></div></div>
+      <div class="ha-rel-card"><div class="ha-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8dcd8;"></div><div class="ha-rel-pill"><span class="pill pill-heritage">Heritage Talk</span></div></div><div class="ha-rel-body"><div class="ha-rel-date">Sat 14 Mar · 3:00pm</div><h3 class="ha-rel-h3">Victorian Craftsmanship: Morris &amp; Burne-Jones</h3><div class="ha-rel-meta">Free · Adult · Talk</div><button class="ha-rel-cta">Reserve</button></div></div>
+    </div>
+  </div>
+</section>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church<br>Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry to the building</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>Heritage Hub</h4><a>The Building</a><a>Our History</a><a>Heritage Tours</a><a>North Paddington</a><a>Research &amp; Archives</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>The Café</a><a>Opening Times</a><a>Accessibility</a><a>How to Find Us</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>What's On</a><a>Donate</a><a>Membership</a><a>Hire a Space</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-a -->
+
+<!-- ═══════════════ VAR B — LIVING STONE · Heritage Hub ═══════════════
+  Concept: Warm, welcoming. Alternating full-bleed image/text panels.
+  Libre Baskerville italic for narrative headings.
+  Timeline as warm horizontal scroll strip.
+  Gold thick rule system. Gallery as 4-col grid of equal tiles.
+ ═══════════════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-b">
+<style>
+.hb{background:#faf6ee;--hb-bg:#faf6ee;--hb-bg2:#ede8de;--hb-dark:#1c1a16;--hb-mid:#7a7060;--hb-border:#d4ccbc;--hb-gold:#9a7d3a;}
+.hb-nav{height:68px;background:#1c1a16;display:flex;align-items:center;padding:0 40px;border-bottom:4px solid #9a7d3a;position:sticky;top:48px;z-index:200;}
+.hb-nav-logo{flex-shrink:0;margin-right:32px;}
+.hb-nav-links{display:flex;align-items:center;gap:0;flex:1;}
+.hb-nav-link{display:flex;align-items:center;padding:0 14px;height:68px;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.42);border-bottom:3px solid transparent;transition:all 160ms;white-space:nowrap;}
+.hb-nav-link:hover,.hb-nav-link.act{color:#fff;border-bottom-color:#9a7d3a;}
+.hb-nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.hb-donate{background:#9a7d3a;color:#1c1a16!important;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:8px 18px;border:none;}
+.hb-member{color:rgba(255,255,255,0.55)!important;border:1px solid rgba(255,255,255,0.2);font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:7px 13px;background:transparent;}
+.hb-search{width:30px;height:30px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.hb-mob-tog{display:none;background:none;border:none;color:#fff;font-size:1.1rem;padding:8px;margin-left:auto;}
+.hb-mob-menu{display:none;background:#1c1a16;border-bottom:3px solid #9a7d3a;flex-direction:column;}
+.hb-mob-menu.open{display:flex;}
+.hb-mob-link{padding:12px 20px;font-size:0.76rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.04);}
+@media(max-width:900px){.hb-nav-links{display:none;}.hb-nav-actions{display:none;}.hb-mob-tog{display:block;}.hb-nav{padding:0 16px;}}
+
+/* HERO B — warm full-bleed with bottom text panel */
+.hb-hero{position:relative;min-height:72vh;overflow:hidden;background:#1c1a16;}
+.hb-hero-img{position:absolute;inset:0;}
+.hb-hero-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.hb-hero-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(28,26,22,0.97) 0%,rgba(28,26,22,0.6) 40%,rgba(28,26,22,0.1) 80%);}
+.hb-hero-content{position:relative;z-index:2;padding:80px 64px 56px;display:flex;flex-direction:column;justify-content:flex-end;min-height:72vh;}
+.hb-hero-bc{font-size:0.52rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.hb-hero-bc span{color:#9a7d3a;}
+.hb-hero-h1{font-family:'Libre Baskerville',Georgia,serif;font-size:4.5rem;font-style:italic;color:#fff;line-height:0.92;margin-bottom:14px;}
+.hb-hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.8;max-width:560px;margin-bottom:28px;}
+.hb-hero-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.hb-hero-cta{background:#9a7d3a;color:#1c1a16;border:none;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:12px 24px;transition:background 160ms;}
+.hb-hero-cta:hover{background:#c4a055;}
+.hb-hero-cta2{background:transparent;color:rgba(255,255,255,0.65);border:2px solid rgba(255,255,255,0.22);font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:10px 20px;transition:all 160ms;}
+.hb-hero-cta2:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
+.hb-hero-badge{position:absolute;top:28px;right:52px;z-index:3;background:#9a7d3a;padding:16px 20px;text-align:center;}
+.hb-hero-badge-n{font-family:'Libre Baskerville',Georgia,serif;font-size:2.8rem;font-style:italic;color:#fff;line-height:1;display:block;}
+.hb-hero-badge-l{font-size:0.44rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+@media(max-width:900px){.hb-hero-h1{font-size:3rem;}.hb-hero-content{padding:48px 24px 40px;min-height:60vh;}.hb-hero-badge{display:none;}}
+
+/* SUB-NAV B */
+.hb-subnav{background:var(--hb-bg2);border-bottom:1px solid var(--hb-border);display:flex;overflow-x:auto;}
+.hb-sn{padding:13px 20px;font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--hb-mid);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all 160ms;}
+.hb-sn:hover,.hb-sn.act{color:#1c1a16;border-bottom-color:#9a7d3a;}
+
+/* FACTS STRIP B */
+.hb-facts{background:#9a7d3a;padding:28px 64px;}
+.hb-facts-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;align-items:center;}
+.hb-fact{border-left:2px solid rgba(255,255,255,0.25);padding-left:20px;}
+.hb-fact-n{font-family:'Libre Baskerville',Georgia,serif;font-size:2.2rem;font-style:italic;color:#fff;line-height:1;}
+.hb-fact-l{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-top:3px;}
+@media(max-width:768px){.hb-facts{padding:24px 20px;}.hb-facts-inner{grid-template-columns:1fr 1fr;gap:16px;}}
+
+/* ALTERNATING SPLIT SECTIONS B */
+.hb-split{display:grid;grid-template-columns:1fr 1fr;min-height:480px;}
+.hb-split.rev{direction:rtl;}
+.hb-split.rev>*{direction:ltr;}
+.hb-split-img{position:relative;}
+.hb-split-img .ph-dk,.hb-split-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.hb-split-text{padding:72px 64px;background:var(--hb-bg);display:flex;flex-direction:column;justify-content:center;}
+.hb-split-text.dark-bg{background:#1c1a16;}
+.hb-split-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:10px;}
+.hb-split-h2{font-family:'Libre Baskerville',Georgia,serif;font-size:2rem;font-style:italic;color:#1c1a16;line-height:1.1;margin-bottom:18px;}
+.hb-split-text.dark-bg .hb-split-h2{color:#fff;}
+.hb-split-body{font-size:0.82rem;color:var(--hb-mid);line-height:1.85;}
+.hb-split-text.dark-bg .hb-split-body{color:rgba(255,255,255,0.42);}
+.hb-split-body p{margin-bottom:12px;}
+.hb-split-rule{width:40px;height:3px;background:#9a7d3a;margin:18px 0;}
+.hb-split-cta{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#1c1a16;color:#fff;border:none;padding:11px 22px;align-self:flex-start;margin-top:8px;transition:background 160ms;}
+.hb-split-cta:hover{background:#9a7d3a;color:#1c1a16;}
+.hb-split-text.dark-bg .hb-split-cta{background:#9a7d3a;color:#1c1a16;}
+@media(max-width:900px){.hb-split,.hb-split.rev{grid-template-columns:1fr;direction:ltr;}.hb-split-img{min-height:280px;}.hb-split-text{padding:40px 24px;}}
+
+/* TIMELINE B — horizontal scroll strip */
+.hb-timeline{background:var(--hb-bg2);padding:64px 0;overflow:hidden;}
+.hb-timeline-header{padding:0 64px 32px;}
+.hb-timeline-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;}
+.hb-timeline-h2{font-family:'Libre Baskerville',Georgia,serif;font-size:1.8rem;font-style:italic;color:#1c1a16;}
+.hb-tl-scroll{display:flex;overflow-x:auto;padding:0 64px 16px;gap:0;-webkit-overflow-scrolling:touch;}
+.hb-tl-item{flex-shrink:0;width:260px;padding-right:40px;position:relative;}
+.hb-tl-item::after{content:'';position:absolute;top:16px;right:0;left:0;height:1px;background:var(--hb-border);}
+.hb-tl-year{font-family:'Libre Baskerville',Georgia,serif;font-size:1.8rem;font-style:italic;color:#9a7d3a;margin-bottom:12px;position:relative;z-index:1;background:var(--hb-bg2);display:inline-block;padding-right:10px;}
+.hb-tl-year::before{content:'';width:10px;height:10px;border-radius:50%;background:#9a7d3a;position:absolute;right:-5px;top:50%;transform:translateY(-50%);}
+.hb-tl-h3{font-size:0.72rem;font-weight:700;color:#1c1a16;margin-bottom:6px;line-height:1.3;}
+.hb-tl-body{font-size:0.66rem;color:var(--hb-mid);line-height:1.65;}
+@media(max-width:768px){.hb-timeline-header{padding:0 20px 24px;}.hb-tl-scroll{padding:0 20px 16px;}}
+
+/* GALLERY B — 4-col warm grid */
+.hb-gallery{background:var(--hb-bg);padding:72px 0;}
+.hb-gallery-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.hb-gallery-header{margin-bottom:28px;}
+.hb-gallery-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;}
+.hb-gallery-h2{font-family:'Libre Baskerville',Georgia,serif;font-size:1.8rem;font-style:italic;color:#1c1a16;}
+.hb-gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+.hb-gitem{position:relative;overflow:hidden;cursor:pointer;}
+.hb-gitem .ph-lt,.hb-gitem .ph-dk{height:200px;}
+.hb-gitem:hover .ph-lt,.hb-gitem:hover .ph-dk{filter:brightness(0.85);}
+.hb-gitem-label{position:absolute;bottom:0;left:0;right:0;padding:12px;background:linear-gradient(to top,rgba(28,26,22,0.8),transparent);}
+.hb-gitem-label span{font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.7);}
+@media(max-width:900px){.hb-gallery-inner{padding:0 16px;}.hb-gallery-grid{grid-template-columns:1fr 1fr;}}
+
+/* TOURS B */
+.hb-tours{background:#1c1a16;padding:72px 0;}
+.hb-tours-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.hb-tours-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+.hb-tours-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;}
+.hb-tours-h2{font-family:'Libre Baskerville',Georgia,serif;font-size:1.8rem;font-style:italic;color:#fff;}
+.hb-tour-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.hb-tour-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);padding:28px 28px 32px;display:flex;flex-direction:column;transition:background 160ms;}
+.hb-tour-card:hover{background:rgba(255,255,255,0.07);}
+.hb-tour-type{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#9a7d3a;margin-bottom:8px;}
+.hb-tour-h3{font-family:'Libre Baskerville',Georgia,serif;font-size:1.2rem;font-style:italic;color:#fff;line-height:1.15;margin-bottom:10px;}
+.hb-tour-desc{font-size:0.76rem;color:rgba(255,255,255,0.38);line-height:1.7;margin-bottom:16px;flex:1;}
+.hb-tour-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:18px;}
+.hb-tour-chip{font-size:0.46rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.35);}
+.hb-tour-cta{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#1c1a16;border:none;padding:10px 20px;align-self:flex-start;transition:background 160ms;}
+.hb-tour-cta:hover{background:#c4a055;}
+@media(max-width:900px){.hb-tours-inner{padding:0 16px;}.hb-tour-row{grid-template-columns:1fr;}}
+
+/* RELATED B */
+.hb-related{background:var(--hb-bg2);padding:64px 0;}
+.hb-related-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.hb-related-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:24px;}
+.hb-related-h2{font-family:'Libre Baskerville',Georgia,serif;font-size:1.6rem;font-style:italic;color:#1c1a16;}
+.hb-related-all{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;cursor:pointer;}
+.hb-rel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.hb-rel-card{background:#fff;border:1px solid var(--hb-border);display:flex;flex-direction:column;overflow:hidden;transition:transform 160ms,border-color 160ms;cursor:pointer;}
+.hb-rel-card:hover{transform:translateY(-3px);border-color:#9a7d3a;}
+.hb-rel-img{height:150px;position:relative;}
+.hb-rel-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.hb-rel-pill{position:absolute;top:0;left:0;z-index:2;}
+.hb-rel-body{padding:14px 16px 18px;}
+.hb-rel-date{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.hb-rel-h3{font-family:'Libre Baskerville',Georgia,serif;font-size:0.95rem;font-style:italic;color:#1c1a16;line-height:1.2;margin-bottom:8px;}
+.hb-rel-meta{font-size:0.56rem;color:var(--hb-mid);margin-bottom:10px;}
+.hb-rel-cta{font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#1c1a16;color:#fff;border:none;padding:7px 14px;transition:background 160ms;}
+.hb-rel-cta:hover{background:#9a7d3a;color:#1c1a16;}
+@media(max-width:900px){.hb-rel-row,.hb-tour-row{grid-template-columns:1fr;}.hb-related-inner{padding:0 16px;}}
+</style>
+
+<div class="hb">
+<nav class="hb-nav">
+  <div class="hb-nav-logo"><span class="gj-wordmark" style="color:#fff;">GRAND<span class="gj-diamond"></span>JUNCTION</span></div>
+  <div class="hb-nav-links"><a class="hb-nav-link">What's On</a><a class="hb-nav-link act">Visit</a><a class="hb-nav-link">Hire</a><a class="hb-nav-link">Get Involved</a></div>
+  <div class="hb-nav-actions"><button class="hb-search">&#9906;</button><button class="hb-member">Join as Member</button><button class="hb-donate">Donate</button></div>
+  <button class="hb-mob-tog" onclick="this.closest('.hb-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="hb-mob-menu"><a class="hb-mob-link">What's On</a><a class="hb-mob-link">Visit</a><a class="hb-mob-link">Hire</a><a class="hb-mob-link">Get Involved</a></div>
+
+<section class="hb-hero">
+  <div class="hb-hero-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church interior — atmospheric lighting / warm gold"></div></div>
+  <div class="hb-hero-grad"></div>
+  <div class="hb-hero-content">
+    <div class="hb-hero-bc">Visit <span>›</span> Heritage Hub</div>
+    <h1 class="hb-hero-h1">Nine centuries of<br>living history</h1>
+    <p class="hb-hero-sub">St Mary Magdalene is one of North Paddington's most extraordinary buildings — Norman in origin, Victorian in splendour, and alive with community arts today.</p>
+    <div class="hb-hero-row">
+      <button class="hb-hero-cta">Book a Heritage Tour</button>
+      <button class="hb-hero-cta2">Explore the History</button>
+    </div>
+  </div>
+  <div class="hb-hero-badge"><span class="hb-hero-badge-n">900+</span><span class="hb-hero-badge-l">Years of history</span></div>
+</section>
+
+<nav class="hb-subnav">
+  <div class="hb-sn act">The Building</div><div class="hb-sn">Our History</div><div class="hb-sn">Heritage Tours</div><div class="hb-sn">North Paddington</div><div class="hb-sn">Research &amp; Archives</div>
+</nav>
+
+<div class="hb-facts">
+  <div class="hb-facts-inner">
+    <div class="hb-fact"><div class="hb-fact-n">12c</div><div class="hb-fact-l">Original founding</div></div>
+    <div class="hb-fact"><div class="hb-fact-n">1868</div><div class="hb-fact-l">Current building consecrated</div></div>
+    <div class="hb-fact"><div class="hb-fact-n">Grade II</div><div class="hb-fact-l">Listed building status</div></div>
+    <div class="hb-fact"><div class="hb-fact-n">Free</div><div class="hb-fact-l">Entry to the building</div></div>
+  </div>
+</div>
+
+<section class="hb-split">
+  <div class="hb-split-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church nave / looking east / architecture"></div></div>
+  <div class="hb-split-text">
+    <div class="hb-split-eyebrow">The Building</div>
+    <h2 class="hb-split-h2">St Mary Magdalene Church</h2>
+    <div class="hb-split-rule"></div>
+    <div class="hb-split-body"><p>Designed by Gothic Revival architect George Edmund Street and consecrated in 1868, the church stands on a site of Christian worship dating back to the 12th century — one of North Paddington's most enduring landmarks.</p><p>The interior is a masterwork of Victorian craftsmanship. The chancel contains remarkable work by William Morris and Edward Burne-Jones alongside extraordinary carved stonework and one of London's finest collections of Victorian stained glass.</p></div>
+    <button class="hb-split-cta">Explore the building →</button>
+  </div>
+</section>
+
+<section class="hb-split rev">
+  <div class="hb-split-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1420;" data-label="Stained glass window detail / Morris / Burne-Jones / colour"></div></div>
+  <div class="hb-split-text dark-bg">
+    <div class="hb-split-eyebrow">Arts &amp; Crafts</div>
+    <h2 class="hb-split-h2" style="color:#fff;">William Morris &amp; Burne-Jones</h2>
+    <div class="hb-split-rule"></div>
+    <div class="hb-split-body"><p>The chancel of St Mary Magdalene contains some of the finest surviving examples of the Arts and Crafts movement in London — panels, stained glass and decorative work by William Morris and Edward Burne-Jones, created between 1868 and 1885.</p><p>Morris and Burne-Jones were at the height of their creative powers during this period, and the work in St Mary Magdalene stands as some of their most compelling and least-visited achievements.</p></div>
+    <button class="hb-split-cta">See the stained glass</button>
+  </div>
+</section>
+
+<div class="hb-timeline">
+  <div class="hb-timeline-header">
+    <div class="hb-timeline-eyebrow">Our History</div>
+    <h2 class="hb-timeline-h2">Nine centuries in North Paddington</h2>
+  </div>
+  <div class="hb-tl-scroll">
+    <div class="hb-tl-item"><div class="hb-tl-year">12c</div><h3 class="hb-tl-h3">The First Chapel</h3><p class="hb-tl-body">A place of worship is established in North Paddington, serving the scattered rural community beyond London's city limits.</p></div>
+    <div class="hb-tl-item"><div class="hb-tl-year">1866</div><h3 class="hb-tl-h3">George Edmund Street</h3><p class="hb-tl-body">The eminent Gothic Revival architect is commissioned to design a new church for the rapidly growing North Paddington population.</p></div>
+    <div class="hb-tl-item"><div class="hb-tl-year">1868</div><h3 class="hb-tl-h3">Consecration</h3><p class="hb-tl-body">The new church opens. Morris and Burne-Jones create decorative panels, stained glass and textiles that survive to this day.</p></div>
+    <div class="hb-tl-item"><div class="hb-tl-year">1870s</div><h3 class="hb-tl-h3">Arts &amp; Crafts at Peak</h3><p class="hb-tl-body">Additional decorative elements are commissioned as the Arts and Crafts movement reaches its zenith across London and beyond.</p></div>
+    <div class="hb-tl-item"><div class="hb-tl-year">2000</div><h3 class="hb-tl-h3">Grand Junction Founded</h3><p class="hb-tl-body">Paddington Development Trust establishes Grand Junction, transforming the building into a thriving community arts venue.</p></div>
+    <div class="hb-tl-item"><div class="hb-tl-year">Today</div><h3 class="hb-tl-h3">Arts, Heritage &amp; Community</h3><p class="hb-tl-body">Over 300 events a year, heritage tours, free community activities — and one of London's finest Victorian interiors preserved for all.</p></div>
+  </div>
+</div>
+
+<div class="hb-gallery">
+  <div class="hb-gallery-inner">
+    <div class="hb-gallery-header"><div class="hb-gallery-eyebrow">The Building</div><h2 class="hb-gallery-h2">Stained glass, stonework &amp; craftsmanship</h2></div>
+    <div class="hb-gallery-grid">
+      <div class="hb-gitem"><div class="ph-dk" data-label="The Nave looking east"></div><div class="hb-gitem-label"><span>The Nave</span></div></div>
+      <div class="hb-gitem"><div class="ph-lt" data-label="East window — stained glass / Morris"></div><div class="hb-gitem-label"><span>East Window · Morris</span></div></div>
+      <div class="hb-gitem"><div class="ph-dk" data-label="Carved stonework / capitals / detail"></div><div class="hb-gitem-label"><span>Victorian Stonework</span></div></div>
+      <div class="hb-gitem"><div class="ph-lt" data-label="The Chancel / altar"></div><div class="hb-gitem-label"><span>The Chancel</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="hb-tours">
+  <div class="hb-tours-inner">
+    <div class="hb-tours-header"><div><div class="hb-tours-eyebrow">Heritage Tours</div><h2 class="hb-tours-h2">Explore with a guide</h2></div></div>
+    <div class="hb-tour-row">
+      <div class="hb-tour-card"><div class="hb-tour-type">Guided · Every Sunday</div><h3 class="hb-tour-h3">Chapel of St Sepulchre Walking Tour</h3><p class="hb-tour-desc">Nine centuries of history, Arts and Crafts decorations and the building's community role — explored with an expert guide.</p><div class="hb-tour-chips"><span class="hb-tour-chip">Every Sunday 2pm</span><span class="hb-tour-chip">Free</span><span class="hb-tour-chip">Step-free</span></div><button class="hb-tour-cta">Reserve a place</button></div>
+      <div class="hb-tour-card"><div class="hb-tour-type">Specialist · Monthly</div><h3 class="hb-tour-h3">Stained Glass Deep Dive</h3><p class="hb-tour-desc">A specialist-led exploration of the extraordinary Victorian stained glass — William Morris, Burne-Jones and their contemporaries.</p><div class="hb-tour-chips"><span class="hb-tour-chip">Monthly Saturdays</span><span class="hb-tour-chip">Free</span><span class="hb-tour-chip">Adult</span></div><button class="hb-tour-cta">Reserve a place</button></div>
+      <div class="hb-tour-card"><div class="hb-tour-type">Walking Tour · Quarterly</div><h3 class="hb-tour-h3">North Paddington History Walk</h3><p class="hb-tour-desc">A guided walk through North Paddington's streets and canal-side, exploring community history and social change over two centuries.</p><div class="hb-tour-chips"><span class="hb-tour-chip">Quarterly</span><span class="hb-tour-chip">Free</span><span class="hb-tour-chip">Outdoor</span></div><button class="hb-tour-cta">Reserve a place</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="hb-related">
+  <div class="hb-related-inner">
+    <div class="hb-related-header"><h2 class="hb-related-h2">Heritage events coming up</h2><button class="hb-related-all">View all heritage events →</button></div>
+    <div class="hb-rel-row">
+      <div class="hb-rel-card"><div class="hb-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;"></div><div class="hb-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="hb-rel-body"><div class="hb-rel-date">Sun 2 Mar · 2:00pm</div><h3 class="hb-rel-h3">Chapel of St Sepulchre Walking Tour</h3><div class="hb-rel-meta">Free · Adult · Guided</div><button class="hb-rel-cta">Reserve</button></div></div>
+      <div class="hb-rel-card"><div class="hb-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;"></div><div class="hb-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="hb-rel-body"><div class="hb-rel-date">Sun 9 Mar · 2:00pm</div><h3 class="hb-rel-h3">Stained Glass Deep Dive</h3><div class="hb-rel-meta">Free · Adult · Specialist</div><button class="hb-rel-cta">Reserve</button></div></div>
+      <div class="hb-rel-card"><div class="hb-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8dcd8;"></div><div class="hb-rel-pill"><span class="pill pill-heritage">Heritage Talk</span></div></div><div class="hb-rel-body"><div class="hb-rel-date">Sat 14 Mar · 3:00pm</div><h3 class="hb-rel-h3">Victorian Craftsmanship Talk</h3><div class="hb-rel-meta">Free · Adult</div><button class="hb-rel-cta">Reserve</button></div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>Heritage Hub</h4><a>The Building</a><a>Our History</a><a>Heritage Tours</a><a>North Paddington</a><a>Research &amp; Archives</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>The Café</a><a>Accessibility</a><a>How to Find Us</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>What's On</a><a>Donate</a><a>Membership</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-b -->
+
+<!-- ═══════════════ VAR C — MODERNIST NAVE · Heritage Hub ═══════════════
+  Concept: Structural, geometric. The building's grid made explicit in layout.
+  White page, black structural elements. Playfair Display 700 for headings.
+  Sticky left sub-nav. Timeline as vertical bar with geometric markers.
+  Gallery as strict grid with category labels. No decorative warmth — pure architecture.
+ ═══════════════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-c">
+<style>
+.hc{background:#fff;--hc-bg:#fff;--hc-off:#f4f2ee;--hc-dark:#111110;--hc-mid:#7a7870;--hc-border:#dddad4;--hc-gold:#9a7d3a;}
+.hc-nav{height:60px;background:#fff;border-bottom:1px solid var(--hc-border);border-top:4px solid #111110;display:flex;align-items:center;padding:0 32px;position:sticky;top:48px;z-index:200;}
+.hc-nav-logo{flex-shrink:0;margin-right:auto;}
+.hc-nav-links{display:flex;gap:2px;}
+.hc-nav-link{padding:5px 13px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7a7870;border-radius:18px;transition:all 150ms;}
+.hc-nav-link:hover{color:#111110;background:rgba(0,0,0,0.04);}
+.hc-nav-link.act{background:#111110;color:#fff;}
+.hc-nav-actions{display:flex;gap:8px;margin-left:16px;}
+.hc-search{width:30px;height:30px;background:transparent;border:1px solid var(--hc-border);color:#7a7870;font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.hc-member{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 13px;background:transparent;border:2px solid #1a5e3a;color:#1a5e3a;transition:all 150ms;}
+.hc-member:hover{background:#1a5e3a;color:#fff;}
+.hc-donate{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 16px;background:#9a7d3a;border:none;color:#111110;}
+.hc-mob-tog{display:none;background:none;border:none;color:#111110;font-size:1.1rem;padding:8px;margin-left:auto;}
+.hc-mob-menu{display:none;background:#fff;border-bottom:2px solid #111110;flex-direction:column;}
+.hc-mob-menu.open{display:flex;}
+.hc-mob-link{padding:12px 20px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#7a7870;border-bottom:1px solid var(--hc-border);}
+@media(max-width:900px){.hc-nav-links,.hc-nav-actions{display:none;}.hc-mob-tog{display:block;}.hc-nav{padding:0 16px;}}
+
+/* HERO C — geometric split */
+.hc-hero{display:grid;grid-template-columns:55% 1fr;min-height:72vh;background:#111110;}
+.hc-hero-left{background:#111110;padding:80px 64px 64px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;}
+.hc-hero-geo{position:absolute;top:0;right:0;opacity:0.04;pointer-events:none;}
+.hc-hero-bc{font-size:0.5rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:16px;display:flex;gap:6px;}
+.hc-hero-bc span{color:#9a7d3a;}
+.hc-hero-h1{font-family:'Playfair Display',Georgia,serif;font-size:4rem;font-weight:700;color:#fff;line-height:0.9;margin-bottom:16px;}
+.hc-hero-h1 em{color:#9a7d3a;font-style:normal;}
+.hc-hero-sub{font-size:0.86rem;color:rgba(255,255,255,0.38);line-height:1.8;max-width:480px;margin-bottom:28px;}
+.hc-hero-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.hc-btn-p{background:#9a7d3a;color:#111110;border:none;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:12px 22px;transition:background 150ms;}
+.hc-btn-p:hover{background:#c4a055;}
+.hc-btn-s{background:transparent;color:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.2);font-size:0.6rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:11px 18px;transition:all 150ms;}
+.hc-btn-s:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
+.hc-hero-right{position:relative;}
+.hc-hero-right .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+/* Gold stat badge */
+.hc-hero-badge{position:absolute;bottom:32px;left:-24px;z-index:3;background:#9a7d3a;padding:16px 20px;}
+.hc-hero-badge-n{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:2.4rem;color:#fff;line-height:1;display:block;}
+.hc-hero-badge-l{font-size:0.44rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+@media(max-width:900px){.hc-hero{grid-template-columns:1fr;}.hc-hero-left{padding:48px 24px 40px;}.hc-hero-h1{font-size:2.8rem;}.hc-hero-right{min-height:280px;}.hc-hero-badge{bottom:16px;left:16px;}}
+
+/* FACTS ROW C */
+.hc-facts{background:#111110;border-top:1px solid rgba(255,255,255,0.06);padding:24px 0;}
+.hc-facts-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(255,255,255,0.06);}
+.hc-fact{padding:16px 24px;border-right:1px solid rgba(255,255,255,0.06);}
+.hc-fact-n{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:2rem;color:#9a7d3a;line-height:1;}
+.hc-fact-l{font-size:0.52rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:3px;}
+@media(max-width:768px){.hc-facts-inner{grid-template-columns:1fr 1fr;}.hc-facts{padding:16px 0;}}
+
+/* SUB-NAV C */
+.hc-subnav{background:var(--hc-off);border-bottom:1px solid var(--hc-border);display:flex;overflow-x:auto;}
+.hc-sn{padding:12px 18px;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hc-mid);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all 150ms;}
+.hc-sn:hover,.hc-sn.act{color:#111110;border-bottom-color:#111110;}
+
+/* BODY LAYOUT C — with left sticky anchor nav */
+.hc-body{display:grid;grid-template-columns:200px 1fr;max-width:1280px;margin:0 auto;padding:40px 48px;gap:48px;}
+.hc-anchor-nav{position:sticky;top:148px;align-self:start;}
+.hc-anchor-nav-h{font-size:0.46rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--hc-mid);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--hc-border);}
+.hc-anchor-link{display:block;font-size:0.62rem;font-weight:600;color:var(--hc-mid);padding:7px 0 7px 10px;border-left:2px solid transparent;cursor:pointer;transition:all 150ms;line-height:1.3;}
+.hc-anchor-link:hover,.hc-anchor-link.act{color:#111110;border-left-color:#9a7d3a;padding-left:14px;}
+@media(max-width:1024px){.hc-body{grid-template-columns:1fr;padding:28px 24px;gap:28px;}.hc-anchor-nav{position:static;}}
+@media(max-width:600px){.hc-body{padding:16px;}}
+
+/* CONTENT SECTIONS C */
+.hc-section{margin-bottom:64px;}
+.hc-section-rule{width:40px;height:3px;background:#9a7d3a;margin-bottom:14px;}
+.hc-section-eyebrow{font-size:0.48rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--hc-mid);margin-bottom:8px;}
+.hc-section-h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.9rem;color:#111110;line-height:1.05;margin-bottom:20px;}
+.hc-section-body{font-size:0.82rem;color:var(--hc-mid);line-height:1.85;}
+.hc-section-body p{margin-bottom:14px;}
+/* Two-col body text */
+.hc-section-2col{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+@media(max-width:768px){.hc-section-2col{grid-template-columns:1fr;}}
+
+/* Image within content */
+.hc-inline-img{margin:24px 0;position:relative;}
+.hc-inline-img .ph-dk,.hc-inline-img .ph-lt{height:320px;}
+.hc-inline-img-cap{font-size:0.52rem;color:var(--hc-mid);padding:8px 0;border-bottom:1px solid var(--hc-border);}
+
+/* Timeline C — vertical bar */
+.hc-tl{border-left:2px solid var(--hc-border);margin-left:12px;padding-left:32px;}
+.hc-tl-item{margin-bottom:32px;position:relative;}
+.hc-tl-item::before{content:'';width:12px;height:12px;border-radius:50%;background:#9a7d3a;position:absolute;left:-39px;top:5px;}
+.hc-tl-year{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;color:#9a7d3a;line-height:1;margin-bottom:4px;}
+.hc-tl-h3{font-size:0.76rem;font-weight:700;color:#111110;margin-bottom:5px;}
+.hc-tl-body{font-size:0.72rem;color:var(--hc-mid);line-height:1.7;}
+
+/* Gallery C — strict 3-col grid with labels */
+.hc-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:20px 0;}
+.hc-gitem{position:relative;overflow:hidden;}
+.hc-gitem .ph-dk,.hc-gitem .ph-lt{height:200px;}
+.hc-gitem-label{padding:8px 0;background:#fff;}
+.hc-gitem-label span{font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hc-mid);}
+@media(max-width:768px){.hc-gallery-grid{grid-template-columns:1fr 1fr;}}
+
+/* Tours C */
+.hc-tour-list{display:flex;flex-direction:column;gap:1px;margin:20px 0;}
+.hc-tour-row{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;background:var(--hc-off);padding:20px 24px;border-left:3px solid transparent;transition:all 150ms;cursor:pointer;}
+.hc-tour-row:hover{border-left-color:#9a7d3a;padding-left:28px;}
+.hc-tour-info{}
+.hc-tour-type{font-size:0.48rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.hc-tour-h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.05rem;color:#111110;line-height:1.1;margin-bottom:5px;}
+.hc-tour-meta{font-size:0.56rem;color:var(--hc-mid);display:flex;gap:10px;flex-wrap:wrap;}
+.hc-tour-chip{font-size:0.48rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--hc-border);color:var(--hc-mid);}
+.hc-tour-cta{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#111110;border:none;padding:9px 18px;white-space:nowrap;transition:background 150ms;}
+.hc-tour-cta:hover{background:#c4a055;}
+
+/* Related events C */
+.hc-related{background:var(--hc-off);padding:64px 0;border-top:3px solid #111110;}
+.hc-related-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.hc-related-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;}
+.hc-related-h2{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.5rem;color:#111110;}
+.hc-related-all{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;cursor:pointer;}
+.hc-rel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.hc-rel-card{background:#fff;border:1px solid var(--hc-border);overflow:hidden;cursor:pointer;transition:border-color 150ms,transform 150ms;}
+.hc-rel-card:hover{border-color:#9a7d3a;transform:translateY(-2px);}
+.hc-rel-img{height:140px;position:relative;}
+.hc-rel-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.hc-rel-pill{position:absolute;top:0;left:0;z-index:2;}
+.hc-rel-body{padding:12px 14px 16px;}
+.hc-rel-date{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.hc-rel-h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:0.9rem;color:#111110;line-height:1.2;margin-bottom:7px;}
+.hc-rel-meta{font-size:0.54rem;color:var(--hc-mid);margin-bottom:9px;}
+.hc-rel-cta{font-size:0.52rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#9a7d3a;color:#111110;border:none;padding:7px 13px;transition:background 150ms;}
+.hc-rel-cta:hover{background:#c4a055;}
+@media(max-width:900px){.hc-rel-row{grid-template-columns:1fr 1fr;}.hc-related-inner{padding:0 16px;}}
+@media(max-width:600px){.hc-rel-row{grid-template-columns:1fr;}}
+</style>
+
+<div class="hc">
+<nav class="hc-nav">
+  <div class="hc-nav-logo"><span class="gj-wordmark" style="color:#111110;">GRAND<span class="gj-diamond"></span>JUNCTION</span></div>
+  <div class="hc-nav-links"><a class="hc-nav-link">What's On</a><a class="hc-nav-link act">Visit</a><a class="hc-nav-link">Hire</a><a class="hc-nav-link">Get Involved</a></div>
+  <div class="hc-nav-actions"><button class="hc-search">&#9906;</button><button class="hc-member">Join as Member</button><button class="hc-donate">Donate</button></div>
+  <button class="hc-mob-tog" onclick="this.closest('.hc-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="hc-mob-menu"><a class="hc-mob-link">What's On</a><a class="hc-mob-link">Visit</a><a class="hc-mob-link">Hire</a><a class="hc-mob-link">Get Involved</a></div>
+
+<section class="hc-hero">
+  <div class="hc-hero-left">
+    <svg class="hc-hero-geo" width="300" height="400" viewBox="0 0 300 400" fill="none" aria-hidden="true">
+      <rect x="20" y="20" width="260" height="360" stroke="rgba(255,255,255,1)" stroke-width="1"/>
+      <rect x="50" y="50" width="200" height="300" stroke="rgba(255,255,255,1)" stroke-width="1"/>
+      <line x1="20" y1="200" x2="280" y2="200" stroke="rgba(255,255,255,1)" stroke-width="1"/>
+    </svg>
+    <div class="hc-hero-bc">Visit <span>›</span> Heritage Hub</div>
+    <h1 class="hc-hero-h1">Nine centuries<br>of <em>living</em> history</h1>
+    <p class="hc-hero-sub">St Mary Magdalene Church — Norman origins, Victorian craftsmanship, and London's finest collection of Arts and Crafts decorative work.</p>
+    <div class="hc-hero-btns">
+      <button class="hc-btn-p">Book a Heritage Tour</button>
+      <button class="hc-btn-s">Explore the history</button>
+    </div>
+  </div>
+  <div class="hc-hero-right">
+    <div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Interior / architectural / dramatic light through glass"></div>
+    <div class="hc-hero-badge"><span class="hc-hero-badge-n">900+</span><span class="hc-hero-badge-l">Years of history</span></div>
+  </div>
+</section>
+
+<div class="hc-facts">
+  <div class="hc-facts-inner">
+    <div class="hc-fact"><div class="hc-fact-n">12c</div><div class="hc-fact-l">Original founding</div></div>
+    <div class="hc-fact"><div class="hc-fact-n">1868</div><div class="hc-fact-l">Current building</div></div>
+    <div class="hc-fact"><div class="hc-fact-n">Grade II</div><div class="hc-fact-l">Listed status</div></div>
+    <div class="hc-fact"><div class="hc-fact-n">Free</div><div class="hc-fact-l">Entry to building</div></div>
+  </div>
+</div>
+
+<nav class="hc-subnav">
+  <div class="hc-sn act">The Building</div><div class="hc-sn">Our History</div><div class="hc-sn">Heritage Tours</div><div class="hc-sn">North Paddington</div><div class="hc-sn">Research &amp; Archives</div>
+</nav>
+
+<div class="hc-body">
+  <aside class="hc-anchor-nav">
+    <div class="hc-anchor-nav-h">On this page</div>
+    <a class="hc-anchor-link act">The Building</a>
+    <a class="hc-anchor-link">Arts &amp; Crafts</a>
+    <a class="hc-anchor-link">Timeline</a>
+    <a class="hc-anchor-link">Gallery</a>
+    <a class="hc-anchor-link">Heritage Tours</a>
+    <a class="hc-anchor-link">Research</a>
+  </aside>
+
+  <main>
+    <div class="hc-section">
+      <div class="hc-section-rule"></div>
+      <div class="hc-section-eyebrow">The Building</div>
+      <h2 class="hc-section-h2">St Mary Magdalene Church</h2>
+      <div class="hc-section-2col">
+        <div class="hc-section-body"><p>Designed by Gothic Revival architect George Edmund Street and consecrated in 1868, the church stands on a site of Christian worship dating back to the 12th century — one of North Paddington's most enduring landmarks.</p><p>The building is Grade II listed, and today forms the home of Grand Junction and Paddington Development Trust's community arts programme.</p></div>
+        <div class="hc-section-body"><p>The interior is a masterwork of Victorian ecclesiastical craftsmanship. The chancel contains remarkable work by William Morris and Edward Burne-Jones alongside extraordinary carved stonework and one of London's finest collections of Victorian stained glass.</p></div>
+      </div>
+      <div class="hc-inline-img"><div class="ph-dk" style="height:320px;" data-label="Nave looking east / architectural / ceiling vault"></div><div class="hc-inline-img-cap">The nave of St Mary Magdalene Church, looking east towards the chancel</div></div>
+    </div>
+
+    <div class="hc-section">
+      <div class="hc-section-rule"></div>
+      <div class="hc-section-eyebrow">Our History</div>
+      <h2 class="hc-section-h2">Nine centuries in North Paddington</h2>
+      <div class="hc-tl">
+        <div class="hc-tl-item"><div class="hc-tl-year">12c</div><h3 class="hc-tl-h3">Norman Origins — The First Chapel</h3><p class="hc-tl-body">A place of worship established in North Paddington, serving the scattered rural community beyond London's city limits.</p></div>
+        <div class="hc-tl-item"><div class="hc-tl-year">1866</div><h3 class="hc-tl-h3">George Edmund Street Commissioned</h3><p class="hc-tl-body">The eminent Gothic Revival architect — designer of the Royal Courts of Justice — is commissioned to design a new church for North Paddington's rapidly growing population.</p></div>
+        <div class="hc-tl-item"><div class="hc-tl-year">1868</div><h3 class="hc-tl-h3">Consecration — The Building Opens</h3><p class="hc-tl-body">William Morris and Edward Burne-Jones collaborate on the chancel decorations — panels, stained glass and textiles that survive to this day.</p></div>
+        <div class="hc-tl-item"><div class="hc-tl-year">2000</div><h3 class="hc-tl-h3">Grand Junction Founded</h3><p class="hc-tl-body">Paddington Development Trust establishes Grand Junction, transforming St Mary Magdalene into a thriving community arts venue.</p></div>
+        <div class="hc-tl-item"><div class="hc-tl-year">Today</div><h3 class="hc-tl-h3">Arts, Heritage &amp; Community</h3><p class="hc-tl-body">Over 300 events a year alongside free heritage tours, community workshops and family activities.</p></div>
+      </div>
+    </div>
+
+    <div class="hc-section">
+      <div class="hc-section-rule"></div>
+      <div class="hc-section-eyebrow">The Building</div>
+      <h2 class="hc-section-h2">Stained glass, stonework &amp; craftsmanship</h2>
+      <div class="hc-gallery-grid">
+        <div class="hc-gitem"><div class="ph-dk" data-label="The Nave"></div><div class="hc-gitem-label"><span>The Nave</span></div></div>
+        <div class="hc-gitem"><div class="ph-lt" data-label="East window / Morris / Burne-Jones"></div><div class="hc-gitem-label"><span>East Window · Morris &amp; Burne-Jones</span></div></div>
+        <div class="hc-gitem"><div class="ph-dk" data-label="Victorian stonework / capitals"></div><div class="hc-gitem-label"><span>Victorian Stonework</span></div></div>
+        <div class="hc-gitem"><div class="ph-lt" data-label="South aisle / stained glass / light"></div><div class="hc-gitem-label"><span>South Aisle</span></div></div>
+        <div class="hc-gitem"><div class="ph-dk" data-label="The Chancel / altar piece"></div><div class="hc-gitem-label"><span>The Chancel</span></div></div>
+        <div class="hc-gitem"><div class="ph-lt" data-label="Decorative ceiling / vault / detail"></div><div class="hc-gitem-label"><span>Ceiling Vault</span></div></div>
+      </div>
+    </div>
+
+    <div class="hc-section">
+      <div class="hc-section-rule"></div>
+      <div class="hc-section-eyebrow">Heritage Tours</div>
+      <h2 class="hc-section-h2">Explore with a guide</h2>
+      <div class="hc-tour-list">
+        <div class="hc-tour-row"><div class="hc-tour-info"><div class="hc-tour-type">Guided Tour · Every Sunday 2pm</div><h3 class="hc-tour-h3">Chapel of St Sepulchre Walking Tour</h3><div class="hc-tour-meta"><span class="hc-tour-chip">Free</span><span class="hc-tour-chip">Step-free</span><span class="hc-tour-chip">90 mins</span></div></div><button class="hc-tour-cta">Reserve</button></div>
+        <div class="hc-tour-row"><div class="hc-tour-info"><div class="hc-tour-type">Specialist Tour · Monthly Saturdays</div><h3 class="hc-tour-h3">Stained Glass Deep Dive</h3><div class="hc-tour-meta"><span class="hc-tour-chip">Free</span><span class="hc-tour-chip">Adult</span><span class="hc-tour-chip">75 mins</span></div></div><button class="hc-tour-cta">Reserve</button></div>
+        <div class="hc-tour-row"><div class="hc-tour-info"><div class="hc-tour-type">Walking Tour · Quarterly</div><h3 class="hc-tour-h3">North Paddington History Walk</h3><div class="hc-tour-meta"><span class="hc-tour-chip">Free</span><span class="hc-tour-chip">Outdoor</span><span class="hc-tour-chip">2 hours</span></div></div><button class="hc-tour-cta">Reserve</button></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="hc-related">
+  <div class="hc-related-inner">
+    <div class="hc-related-header"><h2 class="hc-related-h2">Heritage events coming up</h2><button class="hc-related-all">View all heritage events →</button></div>
+    <div class="hc-rel-row">
+      <div class="hc-rel-card"><div class="hc-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;"></div><div class="hc-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="hc-rel-body"><div class="hc-rel-date">Sun 2 Mar · 2pm</div><h3 class="hc-rel-h3">Chapel of St Sepulchre Walking Tour</h3><div class="hc-rel-meta">Free · Adult · Guided</div><button class="hc-rel-cta">Reserve</button></div></div>
+      <div class="hc-rel-card"><div class="hc-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;"></div><div class="hc-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="hc-rel-body"><div class="hc-rel-date">Sun 9 Mar · 2pm</div><h3 class="hc-rel-h3">Stained Glass Deep Dive</h3><div class="hc-rel-meta">Free · Adult · Specialist</div><button class="hc-rel-cta">Reserve</button></div></div>
+      <div class="hc-rel-card"><div class="hc-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8dcd8;"></div><div class="hc-rel-pill"><span class="pill pill-heritage">Heritage Talk</span></div></div><div class="hc-rel-body"><div class="hc-rel-date">Sat 14 Mar · 3pm</div><h3 class="hc-rel-h3">Victorian Craftsmanship Talk</h3><div class="hc-rel-meta">Free · Adult</div><button class="hc-rel-cta">Reserve</button></div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>Heritage Hub</h4><a>The Building</a><a>Our History</a><a>Heritage Tours</a><a>North Paddington</a><a>Research &amp; Archives</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>The Café</a><a>Accessibility</a><a>How to Find Us</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>What's On</a><a>Donate</a><a>Membership</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-c -->
+
+<!-- ═══════════════ VAR D — OPEN ACCESS · Heritage Hub ═══════════════
+  Concept: Accessible-first heritage storytelling. High contrast, large type,
+  clear wayfinding, reassurance throughout. Cormorant Garamond italic headings.
+  Timeline as large high-contrast vertical list. Tours prominently featured.
+  A11y banner, prominent FREE badges, step-free info on all CTAs.
+ ═══════════════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-d">
+<style>
+.hd{background:#fff;--hd-warm:#f5f1eb;--hd-dark:#111110;--hd-mid:#585550;--hd-border:#d0ccc4;--hd-green:#1a5e3a;}
+.hd-a11y{background:#f5f1eb;border-bottom:1px solid var(--hd-border);padding:5px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.hd-a11y-chip{font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;display:inline-flex;align-items:center;gap:3px;}
+.hd-a11y-chip.grn{border-color:#1a5e3a;color:#1a5e3a;}
+.hd-nav{height:68px;background:#fff;border-bottom:2px solid #111110;display:flex;align-items:center;padding:0 32px;position:sticky;top:48px;z-index:200;}
+.hd-nav-logo{flex-shrink:0;display:flex;flex-direction:column;margin-right:auto;}
+.hd-nav-logo-main{font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#111110;display:flex;align-items:center;}
+.hd-nav-logo-sub{font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;font-weight:600;margin-top:1px;}
+.hd-nav-links{display:flex;gap:0;}
+.hd-nav-link{padding:0 14px;height:68px;display:flex;align-items:center;font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#585550;border-bottom:3px solid transparent;transition:all 150ms;white-space:nowrap;}
+.hd-nav-link:hover,.hd-nav-link.act{color:#111110;border-bottom-color:#1a5e3a;}
+.hd-nav-actions{display:flex;gap:8px;}
+.hd-search{width:32px;height:32px;background:transparent;border:1px solid var(--hd-border);color:#585550;font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.hd-member{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 14px;background:transparent;border:2px solid #111110;color:#111110;transition:all 150ms;}
+.hd-member:hover{background:#111110;color:#fff;}
+.hd-donate{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 18px;background:#1a5e3a;border:none;color:#fff;}
+.hd-mob-tog{display:none;background:none;border:none;color:#111110;font-size:1.2rem;padding:10px;margin-left:auto;}
+.hd-mob-menu{display:none;background:#fff;border-bottom:3px solid #1a5e3a;flex-direction:column;}
+.hd-mob-menu.open{display:flex;}
+.hd-mob-link{padding:14px 20px;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#585550;border-bottom:1px solid var(--hd-border);}
+@media(max-width:900px){.hd-nav-links,.hd-nav-actions{display:none;}.hd-mob-tog{display:block;}.hd-nav{padding:0 16px;}}
+
+/* HERO D — light, welcoming, accessible */
+.hd-hero{display:grid;grid-template-columns:55% 1fr;min-height:68vh;}
+.hd-hero-left{background:var(--hd-dark);padding:72px 64px 56px;display:flex;flex-direction:column;justify-content:flex-end;}
+.hd-hero-bc{font-size:0.52rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:14px;display:flex;gap:6px;}
+.hd-hero-bc span{color:#9a7d3a;}
+.hd-hero-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:4rem;font-style:italic;font-weight:400;color:#fff;line-height:0.92;margin-bottom:14px;}
+.hd-hero-sub{font-size:0.9rem;color:rgba(255,255,255,0.42);line-height:1.8;max-width:480px;margin-bottom:20px;}
+.hd-hero-note{font-size:0.62rem;font-weight:700;background:rgba(26,94,58,0.2);border-left:3px solid #1a5e3a;padding:9px 14px;color:rgba(255,255,255,0.65);margin-bottom:24px;}
+.hd-hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.hd-hero-cta{background:#1a5e3a;color:#fff;border:none;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:13px 26px;transition:background 150ms;}
+.hd-hero-cta:hover{background:#246e48;}
+.hd-hero-cta2{background:transparent;color:rgba(255,255,255,0.65);border:2px solid rgba(255,255,255,0.22);font-size:0.64rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:11px 20px;transition:all 150ms;}
+.hd-hero-cta2:hover{border-color:rgba(255,255,255,0.5);color:#fff;}
+.hd-hero-right{position:relative;}
+.hd-hero-right .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.hd-hero-badge{position:absolute;bottom:28px;left:-20px;z-index:3;background:#9a7d3a;padding:14px 18px;}
+.hd-hero-badge-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.4rem;font-style:italic;color:#fff;line-height:1;display:block;}
+.hd-hero-badge-l{font-size:0.44rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+@media(max-width:900px){.hd-hero{grid-template-columns:1fr;}.hd-hero-left{padding:48px 24px 40px;min-height:auto;}.hd-hero-h1{font-size:2.8rem;}.hd-hero-right{min-height:280px;}.hd-hero-badge{display:none;}}
+
+/* SUBNAV D */
+.hd-subnav{background:var(--hd-warm);border-bottom:2px solid var(--hd-border);display:flex;overflow-x:auto;}
+.hd-sn{padding:13px 20px;font-size:0.64rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--hd-mid);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;transition:all 150ms;}
+.hd-sn:hover,.hd-sn.act{color:#1a5e3a;border-bottom-color:#1a5e3a;}
+
+/* FACTS D */
+.hd-facts{background:#fff;border-bottom:2px solid #111110;padding:28px 48px;}
+.hd-facts-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.hd-fact{padding:16px 20px 16px 0;border-right:1px solid var(--hd-border);}
+.hd-fact:last-child{border-right:none;}
+.hd-fact-n{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.2rem;font-style:italic;color:#111110;line-height:1;}
+.hd-fact-l{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--hd-mid);margin-top:3px;}
+@media(max-width:768px){.hd-facts{padding:20px;}.hd-facts-inner{grid-template-columns:1fr 1fr;}}
+
+/* MAIN D */
+.hd-main{max-width:1280px;margin:0 auto;padding:48px 48px;}
+
+/* Intro D */
+.hd-intro{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px;align-items:center;}
+.hd-intro-eyebrow{font-size:0.52rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#1a5e3a;margin-bottom:8px;}
+.hd-intro-h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-style:italic;color:#111110;line-height:1.1;margin-bottom:16px;}
+.hd-intro-body{font-size:0.82rem;color:var(--hd-mid);line-height:1.85;}
+.hd-intro-body p{margin-bottom:12px;}
+.hd-intro-img{position:relative;min-height:320px;}
+.hd-intro-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+@media(max-width:900px){.hd-intro{grid-template-columns:1fr;}}
+
+/* Timeline D — high contrast large list */
+.hd-tl-section{margin-bottom:56px;}
+.hd-tl-eyebrow{font-size:0.52rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#1a5e3a;margin-bottom:8px;}
+.hd-tl-h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-style:italic;color:#111110;margin-bottom:28px;}
+.hd-tl{display:flex;flex-direction:column;gap:0;}
+.hd-tl-row{display:grid;grid-template-columns:80px 1fr;gap:0 24px;padding:20px 20px 20px 0;border-bottom:1px solid var(--hd-border);cursor:pointer;border-left:4px solid transparent;transition:all 150ms;}
+.hd-tl-row:hover,.hd-tl-row:first-child{border-left-color:#1a5e3a;padding-left:16px;}
+.hd-tl-row:first-child{border-top:1px solid var(--hd-border);}
+.hd-tl-year{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.5rem;font-style:italic;color:#9a7d3a;padding-top:3px;text-align:right;}
+.hd-tl-content{}
+.hd-tl-era{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--hd-mid);margin-bottom:3px;}
+.hd-tl-h3{font-size:0.84rem;font-weight:700;color:#111110;line-height:1.3;margin-bottom:5px;}
+.hd-tl-body{font-size:0.74rem;color:var(--hd-mid);line-height:1.7;}
+
+/* Gallery D */
+.hd-gallery-section{margin-bottom:56px;}
+.hd-gallery-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;}
+.hd-gitem{position:relative;overflow:hidden;cursor:pointer;}
+.hd-gitem .ph-dk,.hd-gitem .ph-lt{height:200px;}
+.hd-gitem-cap{padding:8px;background:var(--hd-warm);font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--hd-mid);}
+@media(max-width:768px){.hd-gallery-grid{grid-template-columns:1fr 1fr;}}
+
+/* Tours D */
+.hd-tours-section{margin-bottom:56px;}
+.hd-tours-eyebrow{font-size:0.52rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#1a5e3a;margin-bottom:8px;}
+.hd-tours-h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:2rem;font-style:italic;color:#111110;margin-bottom:24px;}
+.hd-tour-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.hd-tour-card{background:var(--hd-warm);border:2px solid var(--hd-border);padding:24px;display:flex;flex-direction:column;transition:border-color 150ms;}
+.hd-tour-card:hover{border-color:#1a5e3a;}
+.hd-tour-type{font-size:0.52rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#1a5e3a;margin-bottom:8px;}
+.hd-tour-h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.3rem;font-style:italic;color:#111110;line-height:1.15;margin-bottom:10px;}
+.hd-tour-desc{font-size:0.74rem;color:var(--hd-mid);line-height:1.7;margin-bottom:14px;flex:1;}
+.hd-tour-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px;}
+.hd-tour-chip{font-size:0.5rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border:1px solid;color:#1a5e3a;border-color:#1a5e3a;}
+.hd-tour-cta{font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#1a5e3a;color:#fff;border:none;padding:11px 22px;align-self:flex-start;transition:background 150ms;}
+.hd-tour-cta:hover{background:#246e48;}
+@media(max-width:900px){.hd-tour-grid{grid-template-columns:1fr;}}
+
+/* Related D */
+.hd-related{background:var(--hd-warm);border-top:2px solid #111110;padding:56px 0;}
+.hd-related-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.hd-related-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;}
+.hd-related-h2{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.8rem;font-style:italic;color:#111110;}
+.hd-related-all{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1a5e3a;background:none;border:none;cursor:pointer;}
+.hd-rel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.hd-rel-card{background:#fff;border:2px solid var(--hd-border);display:flex;flex-direction:column;overflow:hidden;transition:border-color 150ms,transform 150ms;cursor:pointer;}
+.hd-rel-card:hover{border-color:#1a5e3a;transform:translateY(-2px);}
+.hd-rel-img{height:140px;position:relative;}
+.hd-rel-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.hd-rel-pill{position:absolute;top:0;left:0;z-index:2;}
+.hd-rel-free{position:absolute;top:0;right:0;z-index:2;background:#1a5e3a;color:#fff;font-size:0.46rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:4px 8px;}
+.hd-rel-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;}
+.hd-rel-date{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1a5e3a;margin-bottom:4px;}
+.hd-rel-h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.1rem;font-style:italic;color:#111110;line-height:1.2;margin-bottom:6px;flex:1;}
+.hd-rel-access{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.hd-rel-acc{font-size:0.48rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#1a5e3a;}
+.hd-rel-cta{font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#1a5e3a;color:#fff;border:none;padding:9px 16px;transition:background 150ms;align-self:flex-start;}
+.hd-rel-cta:hover{background:#246e48;}
+@media(max-width:900px){.hd-rel-row{grid-template-columns:1fr 1fr;}.hd-related-inner{padding:0 16px;}}
+@media(max-width:600px){.hd-rel-row{grid-template-columns:1fr;}.hd-main{padding:28px 16px;}}
+</style>
+
+<div class="hd">
+<div class="hd-a11y"><span class="hd-a11y-chip grn">♿ Fully step-free building</span><span class="hd-a11y-chip grn">👋 BSL tours available on request</span><span class="hd-a11y-chip grn">🏛 Free entry to the building</span></div>
+<nav class="hd-nav">
+  <div class="hd-nav-logo"><div class="hd-nav-logo-main">GRAND<span style="display:inline-block;width:8px;height:8px;background:#9a7d3a;transform:rotate(45deg);margin:0 6px;position:relative;top:-1px;"></span>JUNCTION</div><div class="hd-nav-logo-sub">At St Mary Magdalene · Paddington</div></div>
+  <div class="hd-nav-links"><a class="hd-nav-link">What's On</a><a class="hd-nav-link act">Visit</a><a class="hd-nav-link">Hire</a><a class="hd-nav-link">Get Involved</a></div>
+  <div class="hd-nav-actions"><button class="hd-search">&#9906;</button><button class="hd-member">Join as Member</button><button class="hd-donate">Donate</button></div>
+  <button class="hd-mob-tog" onclick="this.closest('.hd-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="hd-mob-menu"><a class="hd-mob-link">What's On</a><a class="hd-mob-link">Visit</a><a class="hd-mob-link">Hire</a><a class="hd-mob-link">Get Involved</a></div>
+
+<section class="hd-hero">
+  <div class="hd-hero-left">
+    <div class="hd-hero-bc">Visit <span>›</span> Heritage Hub</div>
+    <h1 class="hd-hero-h1">Nine centuries<br>of living history</h1>
+    <p class="hd-hero-sub">Explore the extraordinary story of St Mary Magdalene — from Norman origins to Victorian splendour and community arts today.</p>
+    <div class="hd-hero-note">♿ Fully step-free · Free entry · Guided tours every Sunday · No booking required to visit</div>
+    <div class="hd-hero-btns">
+      <button class="hd-hero-cta">Book a Heritage Tour — Free</button>
+      <button class="hd-hero-cta2">Just visiting? Plan your visit</button>
+    </div>
+  </div>
+  <div class="hd-hero-right">
+    <div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church interior — atmospheric lighting / warm"></div>
+    <div class="hd-hero-badge"><span class="hd-hero-badge-n">900+</span><span class="hd-hero-badge-l">Years of history</span></div>
+  </div>
+</section>
+
+<nav class="hd-subnav">
+  <div class="hd-sn act">The Building</div><div class="hd-sn">Our History</div><div class="hd-sn">Heritage Tours</div><div class="hd-sn">North Paddington</div><div class="hd-sn">Research &amp; Archives</div>
+</nav>
+
+<div class="hd-facts">
+  <div class="hd-facts-inner">
+    <div class="hd-fact"><div class="hd-fact-n">12c</div><div class="hd-fact-l">Original founding</div></div>
+    <div class="hd-fact"><div class="hd-fact-n">1868</div><div class="hd-fact-l">Current building consecrated</div></div>
+    <div class="hd-fact"><div class="hd-fact-n">Grade II</div><div class="hd-fact-l">Listed building status</div></div>
+    <div class="hd-fact"><div class="hd-fact-n">Free</div><div class="hd-fact-l">Entry to the building</div></div>
+  </div>
+</div>
+
+<div class="hd-main">
+  <div class="hd-intro">
+    <div>
+      <div class="hd-intro-eyebrow">The Building</div>
+      <h2 class="hd-intro-h2">St Mary Magdalene Church</h2>
+      <div class="hd-intro-body"><p>Designed by Gothic Revival architect George Edmund Street and consecrated in 1868, the church stands on a site of worship dating back to the 12th century — one of North Paddington's most enduring landmarks.</p><p>The interior is a masterwork of Victorian craftsmanship. The chancel contains remarkable work by William Morris and Edward Burne-Jones alongside extraordinary carved stonework and one of London's finest collections of Victorian stained glass.</p><p>The building is fully step-free throughout and welcomes visitors free of charge every Tuesday to Sunday.</p></div>
+    </div>
+    <div class="hd-intro-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church nave / architectural detail / warm light"></div></div>
+  </div>
+
+  <div class="hd-tl-section">
+    <div class="hd-tl-eyebrow">Our History</div>
+    <h2 class="hd-tl-h2">Nine centuries in North Paddington</h2>
+    <div class="hd-tl">
+      <div class="hd-tl-row"><div class="hd-tl-year">12c</div><div class="hd-tl-content"><div class="hd-tl-era">Norman Origins</div><h3 class="hd-tl-h3">The First Chapel</h3><p class="hd-tl-body">A place of worship established in North Paddington, serving the rural community beyond London's city limits.</p></div></div>
+      <div class="hd-tl-row"><div class="hd-tl-year">1866</div><div class="hd-tl-content"><div class="hd-tl-era">Victorian Era</div><h3 class="hd-tl-h3">George Edmund Street Commissioned</h3><p class="hd-tl-body">The eminent Gothic Revival architect is commissioned to design a new church for the rapidly growing North Paddington population.</p></div></div>
+      <div class="hd-tl-row"><div class="hd-tl-year">1868</div><div class="hd-tl-content"><div class="hd-tl-era">Consecration</div><h3 class="hd-tl-h3">The Building Opens</h3><p class="hd-tl-body">William Morris and Edward Burne-Jones create chancel decorations — panels, stained glass and textiles that survive to this day.</p></div></div>
+      <div class="hd-tl-row"><div class="hd-tl-year">2000</div><div class="hd-tl-content"><div class="hd-tl-era">New Chapter</div><h3 class="hd-tl-h3">Grand Junction Founded</h3><p class="hd-tl-body">Paddington Development Trust establishes Grand Junction, transforming the building into a thriving community arts venue.</p></div></div>
+      <div class="hd-tl-row"><div class="hd-tl-year">Today</div><div class="hd-tl-content"><div class="hd-tl-era">Present Day</div><h3 class="hd-tl-h3">Arts, Heritage &amp; Community</h3><p class="hd-tl-body">Over 300 events a year alongside free heritage tours, community workshops and family activities. Free entry, fully step-free.</p></div></div>
+    </div>
+  </div>
+
+  <div class="hd-gallery-section">
+    <div class="hd-tl-eyebrow">The Building</div>
+    <h2 class="hd-tl-h2">Stained glass, stonework &amp; craftsmanship</h2>
+    <div class="hd-gallery-grid">
+      <div class="hd-gitem"><div class="ph-dk" data-label="The Nave / architectural"></div><div class="hd-gitem-cap">The Nave</div></div>
+      <div class="hd-gitem"><div class="ph-lt" data-label="East window / Morris / Burne-Jones"></div><div class="hd-gitem-cap">East Window · William Morris &amp; Burne-Jones</div></div>
+      <div class="hd-gitem"><div class="ph-dk" data-label="Victorian stonework / carved capitals"></div><div class="hd-gitem-cap">Victorian Stonework &amp; Carving</div></div>
+    </div>
+  </div>
+
+  <div class="hd-tours-section">
+    <div class="hd-tours-eyebrow">Heritage Tours</div>
+    <h2 class="hd-tours-h2">Explore with a guide — all tours free</h2>
+    <div class="hd-tour-grid">
+      <div class="hd-tour-card"><div class="hd-tour-type">Guided Tour · Every Sunday 2pm</div><h3 class="hd-tour-h3">Chapel of St Sepulchre Walking Tour</h3><p class="hd-tour-desc">A guided tour of the church interior exploring nine centuries of history, Arts and Crafts decorations and the building's community role.</p><div class="hd-tour-chips"><span class="hd-tour-chip">♿ Step-free</span><span class="hd-tour-chip">Free</span><span class="hd-tour-chip">90 mins</span></div><button class="hd-tour-cta">Reserve a free place</button></div>
+      <div class="hd-tour-card"><div class="hd-tour-type">Specialist Tour · Monthly Saturdays</div><h3 class="hd-tour-h3">Stained Glass Deep Dive</h3><p class="hd-tour-desc">A specialist-led exploration of the extraordinary Victorian stained glass — William Morris, Burne-Jones and their contemporaries.</p><div class="hd-tour-chips"><span class="hd-tour-chip">♿ Step-free</span><span class="hd-tour-chip">Free</span><span class="hd-tour-chip">Adult</span></div><button class="hd-tour-cta">Reserve a free place</button></div>
+      <div class="hd-tour-card"><div class="hd-tour-type">Walking Tour · Quarterly</div><h3 class="hd-tour-h3">North Paddington History Walk</h3><p class="hd-tour-desc">A guided walk through North Paddington's streets and canal-side, exploring community history and social change over two centuries.</p><div class="hd-tour-chips"><span class="hd-tour-chip">Free</span><span class="hd-tour-chip">Outdoor</span><span class="hd-tour-chip">2 hours</span></div><button class="hd-tour-cta">Reserve a free place</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="hd-related">
+  <div class="hd-related-inner">
+    <div class="hd-related-header"><h2 class="hd-related-h2">Heritage events coming up</h2><button class="hd-related-all">View all heritage events →</button></div>
+    <div class="hd-rel-row">
+      <div class="hd-rel-card"><div class="hd-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;"></div><div class="hd-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div><div class="hd-rel-free">FREE</div></div><div class="hd-rel-body"><div class="hd-rel-date">Sun 2 Mar · 2:00pm</div><h3 class="hd-rel-h3">Chapel of St Sepulchre Walking Tour</h3><div class="hd-rel-access"><span class="hd-rel-acc">♿ Step-free</span><span class="hd-rel-acc">👤 Adult</span></div><button class="hd-rel-cta">Reserve Free Place</button></div></div>
+      <div class="hd-rel-card"><div class="hd-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;"></div><div class="hd-rel-pill"><span class="pill pill-heritage">Heritage Tour</span></div><div class="hd-rel-free">FREE</div></div><div class="hd-rel-body"><div class="hd-rel-date">Sun 9 Mar · 2:00pm</div><h3 class="hd-rel-h3">Stained Glass Deep Dive</h3><div class="hd-rel-access"><span class="hd-rel-acc">♿ Step-free</span><span class="hd-rel-acc">👤 Adult</span></div><button class="hd-rel-cta">Reserve Free Place</button></div></div>
+      <div class="hd-rel-card"><div class="hd-rel-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8dcd8;"></div><div class="hd-rel-pill"><span class="pill pill-heritage">Heritage Talk</span></div><div class="hd-rel-free">FREE</div></div><div class="hd-rel-body"><div class="hd-rel-date">Sat 14 Mar · 3:00pm</div><h3 class="hd-rel-h3">Victorian Craftsmanship Talk</h3><div class="hd-rel-access"><span class="hd-rel-acc">♿ Step-free</span></div><button class="hd-rel-cta">Reserve Free Place</button></div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry · Fully step-free</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>Heritage Hub</h4><a>The Building</a><a>Our History</a><a>Heritage Tours</a><a>North Paddington</a><a>Research &amp; Archives</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>The Café</a><a>Accessibility Statement</a><a>How to Find Us</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>What's On</a><a>Donate</a><a>Membership</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-d -->
+
+<!-- ═══════════════ VAR E — STAINED GLASS BOLD · Heritage Hub ═══════════════
+  Concept: The church's own palette — the stained glass colours made large.
+  Bebas Neue for all display headings at extreme scale.
+  Each section owns a palette colour. The building's geometry as graphic language.
+  Full-bleed dark, colour-blocked sections, SVG decorative elements.
+ ═══════════════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-e">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+.he{background:#0b0b09;color:#fff;}
+
+/* NAV E (matches homepage E) */
+.he-nav{height:56px;background:#0b0b09;border-bottom:1px solid rgba(154,125,58,0.15);display:flex;align-items:center;padding:0 32px;position:sticky;top:48px;z-index:500;}
+.he-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:transparent;border:none;cursor:pointer;padding:8px;margin-right:8px;flex-shrink:0;order:-1;}
+.he-burger-line{display:block;width:22px;height:2px;background:#fff;transition:transform 300ms cubic-bezier(0.22,1,0.36,1),opacity 200ms,width 300ms;transform-origin:center;}
+.he-burger.open .he-burger-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.he-burger.open .he-burger-line:nth-child(2){opacity:0;width:0;}
+.he-burger.open .he-burger-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.he-dimmer{position:fixed;inset:0;z-index:440;background:rgba(11,11,9,0.6);opacity:0;pointer-events:none;transition:opacity 400ms;}
+.he-dimmer.active{opacity:1;pointer-events:auto;}
+.he-overlay{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);background:#1a5e3a;z-index:450;display:flex;flex-direction:column;padding:calc(56px + 48px + 24px) 52px 44px;transform:translateX(100%);transition:transform 420ms cubic-bezier(0.22,1,0.36,1);overflow-y:auto;}
+.he-overlay.open{transform:translateX(0);}
+.he-ov-link{font-family:'Bebas Neue',Impact,sans-serif;font-size:3.6rem;color:rgba(255,255,255,0.55);line-height:0.95;letter-spacing:0.06em;text-transform:uppercase;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;transition:color 150ms,padding-left 180ms;}
+.he-ov-link:first-of-type{border-top:1px solid rgba(255,255,255,0.08);}
+.he-ov-link:hover,.he-ov-link.act{color:#fff;padding-left:10px;}
+.he-ov-link.act{color:#9a7d3a;}
+.he-ov-arrow{font-size:1.2rem;color:rgba(255,255,255,0.18);font-family:'Open Sans',sans-serif;font-weight:300;transition:color 150ms;}
+.he-ov-link:hover .he-ov-arrow{color:#9a7d3a;}
+.he-ov-rule{width:32px;height:2px;background:rgba(255,255,255,0.2);margin:8px 0 16px;}
+.he-ov-sec{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.he-ov-sec-link{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.38);padding:4px 10px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:all 150ms;}
+.he-ov-sec-link:hover{color:#fff;border-color:rgba(255,255,255,0.4);}
+.he-ov-ctas{display:flex;gap:8px;margin-top:auto;}
+.he-ov-donate{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:10px 24px;background:#9a7d3a;border:none;color:#0b0b09;cursor:pointer;}
+.he-ov-member{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:10px 18px;background:transparent;border:2px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.7);cursor:pointer;}
+.he-nav-spacer{flex:1;}
+.he-nav-actions{display:flex;gap:8px;}
+.he-nav-search{width:30px;height:30px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.38);font-size:0.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.he-nav-member{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 14px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.55);transition:all 150ms;}
+.he-nav-donate{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;background:#9a7d3a;border:none;color:#0b0b09;}
+.he-page{transition:transform 420ms cubic-bezier(0.22,1,0.36,1);}
+.he-page.shifted{transform:translateX(calc(min(520px,100vw) * -0.5));}
+@media(max-width:900px){.he-nav-member{display:none;}}
+@media(max-width:600px){.he-overlay{width:100vw;}.he-page.shifted{transform:none;}}
+
+/* HERO E — diagonal split, extreme type */
+.he-hero{position:relative;min-height:84vh;overflow:hidden;display:grid;grid-template-columns:52% 1fr;background:#0b0b09;}
+.he-hero-left{background:#1a5e3a;clip-path:polygon(0 0,100% 0,88% 100%,0 100%);padding:80px 80px 80px 52px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;z-index:2;}
+.he-hero-circle{position:absolute;bottom:-100px;right:-100px;width:340px;height:340px;border-radius:50%;border:1px solid rgba(255,255,255,0.06);}
+.he-hero-circle2{position:absolute;bottom:-55px;right:-55px;width:200px;height:200px;border-radius:50%;border:1px solid rgba(255,255,255,0.05);}
+.he-hero-bc{font-size:0.52rem;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:22px;display:flex;align-items:center;gap:12px;}
+.he-hero-bc::before{content:'';width:20px;height:2px;background:rgba(255,255,255,0.3);}
+.he-hero-h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:7rem;color:#fff;line-height:0.85;letter-spacing:0.04em;margin-bottom:0;}
+.he-hero-h1 .gold{color:#9a7d3a;}
+.he-hero-rule{width:0;height:4px;background:#9a7d3a;margin:24px 0;transition:width 0.8s ease;}
+.he-hero.loaded .he-hero-rule{width:56px;}
+.he-hero-sub{font-size:0.92rem;color:rgba(255,255,255,0.5);line-height:1.75;max-width:380px;margin-bottom:32px;}
+.he-hero-btns{display:flex;gap:10px;flex-wrap:wrap;}
+.he-btn-wht{background:#fff;color:#1a5e3a;border:none;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:13px 26px;transition:all 150ms;}
+.he-btn-wht:hover{background:#9a7d3a;color:#fff;}
+.he-btn-out{background:transparent;color:rgba(255,255,255,0.65);border:2px solid rgba(255,255,255,0.25);font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:11px 20px;transition:all 150ms;}
+.he-btn-out:hover{border-color:#fff;color:#fff;}
+.he-hero-right{position:relative;z-index:1;}
+.he-hero-right .ph-dk{height:100%;position:absolute;inset:0;width:calc(100%+60px);left:-60px;}
+.he-hero-badge{position:absolute;bottom:36px;right:36px;z-index:10;background:#9a7d3a;padding:18px 22px;}
+.he-hero-badge-n{font-family:'Bebas Neue',Impact,sans-serif;font-size:3rem;color:#fff;line-height:1;letter-spacing:0.04em;display:block;}
+.he-hero-badge-l{font-size:0.46rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.55);}
+/* SVG arch decoration on hero */
+.he-hero-arch{position:absolute;top:0;right:0;z-index:3;pointer-events:none;opacity:0.15;}
+@media(max-width:1100px){.he-hero-h1{font-size:5.5rem;}}
+@media(max-width:900px){.he-hero{grid-template-columns:1fr;min-height:auto;}.he-hero-left{clip-path:none;padding:52px 28px 44px;}.he-hero-h1{font-size:4.5rem;}.he-hero-right{min-height:52vw;}.he-hero-right .ph-dk{left:0;width:100%;}.he-hero-badge{bottom:16px;right:16px;}}
+@media(max-width:600px){.he-hero-h1{font-size:3.5rem;}.he-hero-left{padding:36px 20px 32px;}}
+
+/* SUBNAV E */
+.he-subnav{background:#111110;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;overflow-x:auto;}
+.he-sn{padding:13px 18px;font-family:'Bebas Neue',Impact,sans-serif;font-size:1rem;letter-spacing:0.1em;color:rgba(255,255,255,0.35);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all 150ms;}
+.he-sn:hover,.he-sn.act{color:#fff;border-bottom-color:#9a7d3a;}
+
+/* FACTS STRIP E — colour row */
+.he-facts{background:#9a7d3a;padding:20px 0;}
+.he-facts-inner{max-width:1280px;margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(4,1fr);}
+.he-fact{padding:14px 20px 14px 0;border-right:1px solid rgba(255,255,255,0.15);}
+.he-fact:last-child{border-right:none;}
+.he-fact-n{font-family:'Bebas Neue',Impact,sans-serif;font-size:2.2rem;color:#fff;line-height:1;letter-spacing:0.04em;}
+.he-fact-l{font-size:0.5rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:2px;}
+@media(max-width:768px){.he-facts-inner{grid-template-columns:1fr 1fr;padding:0 20px;}}
+
+/* SECTIONS E — colour-blocked narrative panels */
+.he-panel{padding:72px 0;}
+.he-panel-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+
+/* Two-col panel */
+.he-panel-2col{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;}
+.he-panel-eyebrow{font-size:0.5rem;font-weight:700;letter-spacing:0.28em;text-transform:uppercase;color:#9a7d3a;margin-bottom:10px;}
+.he-panel-h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:3.2rem;color:#fff;line-height:0.9;letter-spacing:0.05em;margin-bottom:16px;}
+.he-panel-body{font-size:0.84rem;color:rgba(255,255,255,0.42);line-height:1.8;}
+.he-panel-body p{margin-bottom:12px;}
+.he-panel-img{position:relative;min-height:360px;}
+.he-panel-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+@media(max-width:900px){.he-panel-2col{grid-template-columns:1fr;gap:32px;}.he-panel-img{min-height:280px;}.he-panel-inner{padding:0 20px;}}
+
+/* Timeline E — dark numbered list */
+.he-tl{display:flex;flex-direction:column;gap:2px;}
+.he-tl-row{display:grid;grid-template-columns:80px 1fr;background:#1a1a18;padding:18px 20px;border-left:3px solid transparent;transition:border-color 150ms;cursor:default;}
+.he-tl-row:hover{border-left-color:#9a7d3a;}
+.he-tl-year{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.8rem;color:#9a7d3a;line-height:1;letter-spacing:0.04em;}
+.he-tl-h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.1rem;color:#fff;line-height:1;letter-spacing:0.04em;margin-bottom:4px;}
+.he-tl-body{font-size:0.72rem;color:rgba(255,255,255,0.32);line-height:1.65;}
+
+/* Gallery E — colour-bordered tiles */
+.he-gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:24px 0;}
+.he-gitem{position:relative;overflow:hidden;cursor:pointer;}
+.he-gitem .ph-dk{height:220px;}
+.he-gitem-bar{height:3px;background:#9a7d3a;}
+.he-gitem-label{padding:8px 0;font-family:'Bebas Neue',Impact,sans-serif;font-size:1rem;color:rgba(255,255,255,0.4);letter-spacing:0.08em;}
+@media(max-width:768px){.he-gallery-grid{grid-template-columns:1fr 1fr;}}
+
+/* Tours E */
+.he-tour-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:24px;}
+.he-tour-card{background:#1a1a18;border-top:3px solid #9a7d3a;padding:24px 24px 28px;display:flex;flex-direction:column;transition:background 160ms;}
+.he-tour-card:nth-child(2){border-top-color:#7a1a28;}
+.he-tour-card:nth-child(3){border-top-color:#1a4a6a;}
+.he-tour-card:hover{background:#222220;}
+.he-tour-type{font-size:0.5rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#9a7d3a;margin-bottom:8px;}
+.he-tour-h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.5rem;color:#fff;line-height:0.95;letter-spacing:0.04em;margin-bottom:8px;}
+.he-tour-desc{font-size:0.74rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-bottom:14px;flex:1;}
+.he-tour-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px;}
+.he-tour-chip{font-size:0.46rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.35);}
+.he-tour-cta{font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#0b0b09;border:none;padding:9px 18px;align-self:flex-start;transition:background 150ms;}
+.he-tour-cta:hover{background:#c4a055;}
+@media(max-width:900px){.he-tour-row{grid-template-columns:1fr;}}
+
+/* Diagonal section divider */
+.he-diag{height:48px;background:#9a7d3a;clip-path:polygon(0 0,100% 50%,100% 100%,0 100%);}
+
+/* Related E */
+.he-related{background:#111110;padding:64px 0;}
+.he-related-inner{max-width:1280px;margin:0 auto;padding:0 48px;}
+.he-related-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;}
+.he-related-h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:2.2rem;color:#fff;letter-spacing:0.06em;}
+.he-related-all{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:1px solid rgba(154,125,58,0.25);padding:6px 12px;cursor:pointer;transition:all 150ms;}
+.he-related-all:hover{background:#9a7d3a;color:#0b0b09;border-color:#9a7d3a;}
+.he-rel-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.he-rel-card{background:#1a1a18;border-top:3px solid #8a6e30;overflow:hidden;cursor:pointer;transition:transform 160ms;}
+.he-rel-card:hover{transform:translateY(-4px);}
+.he-rel-img{height:140px;position:relative;}
+.he-rel-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.he-rel-body{padding:14px 16px 18px;}
+.he-rel-date{font-size:0.52rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.he-rel-h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.1rem;color:#fff;line-height:1;letter-spacing:0.04em;margin-bottom:8px;}
+.he-rel-meta{font-size:0.54rem;color:rgba(255,255,255,0.25);display:flex;gap:8px;margin-bottom:10px;}
+.he-rel-cta{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#0b0b09;border:none;padding:8px 14px;transition:background 150ms;}
+.he-rel-cta:hover{background:#c4a055;}
+@media(max-width:900px){.he-rel-row{grid-template-columns:1fr 1fr;}.he-related-inner{padding:0 16px;}}
+@media(max-width:600px){.he-rel-row{grid-template-columns:1fr;}}
+</style>
+<script>
+(function(){
+  function heToggle(){
+    const ov=document.getElementById('he-ov');
+    const br=document.getElementById('he-br');
+    const dm=document.getElementById('he-dm');
+    const pg=document.getElementById('he-pg');
+    const open=ov.classList.contains('open');
+    if(open){ov.classList.remove('open');br.classList.remove('open');dm.classList.remove('active');if(pg)pg.classList.remove('shifted');br.setAttribute('aria-expanded','false');}
+    else{ov.classList.add('open');br.classList.add('open');dm.classList.add('active');if(pg)pg.classList.add('shifted');br.setAttribute('aria-expanded','true');}
+  }
+  function heClose(){
+    document.getElementById('he-ov').classList.remove('open');
+    document.getElementById('he-br').classList.remove('open');
+    document.getElementById('he-dm').classList.remove('active');
+    const pg=document.getElementById('he-pg');if(pg)pg.classList.remove('shifted');
+    document.getElementById('he-br').setAttribute('aria-expanded','false');
+  }
+  window.heToggle=heToggle;window.heClose=heClose;
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')heClose();});
+})();
+</script>
+
+<div class="he">
+<div class="he-dimmer" id="he-dm" onclick="heClose()"></div>
+<div class="he-overlay" id="he-ov">
+  <a class="he-ov-link" onclick="heClose()">What's On<span class="he-ov-arrow">→</span></a>
+  <a class="he-ov-link act" onclick="heClose()">Visit<span class="he-ov-arrow">→</span></a>
+  <a class="he-ov-link" onclick="heClose()">Hire<span class="he-ov-arrow">→</span></a>
+  <a class="he-ov-link" onclick="heClose()">Get Involved<span class="he-ov-arrow">→</span></a>
+  <div class="he-ov-rule"></div>
+  <div class="he-ov-sec"><a class="he-ov-sec-link">Heritage Hub</a><a class="he-ov-sec-link">The Café</a><a class="he-ov-sec-link">Accessibility</a><a class="he-ov-sec-link">About</a></div>
+  <div class="he-ov-ctas"><button class="he-ov-donate" onclick="heClose()">Donate</button><button class="he-ov-member" onclick="heClose()">Join as Member</button></div>
+  <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:20px;">St Mary Magdalene · Paddington · London W9</div>
+</div>
+<nav class="he-nav">
+  <button class="he-burger" id="he-br" onclick="heToggle()" aria-label="Open menu" aria-expanded="false" aria-controls="he-ov"><span class="he-burger-line"></span><span class="he-burger-line"></span><span class="he-burger-line"></span></button>
+  <span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#fff;display:inline-flex;align-items:center;">GRAND<span style="display:inline-block;width:9px;height:9px;background:#9a7d3a;transform:rotate(45deg);margin:0 7px;position:relative;top:-1px;"></span>JUNCTION</span>
+  <div class="he-nav-spacer"></div>
+  <div class="he-nav-actions"><button class="he-nav-search">&#9906;</button><button class="he-nav-member">Join as Member</button><button class="he-nav-donate">Donate</button></div>
+</nav>
+
+<div id="he-pg" class="he-page">
+
+<section class="he-hero" id="he-hero-s">
+  <svg class="he-hero-arch" width="220" height="320" viewBox="0 0 220 320" fill="none" aria-hidden="true">
+    <path d="M110 280 L110 80 Q110 20 170 20 Q220 20 220 80 L220 280 Z" stroke="rgba(154,125,58,0.3)" stroke-width="1" fill="none"/>
+    <circle cx="110" cy="60" r="18" stroke="rgba(154,125,58,0.25)" stroke-width="1" fill="none"/>
+    <circle cx="110" cy="60" r="9" fill="rgba(154,125,58,0.12)"/>
+  </svg>
+  <div class="he-hero-left">
+    <div class="he-hero-circle" aria-hidden="true"></div>
+    <div class="he-hero-circle2" aria-hidden="true"></div>
+    <div class="he-hero-bc">Visit · Heritage Hub</div>
+    <h1 class="he-hero-h1">Nine<br>Centuries<br><span class="gold">of History</span></h1>
+    <div class="he-hero-rule" aria-hidden="true"></div>
+    <p class="he-hero-sub">St Mary Magdalene — Norman origins, Victorian craftsmanship by William Morris and Burne-Jones, and community arts today.</p>
+    <div class="he-hero-btns">
+      <button class="he-btn-wht">Book a Heritage Tour</button>
+      <button class="he-btn-out">Explore the History</button>
+    </div>
+  </div>
+  <div class="he-hero-right">
+    <div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church interior — dramatic atmospheric lighting / stained glass glow"></div>
+    <div class="he-hero-badge"><span class="he-hero-badge-n">900+</span><span class="he-hero-badge-l">Years of history</span></div>
+  </div>
+</section>
+<script>setTimeout(()=>{const s=document.getElementById('he-hero-s');if(s)s.classList.add('loaded');},300);</script>
+
+<nav class="he-subnav">
+  <div class="he-sn act">The Building</div><div class="he-sn">Our History</div><div class="he-sn">Heritage Tours</div><div class="he-sn">North Paddington</div><div class="he-sn">Archives</div>
+</nav>
+
+<div class="he-facts">
+  <div class="he-facts-inner">
+    <div class="he-fact"><div class="he-fact-n">12c</div><div class="he-fact-l">Original founding</div></div>
+    <div class="he-fact"><div class="he-fact-n">1868</div><div class="he-fact-l">Current building</div></div>
+    <div class="he-fact"><div class="he-fact-n">Grade II</div><div class="he-fact-l">Listed status</div></div>
+    <div class="he-fact"><div class="he-fact-n">Free</div><div class="he-fact-l">Entry always</div></div>
+  </div>
+</div>
+
+<!-- Building section — dark teal background -->
+<div class="he-panel" style="background:#111a15;">
+  <div class="he-panel-inner">
+    <div class="he-panel-2col">
+      <div>
+        <div class="he-panel-eyebrow">The Building</div>
+        <h2 class="he-panel-h2">St Mary<br>Magdalene<br>Church</h2>
+        <div class="he-panel-body"><p>Designed by Gothic Revival architect George Edmund Street and consecrated in 1868, the church stands on a site of worship dating back to the 12th century — one of North Paddington's most enduring landmarks.</p><p>The interior is a masterwork of Victorian craftsmanship. The chancel contains remarkable work by William Morris and Edward Burne-Jones alongside extraordinary carved stonework and one of London's finest collections of Victorian stained glass.</p><p>The building is fully step-free throughout and Grade II listed. Entry is free every Tuesday to Sunday.</p></div>
+      </div>
+      <div class="he-panel-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Church nave / architectural / light"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Arts & Crafts section — dark maroon background -->
+<div class="he-panel" style="background:#1a0e12;">
+  <div class="he-panel-inner">
+    <div class="he-panel-2col" style="direction:rtl;">
+      <div style="direction:ltr;">
+        <div class="he-panel-eyebrow">Arts &amp; Crafts</div>
+        <h2 class="he-panel-h2">William<br>Morris &amp;<br>Burne-Jones</h2>
+        <div class="he-panel-body"><p>The chancel of St Mary Magdalene contains some of the finest surviving examples of the Arts and Crafts movement in London — panels, stained glass and decorative work by William Morris and Edward Burne-Jones, created between 1868 and 1885.</p><p>Morris and Burne-Jones were at the height of their creative powers during this period. The work in St Mary Magdalene stands as some of their most compelling and least-visited achievements.</p></div>
+      </div>
+      <div class="he-panel-img" style="direction:ltr;"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1020;" data-label="Stained glass detail / Morris / Burne-Jones / colour"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Timeline section -->
+<div class="he-panel" style="background:#111110;">
+  <div class="he-panel-inner">
+    <div class="he-panel-eyebrow">Our History</div>
+    <h2 class="he-panel-h2" style="margin-bottom:24px;">Nine Centuries in<br>North Paddington</h2>
+    <div class="he-tl">
+      <div class="he-tl-row"><div class="he-tl-year">12c</div><div><h3 class="he-tl-h3">The First Chapel — Norman Origins</h3><p class="he-tl-body">A place of worship established in North Paddington, serving the rural community beyond London's city limits.</p></div></div>
+      <div class="he-tl-row"><div class="he-tl-year">1866</div><div><h3 class="he-tl-h3">George Edmund Street Commissioned</h3><p class="he-tl-body">The eminent Gothic Revival architect commissioned to design a new church for North Paddington's growing population.</p></div></div>
+      <div class="he-tl-row"><div class="he-tl-year">1868</div><div><h3 class="he-tl-h3">Consecration — Morris &amp; Burne-Jones</h3><p class="he-tl-body">William Morris and Edward Burne-Jones create chancel decorations — stained glass and textiles that survive to this day.</p></div></div>
+      <div class="he-tl-row"><div class="he-tl-year">2000</div><div><h3 class="he-tl-h3">Grand Junction Founded</h3><p class="he-tl-body">Paddington Development Trust transforms St Mary Magdalene into a thriving community arts venue.</p></div></div>
+      <div class="he-tl-row"><div class="he-tl-year">Today</div><div><h3 class="he-tl-h3">Arts, Heritage &amp; Community</h3><p class="he-tl-body">Over 300 events a year. Free heritage tours. Free entry. Community arts for all.</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery section -->
+<div class="he-panel" style="background:#0b0b09;">
+  <div class="he-panel-inner">
+    <div class="he-panel-eyebrow">The Building</div>
+    <h2 class="he-panel-h2" style="margin-bottom:0;">Stained Glass,<br>Stonework &amp;<br>Craftsmanship</h2>
+    <div class="he-gallery-grid">
+      <div class="he-gitem"><div class="he-gitem-bar"></div><div class="ph-dk" data-label="The Nave / architectural"></div><div class="he-gitem-label">The Nave</div></div>
+      <div class="he-gitem"><div class="he-gitem-bar" style="background:#7a1a28;"></div><div class="ph-dk" data-label="East window / Morris / Burne-Jones / stained glass"></div><div class="he-gitem-label">East Window · Morris</div></div>
+      <div class="he-gitem"><div class="he-gitem-bar" style="background:#1a4a6a;"></div><div class="ph-dk" data-label="Victorian stonework / carved capitals"></div><div class="he-gitem-label">Victorian Stonework</div></div>
+      <div class="he-gitem"><div class="he-gitem-bar" style="background:#3a5a1a;"></div><div class="ph-dk" data-label="South aisle / coloured light through glass"></div><div class="he-gitem-label">South Aisle</div></div>
+      <div class="he-gitem"><div class="he-gitem-bar" style="background:#4a2a6a;"></div><div class="ph-dk" data-label="The Chancel / altar / decorative"></div><div class="he-gitem-label">The Chancel</div></div>
+      <div class="he-gitem"><div class="he-gitem-bar" style="background:#6a1a28;"></div><div class="ph-dk" data-label="Ceiling vault / decorative plasterwork / detail"></div><div class="he-gitem-label">Ceiling Vault</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Diagonal divider -->
+<div class="he-diag" aria-hidden="true"></div>
+
+<!-- Tours section — chrome green -->
+<div class="he-panel" style="background:#111a15;">
+  <div class="he-panel-inner">
+    <div class="he-panel-eyebrow">Heritage Tours</div>
+    <h2 class="he-panel-h2">Explore<br>With a Guide</h2>
+    <div class="he-tour-row">
+      <div class="he-tour-card"><div class="he-tour-type">Guided Tour · Every Sunday 2pm</div><h3 class="he-tour-h3">St Sepulchre Walking Tour</h3><p class="he-tour-desc">Nine centuries of history, Arts and Crafts decorations and the building's community role — with an expert guide.</p><div class="he-tour-chips"><span class="he-tour-chip">Every Sunday 2pm</span><span class="he-tour-chip">Free</span><span class="he-tour-chip">Step-free</span></div><button class="he-tour-cta">Reserve a Place</button></div>
+      <div class="he-tour-card"><div class="he-tour-type">Specialist Tour · Monthly</div><h3 class="he-tour-h3">Stained Glass Deep Dive</h3><p class="he-tour-desc">Specialist-led exploration of the extraordinary Victorian stained glass — Morris, Burne-Jones and contemporaries.</p><div class="he-tour-chips"><span class="he-tour-chip">Monthly Saturdays</span><span class="he-tour-chip">Free</span><span class="he-tour-chip">Adult</span></div><button class="he-tour-cta">Reserve a Place</button></div>
+      <div class="he-tour-card"><div class="he-tour-type">Walking Tour · Quarterly</div><h3 class="he-tour-h3">North Paddington History Walk</h3><p class="he-tour-desc">North Paddington streets and canal-side — community history and social change over two centuries.</p><div class="he-tour-chips"><span class="he-tour-chip">Quarterly</span><span class="he-tour-chip">Free</span><span class="he-tour-chip">Outdoor</span></div><button class="he-tour-cta">Reserve a Place</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="he-related">
+  <div class="he-related-inner">
+    <div class="he-related-header"><h2 class="he-related-h2">Heritage Events Coming Up</h2><button class="he-related-all">View all heritage →</button></div>
+    <div class="he-rel-row">
+      <div class="he-rel-card"><div class="he-rel-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181e18;"></div></div><div class="he-rel-body"><div class="he-rel-date">Sun 2 Mar · 2:00pm</div><h3 class="he-rel-h3">St Sepulchre Walking Tour</h3><div class="he-rel-meta"><span>Free</span><span>Step-free</span><span>Adult</span></div><button class="he-rel-cta">Reserve</button></div></div>
+      <div class="he-rel-card"><div class="he-rel-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181820;"></div></div><div class="he-rel-body"><div class="he-rel-date">Sun 9 Mar · 2:00pm</div><h3 class="he-rel-h3">Stained Glass Deep Dive</h3><div class="he-rel-meta"><span>Free</span><span>Specialist</span><span>Adult</span></div><button class="he-rel-cta">Reserve</button></div></div>
+      <div class="he-rel-card"><div class="he-rel-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1810;"></div></div><div class="he-rel-body"><div class="he-rel-date">Sat 14 Mar · 3:00pm</div><h3 class="he-rel-h3">Victorian Craftsmanship Talk</h3><div class="he-rel-meta"><span>Free</span><span>Adult</span></div><button class="he-rel-cta">Reserve</button></div></div>
+    </div>
+  </div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>Heritage Hub</h4><a>The Building</a><a>Our History</a><a>Heritage Tours</a><a>North Paddington</a><a>Research &amp; Archives</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>The Café</a><a>Accessibility</a><a>How to Find Us</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>What's On</a><a>Donate</a><a>Membership</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+
+</div><!-- /he-page -->
+</div><!-- /he -->
+</div><!-- /var-e -->
+
+<script>
+function showVar(v){
+  const mask=document.getElementById('tmask');
+  mask.classList.add('on');
+  setTimeout(()=>{
+    document.querySelectorAll('.variation').forEach(el=>el.classList.remove('active'));
+    document.querySelectorAll('.vbtn').forEach(el=>el.classList.remove('active'));
+    document.getElementById('var-'+v).classList.add('active');
+    document.getElementById('vbtn-'+v).classList.add('active');
+    window.scrollTo(0,50);
+    mask.classList.remove('on');
+  },200);
+}
+
+// Sub-nav tab toggles
+document.querySelectorAll('.ha-sn-item,.hb-sn,.hc-sn,.hd-sn,.he-sn').forEach(el=>{
+  el.addEventListener('click',function(){
+    const grp=this.closest('.ha-subnav,.hb-subnav,.hc-subnav,.hd-subnav,.he-subnav');
+    if(grp) grp.querySelectorAll('.ha-sn-item,.hb-sn,.hc-sn,.hd-sn,.he-sn').forEach(s=>s.classList.remove('act'));
+    this.classList.add('act');
+  });
+});
+
+// Anchor nav (C)
+document.querySelectorAll('.hc-anchor-link').forEach(el=>{
+  el.addEventListener('click',function(){
+    document.querySelectorAll('.hc-anchor-link').forEach(s=>s.classList.remove('act'));
+    this.classList.add('act');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grand Junction — What's On · All Variations</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Open Sans',sans-serif;background:#111;overflow-x:hidden;}
+button,a{cursor:pointer;font-family:'Open Sans',sans-serif;text-decoration:none;}
+
+/* ── TOOLBAR ── */
+.toolbar{position:fixed;top:0;left:0;right:0;z-index:9999;background:rgba(8,8,8,0.97);border-bottom:1px solid rgba(154,125,58,0.3);display:flex;align-items:center;gap:4px;padding:0 12px;min-height:48px;flex-wrap:wrap;backdrop-filter:blur(20px);}
+.tb-brand{font-size:0.54rem;font-weight:700;letter-spacing:0.2em;color:#9a7d3a;text-transform:uppercase;white-space:nowrap;margin-right:6px;display:flex;align-items:center;gap:5px;}
+.tb-sep{width:1px;height:20px;background:rgba(255,255,255,0.08);margin:0 4px;flex-shrink:0;}
+.tb-lbl{font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap;}
+.vbtn{padding:5px 10px;font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);transition:all 180ms;white-space:nowrap;}
+.vbtn:hover{border-color:rgba(154,125,58,0.5);color:rgba(255,255,255,0.7);}
+.vbtn.active{background:#9a7d3a;border-color:#9a7d3a;color:#1a1a18;font-weight:700;}
+.tb-badge{margin-left:auto;font-size:0.48rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;border:1px solid rgba(154,125,58,0.3);color:#9a7d3a;padding:3px 7px;white-space:nowrap;}
+.tmask{position:fixed;inset:0;z-index:8888;pointer-events:none;background:#060606;opacity:0;transition:opacity 200ms;}
+.tmask.on{opacity:1;}
+.variation{display:none;padding-top:48px;}
+.variation.active{display:block;animation:pgIn 380ms cubic-bezier(0.22,1,0.36,1) both;}
+@keyframes pgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SHARED TOKENS ── */
+:root{
+  --gold:#9a7d3a;--gold-lt:#c4a055;--teal:#1a5e3a;
+  --black:#111110;--white:#ffffff;--off-white:#f7f4ef;
+}
+/* Placeholder system */
+.ph{position:relative;overflow:hidden;}
+.ph-dk{background:#1c1c1a;}
+.ph-dk::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center;padding:12px;line-height:1.5;color:rgba(255,255,255,0.1);background:repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(255,255,255,0.01) 18px,rgba(255,255,255,0.01) 19px);}
+.ph-lt{background:#e2ddd5;}
+.ph-lt::after{content:attr(data-label);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;text-align:center;padding:12px;line-height:1.5;color:rgba(0,0,0,0.15);background:repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(0,0,0,0.02) 18px,rgba(0,0,0,0.02) 19px);}
+
+/* Shared pill system */
+.pill{display:inline-block;font-size:0.48rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:3px 7px;color:#fff;line-height:1;flex-shrink:0;}
+.pill-music{background:#1a5e3a;}.pill-heritage{background:#8a6e30;}
+.pill-theatre{background:#6a1a28;}.pill-workshop{background:#1a4a6a;}
+.pill-community{background:#3a5a1a;}.pill-family{background:#4a2a6a;}
+.pill-send{background:#1a3a5a;}.pill-free{background:#1a1a18;}
+
+/* GJ logo diamond */
+.gj-diamond{display:inline-block;width:8px;height:8px;background:#9a7d3a;transform:rotate(45deg);margin:0 6px;position:relative;top:-1px;flex-shrink:0;}
+.gj-wordmark{font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;display:inline-flex;align-items:center;}
+
+/* ── SHARED FOOTER ── */
+.gj-footer{background:#0a0a08;border-top:2px solid #9a7d3a;padding:48px 0 20px;}
+.gj-footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1280px;margin:0 auto;padding:0 48px 36px;}
+.gj-footer-col h4{font-size:0.48rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#9a7d3a;margin-bottom:12px;}
+.gj-footer-col a{display:block;font-size:0.66rem;color:rgba(255,255,255,0.24);margin-bottom:6px;cursor:pointer;line-height:1.5;}
+.gj-footer-col a:hover{color:#9a7d3a;}
+.gj-footer-wm{font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:inline-flex;align-items:center;margin-bottom:8px;}
+.gj-footer-addr{font-size:0.66rem;color:rgba(255,255,255,0.22);line-height:1.6;margin-bottom:8px;}
+.gj-footer-about{display:inline-block;font-size:0.6rem;color:rgba(255,255,255,0.2);text-decoration:underline;cursor:pointer;}
+.gj-footer-bottom{border-top:1px solid rgba(255,255,255,0.04);padding:14px 48px 0;max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.gj-footer-bottom p{font-size:0.52rem;color:rgba(255,255,255,0.12);}
+.gj-footer-links{display:flex;gap:12px;}
+.gj-footer-links a{font-size:0.5rem;color:rgba(255,255,255,0.14);cursor:pointer;}
+@media(max-width:768px){.gj-footer-grid{grid-template-columns:1fr 1fr;padding:0 16px 28px;}.gj-footer-bottom{padding:12px 16px 0;flex-direction:column;align-items:flex-start;}}
+</style>
+</head>
+<body>
+<div class="tmask" id="tmask"></div>
+<div class="toolbar">
+  <div class="tb-brand">
+    <svg width="12" height="12" viewBox="0 0 12 12"><rect x="2" y="2" width="8" height="8" transform="rotate(45 6 6)" fill="#9a7d3a"/></svg>
+    GJ · What's On
+  </div>
+  <div class="tb-sep"></div>
+  <span class="tb-lbl">Direction:</span>
+  <button class="vbtn active" id="vbtn-a" onclick="showVar('a')">A · Editorial Ink</button>
+  <button class="vbtn" id="vbtn-b" onclick="showVar('b')">B · Living Stone</button>
+  <button class="vbtn" id="vbtn-c" onclick="showVar('c')">C · Modernist Nave</button>
+  <button class="vbtn" id="vbtn-d" onclick="showVar('d')">D · Open Access</button>
+  <button class="vbtn" id="vbtn-e" onclick="showVar('e')">E · Stained Glass Bold</button>
+  <div class="tb-badge">What's On · Secondary Page</div>
+</div>
+
+<!-- ═══════════════ VARIATION A — EDITORIAL INK ═══════════════
+  What's On: Dark editorial aesthetic
+  Layout: Narrow left sidebar (sticky filters) + editorial grid (1 hero wide card + 2-col grid below)
+  Featured event banner at top above grid
+  Filter categories appear as vertical list in sidebar with counts
+  Cards: DM Serif italic title, type pill, dark card on warm off-white page
+  Sub-nav: inline page breadcrumb + filter summary pill row
+ ═══════════════════════════════════════════════════════════════ -->
+<div class="variation active" id="var-a">
+<style>
+.wa{background:#f2ede5;color:#111110;--wa-bg:#f2ede5;--wa-bg2:#e8e2d8;--wa-dark:#111110;--wa-gold:#9a7d3a;--wa-border:#ccc4b4;--wa-mid:#6a6050;}
+
+/* NAV A */
+.wa-nav{height:64px;background:#111110;display:grid;grid-template-columns:max-content auto max-content;align-items:stretch;padding:0 40px;position:sticky;top:48px;z-index:200;border-bottom:1px solid rgba(255,255,255,0.05);}
+.wa-nav-left,.wa-nav-right{display:flex;align-items:stretch;}
+.wa-nav-center{display:flex;align-items:center;justify-content:center;padding:0 32px;border-left:1px solid rgba(255,255,255,0.06);border-right:1px solid rgba(255,255,255,0.06);}
+.wa-nav-link{display:flex;align-items:center;padding:0 13px;font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.4);border-bottom:2px solid transparent;transition:all 180ms;white-space:nowrap;}
+.wa-nav-link:hover,.wa-nav-link.act{color:#fff;border-bottom-color:#9a7d3a;}
+.wa-nav-actions{display:flex;align-items:center;gap:8px;padding-left:12px;}
+.wa-nav-donate{background:#9a7d3a;color:#111110!important;font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:7px 15px;border:none;}
+.wa-nav-member{color:rgba(255,255,255,0.55)!important;border:1px solid rgba(255,255,255,0.16);font-size:0.56rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:6px 12px;background:transparent;}
+.wa-nav-search{width:30px;height:30px;background:transparent;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.4);font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.wa-mob-tog{display:none;background:none;border:none;color:#fff;font-size:1.1rem;padding:8px;}
+.wa-mob-menu{display:none;background:#111110;border-bottom:2px solid #9a7d3a;flex-direction:column;}
+.wa-mob-menu.open{display:flex;}
+.wa-mob-link{padding:12px 20px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.04);}
+@media(max-width:900px){.wa-nav{grid-template-columns:1fr auto 48px;padding:0 16px;}.wa-nav-left,.wa-nav-right .wa-nav-link{display:none;}.wa-nav-actions{display:none;}.wa-mob-tog{display:flex;align-items:center;}}
+
+/* PAGE HEADER A */
+.wa-header{background:#111110;border-bottom:3px solid #9a7d3a;padding:40px 48px 32px;}
+.wa-breadcrumb{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.wa-breadcrumb span{color:#9a7d3a;}
+.wa-header-h1{font-family:'DM Serif Display',Georgia,serif;font-size:3.6rem;font-style:italic;color:#fff;line-height:0.9;margin-bottom:10px;}
+.wa-header-meta{font-size:0.62rem;color:rgba(255,255,255,0.32);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.wa-header-count{font-size:0.62rem;font-weight:700;color:#9a7d3a;}
+
+/* FILTER BAR A — active filter pills row */
+.wa-filterbar{background:var(--wa-bg2);border-bottom:1px solid var(--wa-border);padding:12px 48px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.wa-filter-lbl{font-size:0.52rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--wa-mid);white-space:nowrap;}
+.wa-fpill{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border:1px solid var(--wa-border);background:#fff;color:var(--wa-mid);cursor:pointer;transition:all 160ms;}
+.wa-fpill:hover{border-color:#9a7d3a;color:#9a7d3a;}
+.wa-fpill.act{background:#111110;border-color:#111110;color:#fff;}
+.wa-fpill-clear{font-size:0.52rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;margin-left:auto;cursor:pointer;}
+.wa-view-toggle{display:flex;gap:2px;margin-left:auto;}
+.wa-view-btn{width:28px;height:28px;border:1px solid var(--wa-border);background:transparent;color:var(--wa-mid);display:flex;align-items:center;justify-content:center;font-size:0.7rem;cursor:pointer;transition:all 160ms;}
+.wa-view-btn.act{background:#111110;color:#fff;border-color:#111110;}
+@media(max-width:768px){.wa-filterbar{padding:10px 16px;}}
+
+/* MAIN LAYOUT A — sidebar + grid */
+.wa-layout{display:grid;grid-template-columns:220px 1fr;min-height:600px;max-width:1280px;margin:0 auto;padding:32px 48px;gap:40px;}
+.wa-sidebar{position:sticky;top:128px;align-self:start;}
+.wa-sb-section{margin-bottom:24px;}
+.wa-sb-h3{font-size:0.5rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--wa-mid);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--wa-border);}
+.wa-sb-item{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;font-size:0.7rem;font-weight:500;color:var(--wa-dark);cursor:pointer;border-left:3px solid transparent;transition:all 160ms;margin-bottom:1px;}
+.wa-sb-item:hover{padding-left:14px;color:#111110;}
+.wa-sb-item.act{border-left-color:#9a7d3a;font-weight:700;background:rgba(154,125,58,0.05);}
+.wa-sb-count{font-size:0.52rem;color:var(--wa-mid);font-weight:400;}
+.wa-sb-search{width:100%;border:1px solid var(--wa-border);background:#fff;padding:9px 12px;font-size:0.72rem;font-family:'Open Sans',sans-serif;outline:none;color:var(--wa-dark);margin-bottom:14px;}
+.wa-sb-search:focus{border-color:#9a7d3a;}
+
+/* GRID A */
+.wa-grid-area{}
+.wa-grid-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.wa-grid-count{font-size:0.62rem;color:var(--wa-mid);}
+.wa-sort{font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--wa-mid);background:transparent;border:1px solid var(--wa-border);padding:5px 10px;cursor:pointer;}
+
+/* Featured event banner */
+.wa-featured{display:grid;grid-template-columns:1fr 1fr;margin-bottom:3px;overflow:hidden;cursor:pointer;}
+.wa-feat-img{position:relative;min-height:280px;}
+.wa-feat-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.wa-feat-body{background:#111110;padding:36px 40px;display:flex;flex-direction:column;justify-content:flex-end;}
+.wa-feat-tag{margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.wa-feat-h2{font-family:'DM Serif Display',Georgia,serif;font-size:2rem;font-style:italic;color:#fff;line-height:1.0;margin-bottom:8px;}
+.wa-feat-meta{font-size:0.6rem;color:rgba(255,255,255,0.35);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;display:flex;gap:12px;flex-wrap:wrap;}
+.wa-feat-desc{font-size:0.76rem;color:rgba(255,255,255,0.45);line-height:1.7;max-width:320px;margin-bottom:20px;flex:1;}
+.wa-feat-cta{background:#9a7d3a;color:#111110;border:none;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:9px 20px;align-self:flex-start;transition:background 160ms;}
+.wa-feat-cta:hover{background:#c4a055;}
+.wa-feat-badge{position:absolute;top:16px;left:16px;z-index:2;background:#9a7d3a;padding:5px 10px;font-size:0.48rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#111110;}
+
+/* Card grid */
+.wa-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-bottom:2px;}
+.wa-card-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.wa-card{background:#fff;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--wa-border);cursor:pointer;transition:transform 160ms,box-shadow 160ms;}
+.wa-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.wa-card-img{height:160px;position:relative;flex-shrink:0;}
+.wa-card-img .ph-lt,.wa-card-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.wa-card-pill{position:absolute;top:0;left:0;z-index:2;}
+.wa-card-access{position:absolute;top:0;right:0;z-index:2;display:flex;gap:2px;padding:6px;}
+.wa-card-acc-tag{font-size:0.42rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:rgba(0,0,0,0.7);color:rgba(255,255,255,0.85);padding:2px 5px;}
+.wa-card-body{padding:14px 16px 18px;display:flex;flex-direction:column;flex:1;}
+.wa-card-date{font-size:0.56rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;margin-bottom:5px;}
+.wa-card-h3{font-family:'DM Serif Display',Georgia,serif;font-size:1.05rem;font-style:italic;line-height:1.2;color:#111110;margin-bottom:7px;flex:1;}
+.wa-card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;}
+.wa-card-tag{font-size:0.48rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--wa-mid);background:rgba(0,0,0,0.04);padding:2px 6px;}
+.wa-card-row-info{display:flex;align-items:center;justify-content:space-between;}
+.wa-card-price{font-size:0.58rem;font-weight:700;color:#111110;}
+.wa-card-cta{font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#111110;color:#fff;border:none;padding:7px 14px;transition:background 160ms;}
+.wa-card-cta:hover{background:#9a7d3a;color:#111110;}
+
+/* Accessibility row */
+.wa-card-a11y{display:flex;gap:4px;flex-wrap:wrap;padding:8px 16px;border-top:1px solid var(--wa-border);background:rgba(0,0,0,0.02);}
+.wa-card-a11y span{font-size:0.44rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--wa-mid);}
+
+/* Load more */
+.wa-loadmore{padding:32px 0;text-align:center;}
+.wa-loadmore-btn{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:transparent;border:2px solid #111110;color:#111110;padding:12px 32px;cursor:pointer;transition:all 160ms;}
+.wa-loadmore-btn:hover{background:#111110;color:#fff;}
+
+@media(max-width:1024px){.wa-layout{grid-template-columns:1fr;padding:24px;gap:24px;}.wa-sidebar{position:static;}.wa-featured{grid-template-columns:1fr;}.wa-feat-img{min-height:240px;}.wa-card-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.wa-layout{padding:16px;}.wa-card-grid,.wa-card-row{grid-template-columns:1fr;}.wa-header{padding:28px 16px 20px;}.wa-header-h1{font-size:2.4rem;}}
+</style>
+
+<div class="wa">
+<nav class="wa-nav">
+  <div class="wa-nav-left"><a class="wa-nav-link act">What's On</a><a class="wa-nav-link">Visit</a><a class="wa-nav-link">Hire</a></div>
+  <div class="wa-nav-center"><span class="gj-wordmark" style="color:#fff;">GRAND<span class="gj-diamond"></span>JUNCTION</span></div>
+  <div class="wa-nav-right"><a class="wa-nav-link">Get Involved</a><div class="wa-nav-actions"><button class="wa-nav-search">&#9906;</button><button class="wa-nav-member">Join as Member</button><button class="wa-nav-donate">Donate</button></div></div>
+  <button class="wa-mob-tog" onclick="this.closest('.wa-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="wa-mob-menu"><a class="wa-mob-link">What's On</a><a class="wa-mob-link">Visit</a><a class="wa-mob-link">Hire</a><a class="wa-mob-link">Get Involved</a></div>
+
+<header class="wa-header">
+  <div class="wa-breadcrumb">Grand Junction <span>›</span> What's On</div>
+  <h1 class="wa-header-h1">What's On</h1>
+  <div class="wa-header-meta"><span class="wa-header-count">36 events &amp; activities</span><span>March – May 2026</span><span>Music · Theatre · Heritage · Workshops · Community</span></div>
+</header>
+
+<div class="wa-filterbar">
+  <span class="wa-filter-lbl">Type:</span>
+  <button class="wa-fpill act">All</button>
+  <button class="wa-fpill">Music</button>
+  <button class="wa-fpill">Theatre</button>
+  <button class="wa-fpill">Heritage Tours</button>
+  <button class="wa-fpill">Workshops</button>
+  <button class="wa-fpill">Community</button>
+  <button class="wa-fpill">Families</button>
+  <button class="wa-fpill">SEND</button>
+  <div style="width:1px;height:20px;background:var(--wa-border);margin:0 6px;"></div>
+  <span class="wa-filter-lbl">Price:</span>
+  <button class="wa-fpill">Any</button>
+  <button class="wa-fpill">Free</button>
+  <button class="wa-fpill">Pay What You Can</button>
+  <button class="wa-fpill-clear">Clear filters</button>
+  <div class="wa-view-toggle">
+    <button class="wa-view-btn act" title="Grid view">▦</button>
+    <button class="wa-view-btn" title="List view">☰</button>
+  </div>
+</div>
+
+<div class="wa-layout">
+  <!-- SIDEBAR FILTERS -->
+  <aside class="wa-sidebar">
+    <input class="wa-sb-search" type="search" placeholder="Search events…" aria-label="Search events">
+    <div class="wa-sb-section">
+      <h3 class="wa-sb-h3">Event Type</h3>
+      <div class="wa-sb-item act">All Types <span class="wa-sb-count">36</span></div>
+      <div class="wa-sb-item">Music <span class="wa-sb-count">8</span></div>
+      <div class="wa-sb-item">Theatre <span class="wa-sb-count">4</span></div>
+      <div class="wa-sb-item">Heritage Tours <span class="wa-sb-count">6</span></div>
+      <div class="wa-sb-item">Workshops <span class="wa-sb-count">9</span></div>
+      <div class="wa-sb-item">Community Events <span class="wa-sb-count">5</span></div>
+      <div class="wa-sb-item">Children &amp; Families <span class="wa-sb-count">4</span></div>
+    </div>
+    <div class="wa-sb-section">
+      <h3 class="wa-sb-h3">Audience</h3>
+      <div class="wa-sb-item">All Ages <span class="wa-sb-count">18</span></div>
+      <div class="wa-sb-item">Children (under 11) <span class="wa-sb-count">4</span></div>
+      <div class="wa-sb-item">Young People <span class="wa-sb-count">3</span></div>
+      <div class="wa-sb-item">Adults <span class="wa-sb-count">22</span></div>
+      <div class="wa-sb-item">SEND <span class="wa-sb-count">2</span></div>
+    </div>
+    <div class="wa-sb-section">
+      <h3 class="wa-sb-h3">Price</h3>
+      <div class="wa-sb-item">Any Price <span class="wa-sb-count">36</span></div>
+      <div class="wa-sb-item">Free <span class="wa-sb-count">12</span></div>
+      <div class="wa-sb-item">Pay What You Can <span class="wa-sb-count">3</span></div>
+      <div class="wa-sb-item">Under £10 <span class="wa-sb-count">8</span></div>
+    </div>
+    <div class="wa-sb-section">
+      <h3 class="wa-sb-h3">Accessibility</h3>
+      <div class="wa-sb-item">Step-free access <span class="wa-sb-count">36</span></div>
+      <div class="wa-sb-item">BSL interpreted <span class="wa-sb-count">4</span></div>
+      <div class="wa-sb-item">Audio description <span class="wa-sb-count">2</span></div>
+      <div class="wa-sb-item">Relaxed performance <span class="wa-sb-count">3</span></div>
+    </div>
+    <div class="wa-sb-section">
+      <h3 class="wa-sb-h3">Strand / Programme</h3>
+      <div class="wa-sb-item">Spring Season <span class="wa-sb-count">14</span></div>
+      <div class="wa-sb-item">Heritage Programme <span class="wa-sb-count">6</span></div>
+      <div class="wa-sb-item">Community Arts <span class="wa-sb-count">8</span></div>
+      <div class="wa-sb-item">Canal Sessions <span class="wa-sb-count">4</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="wa-grid-header">
+      <div class="wa-grid-count">Showing 36 events · All types · March–May 2026</div>
+      <button class="wa-sort">Sort: Soonest first ▾</button>
+    </div>
+
+    <!-- FEATURED EVENT BANNER -->
+    <div class="wa-featured">
+      <div class="wa-feat-img">
+        <div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Spring Concert Series — featured hero image"></div>
+        <div class="wa-feat-badge">Featured</div>
+      </div>
+      <div class="wa-feat-body">
+        <div class="wa-feat-tag"><span class="pill pill-music">Music</span><span style="font-size:0.52rem;color:rgba(255,255,255,0.3);letter-spacing:0.12em;text-transform:uppercase;font-weight:700;">Spring Season</span></div>
+        <h2 class="wa-feat-h2">Spring Concert Series</h2>
+        <div class="wa-feat-meta"><span>Sat 1 Mar onwards</span><span>6 evenings</span><span>From £12</span><span>All ages</span></div>
+        <p class="wa-feat-desc">Six evenings of live music in the extraordinary acoustics of St Mary Magdalene — classical soloists, jazz ensembles and world music.</p>
+        <button class="wa-feat-cta">Browse the series</button>
+      </div>
+    </div>
+
+    <!-- CARD GRID -->
+    <div class="wa-card-grid">
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;" data-label="Heritage walking tour"></div><div class="wa-card-pill"><span class="pill pill-heritage">Heritage Tour</span></div><div class="wa-card-access"><span class="wa-card-acc-tag">Step-free</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Sun 2 Mar · 2:00pm</div>
+          <h3 class="wa-card-h3">Chapel of St Sepulchre Walking Tour</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">Heritage Programme</span><span class="wa-card-tag">Guided</span><span class="wa-card-tag">Adult</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">Free – donation welcome</span><button class="wa-card-cta">Reserve</button></div>
+        </div>
+        <div class="wa-card-a11y"><span>♿ Step-free access throughout</span></div>
+      </div>
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;" data-label="Arabic Dance Workshop — families"></div><div class="wa-card-pill"><span class="pill pill-family">Families</span></div><div class="wa-card-access"><span class="wa-card-acc-tag">All ages</span><span class="wa-card-acc-tag">Free</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Tue 4 Mar · 10:00am</div>
+          <h3 class="wa-card-h3">Arabic Dance Workshop for Families</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">Community Arts</span><span class="wa-card-tag">Ages 5+</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">Free</span><button class="wa-card-cta">Register</button></div>
+        </div>
+        <div class="wa-card-a11y"><span>♿ Step-free</span><span>🌍 All welcome</span></div>
+      </div>
+    </div>
+
+    <div class="wa-card-row">
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8d8d8;" data-label="VIP Club Night"></div><div class="wa-card-pill"><span class="pill pill-send">SEND</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Fri 7 Mar · 8:00pm</div>
+          <h3 class="wa-card-h3">VIP Club Night — SEND Inclusive Evening</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">18+</span><span class="wa-card-tag">SEND friendly</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">£5 / Free carers</span><button class="wa-card-cta">Book</button></div>
+        </div>
+      </div>
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8e4d8;" data-label="Life Drawing session"></div><div class="wa-card-pill"><span class="pill pill-workshop">Workshop</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Mon 10 Mar · 6:30pm</div>
+          <h3 class="wa-card-h3">Life Drawing — Spring Term Week 4</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">Adult</span><span class="wa-card-tag">18+</span><span class="wa-card-tag">Spring Season</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">£8 members / £12</span><button class="wa-card-cta">Book</button></div>
+        </div>
+      </div>
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4d8;" data-label="Community singing group"></div><div class="wa-card-pill"><span class="pill pill-community">Community</span></div><div class="wa-card-access"><span class="wa-card-acc-tag">Free</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Wed 12 Mar · 11:00am</div>
+          <h3 class="wa-card-h3">Community Singing Group — Drop In</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">All ages</span><span class="wa-card-tag">Canal Sessions</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">Free</span><button class="wa-card-cta">Drop in</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wa-card-row">
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#d8dce8;" data-label="Theatre performance"></div><div class="wa-card-pill"><span class="pill pill-theatre">Theatre</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Thu 14 Mar · 7:30pm</div>
+          <h3 class="wa-card-h3">Places We Carry — New Writing Night</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">Adult</span><span class="wa-card-tag">Spring Season</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">£8 / £5 concession</span><button class="wa-card-cta">Book</button></div>
+        </div>
+      </div>
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8dc;" data-label="Children's art workshop"></div><div class="wa-card-pill"><span class="pill pill-family">Families</span></div><div class="wa-card-access"><span class="wa-card-acc-tag">Free</span><span class="wa-card-acc-tag">Under 11s</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Sat 15 Mar · 10:00am</div>
+          <h3 class="wa-card-h3">Saturday Art Club — Ages 6–11</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">Children</span><span class="wa-card-tag">Community Arts</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">£4 / Free members</span><button class="wa-card-cta">Book</button></div>
+        </div>
+      </div>
+      <div class="wa-card">
+        <div class="wa-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8dcd8;" data-label="Evening concert"></div><div class="wa-card-pill"><span class="pill pill-music">Music</span></div></div>
+        <div class="wa-card-body">
+          <div class="wa-card-date">Sat 15 Mar · 7:30pm</div>
+          <h3 class="wa-card-h3">Spring Concert Series — Evening 2</h3>
+          <div class="wa-card-tags"><span class="wa-card-tag">All ages</span><span class="wa-card-tag">Spring Season</span><span class="wa-card-tag">Step-free</span></div>
+          <div class="wa-card-row-info"><span class="wa-card-price">From £12</span><button class="wa-card-cta">Book</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wa-loadmore"><button class="wa-loadmore-btn">Load more events (24 remaining)</button></div>
+  </main>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church<br>Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>What's On</h4><a>All Events</a><a>Workshops</a><a>Heritage Tours</a><a>Community</a><a>Past Events</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>Heritage Hub</a><a>The Café</a><a>Accessibility</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>Donate</a><a>Membership</a><a>Hire a Space</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-a -->
+
+<!-- ═══════════════ VARIATION B — LIVING STONE ═══════════════
+  Layout: Full-width category tab bar at top (visual category navigation)
+  Featured upcoming event at top (warm card strip)
+  3-col card grid (warm parchment bg, bordered cards)
+  Right-side date-range calendar widget
+  Libre Baskerville italic for card titles
+ ═══════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-b">
+<style>
+.wb{background:#faf6ee;color:#1c1a16;--wb-bg:#faf6ee;--wb-bg2:#ede8de;--wb-dark:#1c1a16;--wb-mid:#7a7060;--wb-border:#d4ccbc;--wb-gold:#9a7d3a;}
+.wb-nav{height:68px;background:#1c1a16;display:flex;align-items:center;padding:0 40px;border-bottom:4px solid #9a7d3a;position:sticky;top:48px;z-index:200;}
+.wb-nav-logo{flex-shrink:0;margin-right:32px;}.wb-nav-links{display:flex;align-items:center;gap:0;flex:1;}.wb-nav-link{display:flex;align-items:center;padding:0 14px;height:68px;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.42);border-bottom:3px solid transparent;margin-bottom:0;transition:all 160ms;white-space:nowrap;}
+.wb-nav-link:hover,.wb-nav-link.act{color:#fff;border-bottom-color:#9a7d3a;}
+.wb-nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.wb-donate{background:#1c1a16;color:#fff!important;font-size:0.58rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:8px 18px;border:none;border:1px solid rgba(255,255,255,0.2);}
+.wb-member{color:#fff!important;border:1px solid rgba(255,255,255,0.2);font-size:0.58rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:7px 13px;background:transparent;}
+.wb-search{width:30px;height:30px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4);font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.wb-donate{background:#9a7d3a!important;color:#1c1a16!important;border-color:#9a7d3a!important;}
+.wb-mob-tog{display:none;background:none;border:none;color:#fff;font-size:1.1rem;padding:8px;margin-left:auto;}
+.wb-mob-menu{display:none;background:#1c1a16;border-bottom:3px solid #9a7d3a;flex-direction:column;}
+.wb-mob-menu.open{display:flex;}
+.wb-mob-link{padding:12px 20px;font-size:0.76rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.55);border-bottom:1px solid rgba(255,255,255,0.04);}
+@media(max-width:900px){.wb-nav-links{display:none;}.wb-nav-actions{display:none;}.wb-mob-tog{display:block;}.wb-nav{padding:0 16px;}}
+
+/* B PAGE HEADER */
+.wb-header{background:#1c1a16;border-bottom:4px solid #9a7d3a;padding:40px 48px 32px;}
+.wb-breadcrumb{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.wb-breadcrumb span{color:#9a7d3a;}
+.wb-header-h1{font-family:'Libre Baskerville',Georgia,serif;font-size:3.2rem;font-style:italic;color:#fff;line-height:0.95;margin-bottom:10px;}
+.wb-header-meta{font-size:0.62rem;color:rgba(255,255,255,0.3);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.wb-header-count{font-weight:700;color:#9a7d3a;}
+
+/* B CATEGORY TABS — visual horizontal scroll */
+.wb-cattabs{background:var(--wb-bg2);border-bottom:1px solid var(--wb-border);overflow-x:auto;-webkit-overflow-scrolling:touch;display:flex;}
+.wb-cattab{flex-shrink:0;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;border-bottom:3px solid transparent;border-right:1px solid var(--wb-border);transition:all 160ms;min-width:100px;}
+.wb-cattab:hover{background:rgba(154,125,58,0.05);}
+.wb-cattab.act{border-bottom-color:#9a7d3a;background:#fff;}
+.wb-cattab-dot{width:10px;height:10px;border-radius:50%;}
+.wb-ct-music{background:#1a5e3a;}.wb-ct-heritage{background:#8a6e30;}.wb-ct-theatre{background:#6a1a28;}.wb-ct-workshop{background:#1a4a6a;}.wb-ct-community{background:#3a5a1a;}.wb-ct-family{background:#4a2a6a;}.wb-ct-send{background:#1a3a5a;}.wb-ct-all{background:#1c1a16;}
+.wb-cattab-label{font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--wb-mid);white-space:nowrap;}
+.wb-cattab.act .wb-cattab-label{color:#1c1a16;}
+.wb-cattab-count{font-size:0.5rem;color:rgba(0,0,0,0.3);}
+
+/* B FILTER BAR */
+.wb-filterbar{background:#fff;border-bottom:1px solid var(--wb-border);padding:12px 48px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.wb-filter-group{display:flex;align-items:center;gap:5px;}
+.wb-filter-lbl{font-size:0.52rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--wb-mid);margin-right:2px;}
+.wb-fpill{font-size:0.54rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:4px 10px;border:1px solid var(--wb-border);background:transparent;color:var(--wb-mid);cursor:pointer;transition:all 160ms;}
+.wb-fpill:hover{border-color:#9a7d3a;color:#9a7d3a;}
+.wb-fpill.act{background:#1c1a16;border-color:#1c1a16;color:#fff;}
+.wb-filter-sep{width:1px;height:18px;background:var(--wb-border);}
+.wb-sort{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--wb-mid);background:transparent;border:1px solid var(--wb-border);padding:5px 10px;cursor:pointer;margin-left:auto;}
+@media(max-width:768px){.wb-filterbar{padding:10px 16px;}}
+
+/* B MAIN — featured strip + 3-col grid */
+.wb-main{max-width:1280px;margin:0 auto;padding:32px 48px;}
+
+/* Featured strip */
+.wb-featured-strip{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;margin-bottom:32px;}
+.wb-feat-card{background:#1c1a16;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;transition:transform 160ms;}
+.wb-feat-card:hover{transform:translateY(-3px);}
+.wb-feat-card-img{height:180px;position:relative;}
+.wb-feat-card-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.wb-feat-card-body{padding:18px 20px;flex:1;display:flex;flex-direction:column;}
+.wb-feat-label{font-size:0.48rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#9a7d3a;margin-bottom:6px;}
+.wb-feat-h3{font-family:'Libre Baskerville',Georgia,serif;font-size:1.1rem;font-style:italic;color:#fff;line-height:1.15;margin-bottom:6px;flex:1;}
+.wb-feat-meta{font-size:0.56rem;color:rgba(255,255,255,0.32);margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap;}
+.wb-feat-cta{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#1c1a16;border:none;padding:7px 14px;align-self:flex-start;transition:background 160ms;}
+.wb-feat-cta:hover{background:#c4a055;}
+
+/* Grid header */
+.wb-grid-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-top:12px;border-top:1px solid var(--wb-border);}
+.wb-grid-count{font-size:0.62rem;color:var(--wb-mid);}
+
+/* Card grid */
+.wb-card-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+.wb-card{background:#fff;display:flex;flex-direction:column;border:1px solid var(--wb-border);overflow:hidden;cursor:pointer;transition:border-color 160ms,transform 160ms;}
+.wb-card:hover{border-color:#9a7d3a;transform:translateY(-3px);}
+.wb-card-img{height:170px;position:relative;}
+.wb-card-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.wb-card-pill{position:absolute;top:0;left:0;z-index:2;}
+.wb-card-tags-over{position:absolute;top:0;right:0;z-index:2;padding:6px;display:flex;gap:2px;flex-direction:column;align-items:flex-end;}
+.wb-card-tag-ov{font-size:0.42rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:rgba(255,255,255,0.92);color:#1c1a16;padding:2px 5px;}
+.wb-card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;}
+.wb-card-date{font-size:0.56rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.wb-card-h3{font-family:'Libre Baskerville',Georgia,serif;font-size:1.0rem;font-style:italic;line-height:1.2;color:#1c1a16;margin-bottom:8px;flex:1;}
+.wb-card-strand{font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--wb-mid);margin-bottom:8px;}
+.wb-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--wb-border);}
+.wb-card-price{font-size:0.6rem;font-weight:700;color:#1c1a16;}
+.wb-card-cta{font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#1c1a16;color:#fff;border:none;padding:7px 14px;transition:background 160ms;}
+.wb-card-cta:hover{background:#9a7d3a;color:#1c1a16;}
+.wb-card-a11y{padding:7px 16px;background:rgba(0,0,0,0.02);border-top:1px solid var(--wb-border);display:flex;gap:8px;flex-wrap:wrap;}
+.wb-card-a11y span{font-size:0.44rem;color:var(--wb-mid);font-weight:600;}
+.wb-loadmore{padding:32px 0;text-align:center;border-top:1px solid var(--wb-border);margin-top:32px;}
+.wb-loadmore-btn{font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:transparent;border:2px solid #1c1a16;color:#1c1a16;padding:12px 32px;cursor:pointer;transition:all 160ms;}
+.wb-loadmore-btn:hover{background:#1c1a16;color:#fff;}
+@media(max-width:1024px){.wb-card-grid{grid-template-columns:1fr 1fr;}.wb-featured-strip{grid-template-columns:1fr 1fr;}.wb-main{padding:24px;}}
+@media(max-width:600px){.wb-main{padding:16px;}.wb-card-grid,.wb-featured-strip{grid-template-columns:1fr;}.wb-header{padding:28px 16px 20px;}.wb-header-h1{font-size:2.4rem;}}
+</style>
+
+<div class="wb">
+<nav class="wb-nav">
+  <div class="wb-nav-logo"><span class="gj-wordmark" style="color:#fff;">GRAND<span class="gj-diamond"></span>JUNCTION</span></div>
+  <div class="wb-nav-links"><a class="wb-nav-link act">What's On</a><a class="wb-nav-link">Visit</a><a class="wb-nav-link">Hire</a><a class="wb-nav-link">Get Involved</a></div>
+  <div class="wb-nav-actions"><button class="wb-search">&#9906;</button><button class="wb-member">Join as Member</button><button class="wb-donate">Donate</button></div>
+  <button class="wb-mob-tog" onclick="this.closest('.wb-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="wb-mob-menu"><a class="wb-mob-link">What's On</a><a class="wb-mob-link">Visit</a><a class="wb-mob-link">Hire</a><a class="wb-mob-link">Get Involved</a></div>
+
+<header class="wb-header">
+  <div class="wb-breadcrumb">Grand Junction <span>›</span> What's On</div>
+  <h1 class="wb-header-h1">What's On</h1>
+  <div class="wb-header-meta"><span class="wb-header-count">36 events &amp; activities</span><span>Music · Theatre · Heritage · Workshops · Community</span></div>
+</header>
+
+<div class="wb-cattabs">
+  <div class="wb-cattab act"><div class="wb-cattab-dot wb-ct-all"></div><div class="wb-cattab-label">All</div><div class="wb-cattab-count">36</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-music"></div><div class="wb-cattab-label">Music</div><div class="wb-cattab-count">8</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-heritage"></div><div class="wb-cattab-label">Heritage Tours</div><div class="wb-cattab-count">6</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-workshop"></div><div class="wb-cattab-label">Workshops</div><div class="wb-cattab-count">9</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-community"></div><div class="wb-cattab-label">Community</div><div class="wb-cattab-count">5</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-family"></div><div class="wb-cattab-label">Families</div><div class="wb-cattab-count">4</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-theatre"></div><div class="wb-cattab-label">Theatre</div><div class="wb-cattab-count">4</div></div>
+  <div class="wb-cattab"><div class="wb-cattab-dot wb-ct-send"></div><div class="wb-cattab-label">SEND</div><div class="wb-cattab-count">2</div></div>
+</div>
+
+<div class="wb-filterbar">
+  <div class="wb-filter-group"><span class="wb-filter-lbl">Audience:</span><button class="wb-fpill act">All ages</button><button class="wb-fpill">Adults</button><button class="wb-fpill">Children</button><button class="wb-fpill">Young People</button></div>
+  <div class="wb-filter-sep"></div>
+  <div class="wb-filter-group"><span class="wb-filter-lbl">Price:</span><button class="wb-fpill">Any</button><button class="wb-fpill">Free</button><button class="wb-fpill">Under £10</button></div>
+  <div class="wb-filter-sep"></div>
+  <div class="wb-filter-group"><span class="wb-filter-lbl">Access:</span><button class="wb-fpill">Step-free</button><button class="wb-fpill">BSL</button></div>
+  <button class="wb-sort">Date: Soonest first ▾</button>
+</div>
+
+<div class="wb-main">
+  <div style="font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#9a7d3a;margin-bottom:12px;">Coming up this week</div>
+  <div class="wb-featured-strip">
+    <div class="wb-feat-card"><div class="wb-feat-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;" data-label="Spring Concert Series"></div></div><div class="wb-feat-card-body"><div class="wb-feat-label">Music · Spring Season</div><h3 class="wb-feat-h3">Spring Concert Series — Opening Night</h3><div class="wb-feat-meta"><span>Sat 1 Mar · 7:30pm</span><span>From £12</span><span>All ages</span></div><button class="wb-feat-cta">Book tickets</button></div></div>
+    <div class="wb-feat-card"><div class="wb-feat-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1818;" data-label="Heritage walking tour"></div></div><div class="wb-feat-card-body"><div class="wb-feat-label">Heritage Tour · Free</div><h3 class="wb-feat-h3">St Sepulchre Walking Tour</h3><div class="wb-feat-meta"><span>Sun 2 Mar · 2:00pm</span><span>Free</span><span>Adult</span></div><button class="wb-feat-cta">Reserve place</button></div></div>
+    <div class="wb-feat-card"><div class="wb-feat-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181820;" data-label="Arabic dance workshop"></div></div><div class="wb-feat-card-body"><div class="wb-feat-label">Families · Free</div><h3 class="wb-feat-h3">Arabic Dance Workshop for Families</h3><div class="wb-feat-meta"><span>Tue 4 Mar · 10am</span><span>Free</span><span>Ages 5+</span></div><button class="wb-feat-cta">Register free</button></div></div>
+  </div>
+  <div class="wb-grid-h"><div class="wb-grid-count">Showing 33 more events · March–May 2026</div><button class="wb-sort">Sort: Soonest ▾</button></div>
+  <div class="wb-card-grid">
+    <div class="wb-card"><div class="wb-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8d8d8;"></div><div class="wb-card-pill"><span class="pill pill-send">SEND</span></div><div class="wb-card-tags-over"><span class="wb-card-tag-ov">18+</span><span class="wb-card-tag-ov">£5</span></div></div><div class="wb-card-body"><div class="wb-card-date">Fri 7 Mar · 8pm</div><h3 class="wb-card-h3">VIP Club Night — SEND Inclusive Evening</h3><div class="wb-card-strand">SEND Programme</div><div class="wb-card-footer"><span class="wb-card-price">£5 / Free carers</span><button class="wb-card-cta">Book</button></div></div></div>
+    <div class="wb-card"><div class="wb-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8e4d8;"></div><div class="wb-card-pill"><span class="pill pill-workshop">Workshop</span></div></div><div class="wb-card-body"><div class="wb-card-date">Mon 10 Mar · 6:30pm</div><h3 class="wb-card-h3">Life Drawing — Spring Term Week 4</h3><div class="wb-card-strand">Spring Season</div><div class="wb-card-footer"><span class="wb-card-price">£8 members / £12</span><button class="wb-card-cta">Book</button></div></div></div>
+    <div class="wb-card"><div class="wb-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4d8;"></div><div class="wb-card-pill"><span class="pill pill-community">Community</span></div><div class="wb-card-tags-over"><span class="wb-card-tag-ov">Free</span></div></div><div class="wb-card-body"><div class="wb-card-date">Wed 12 Mar · 11am</div><h3 class="wb-card-h3">Community Singing Group — Drop In</h3><div class="wb-card-strand">Canal Sessions</div><div class="wb-card-footer"><span class="wb-card-price">Free</span><button class="wb-card-cta">Drop in</button></div></div></div>
+    <div class="wb-card"><div class="wb-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#d8dce8;"></div><div class="wb-card-pill"><span class="pill pill-theatre">Theatre</span></div></div><div class="wb-card-body"><div class="wb-card-date">Thu 14 Mar · 7:30pm</div><h3 class="wb-card-h3">Places We Carry — New Writing Night</h3><div class="wb-card-strand">Spring Season</div><div class="wb-card-footer"><span class="wb-card-price">£8 / £5 concession</span><button class="wb-card-cta">Book</button></div></div></div>
+    <div class="wb-card"><div class="wb-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8dc;"></div><div class="wb-card-pill"><span class="pill pill-family">Families</span></div><div class="wb-card-tags-over"><span class="wb-card-tag-ov">£4</span><span class="wb-card-tag-ov">Ages 6–11</span></div></div><div class="wb-card-body"><div class="wb-card-date">Sat 15 Mar · 10am</div><h3 class="wb-card-h3">Saturday Art Club — Ages 6–11</h3><div class="wb-card-strand">Community Arts</div><div class="wb-card-footer"><span class="wb-card-price">£4 / Free members</span><button class="wb-card-cta">Book</button></div></div></div>
+    <div class="wb-card"><div class="wb-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8dcd8;"></div><div class="wb-card-pill"><span class="pill pill-music">Music</span></div></div><div class="wb-card-body"><div class="wb-card-date">Sat 15 Mar · 7:30pm</div><h3 class="wb-card-h3">Spring Concert Series — Evening 2</h3><div class="wb-card-strand">Spring Season</div><div class="wb-card-footer"><span class="wb-card-price">From £12</span><button class="wb-card-cta">Book</button></div></div></div>
+  </div>
+  <div class="wb-loadmore"><button class="wb-loadmore-btn">Load more events (24 remaining)</button></div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry to the building</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>What's On</h4><a>All Events</a><a>Workshops</a><a>Heritage Tours</a><a>Community</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>Heritage Hub</a><a>The Café</a><a>Accessibility</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>Donate</a><a>Membership</a><a>Hire a Space</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-b -->
+
+<!-- ═══════════════ VARIATION C — MODERNIST NAVE ═══════════════
+  Layout: Split — sticky left filter panel + right main content
+  Right side: toggle between LIST view (agenda) and GRID view
+  Tags displayed as pill clusters on cards
+  Playfair Display 700 card titles (strong, not italic)
+  Black top nav, white page, geometric dividers
+ ═══════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-c">
+<style>
+.wc{background:#fff;color:#111110;--wc-bg:#fff;--wc-off:#f4f2ee;--wc-dark:#111110;--wc-mid:#7a7870;--wc-border:#dddad4;--wc-gold:#9a7d3a;}
+.wc-nav{height:60px;background:#fff;border-bottom:1px solid var(--wc-border);border-top:4px solid #111110;display:flex;align-items:center;padding:0 32px;position:sticky;top:48px;z-index:200;}
+.wc-nav-logo{flex-shrink:0;margin-right:auto;}
+.wc-nav-links{display:flex;align-items:center;gap:2px;}
+.wc-nav-link{padding:5px 13px;font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#7a7870;border-radius:18px;transition:all 150ms;white-space:nowrap;}
+.wc-nav-link:hover{color:#111110;background:rgba(0,0,0,0.04);}
+.wc-nav-link.act{background:#111110;color:#fff;}
+.wc-nav-actions{display:flex;align-items:center;gap:8px;margin-left:16px;}
+.wc-search{width:30px;height:30px;background:transparent;border:1px solid var(--wc-border);color:#7a7870;font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.wc-member{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 13px;background:transparent;border:2px solid #1a5e3a;color:#1a5e3a;transition:all 150ms;}
+.wc-member:hover{background:#1a5e3a;color:#fff;}
+.wc-donate{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 16px;background:#9a7d3a;border:none;color:#111110;transition:background 150ms;}
+.wc-donate:hover{background:#c4a055;}
+.wc-mob-tog{display:none;background:none;border:none;color:#111110;font-size:1.1rem;padding:8px;margin-left:auto;}
+.wc-mob-menu{display:none;background:#fff;border-bottom:2px solid #111110;flex-direction:column;}
+.wc-mob-menu.open{display:flex;}
+.wc-mob-link{padding:12px 20px;font-size:0.76rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#7a7870;border-bottom:1px solid var(--wc-border);}
+@media(max-width:900px){.wc-nav-links{display:none;}.wc-nav-actions{display:none;}.wc-mob-tog{display:block;}.wc-nav{padding:0 16px;}}
+
+/* C PAGE HEADER */
+.wc-header{background:#111110;border-bottom:1px solid rgba(255,255,255,0.05);padding:36px 40px 28px;}
+.wc-breadcrumb{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.wc-breadcrumb span{color:#9a7d3a;}
+.wc-header-inner{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.wc-header-h1{font-family:'Playfair Display',Georgia,serif;font-size:3rem;font-weight:700;color:#fff;line-height:0.95;}
+.wc-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
+.wc-header-count{font-size:0.6rem;font-weight:700;color:#9a7d3a;}
+.wc-view-toggle{display:flex;gap:3px;}
+.wc-vbtn{width:32px;height:32px;border:1px solid rgba(255,255,255,0.15);background:transparent;color:rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:0.7rem;cursor:pointer;transition:all 150ms;}
+.wc-vbtn.act{background:#9a7d3a;color:#111110;border-color:#9a7d3a;}
+@media(max-width:768px){.wc-header{padding:24px 16px 20px;}.wc-header-h1{font-size:2.2rem;}}
+
+/* C SPLIT LAYOUT */
+.wc-layout{display:grid;grid-template-columns:260px 1fr;min-height:600px;}
+.wc-filter-panel{background:var(--wc-off);border-right:1px solid var(--wc-border);padding:24px 20px;position:sticky;top:108px;align-self:start;max-height:calc(100vh - 108px);overflow-y:auto;}
+.wc-fp-search{width:100%;border:1px solid var(--wc-border);background:#fff;padding:9px 12px;font-size:0.72rem;font-family:'Open Sans',sans-serif;outline:none;color:#111110;margin-bottom:18px;}
+.wc-fp-search:focus{border-color:#9a7d3a;}
+.wc-fp-section{margin-bottom:22px;}
+.wc-fp-h3{font-size:0.48rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#111110;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--wc-border);}
+.wc-fp-item{display:flex;align-items:center;gap:8px;padding:6px 8px;cursor:pointer;transition:all 150ms;margin-bottom:1px;}
+.wc-fp-item:hover{background:#fff;}
+.wc-fp-check{width:14px;height:14px;border:1px solid var(--wc-border);background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 150ms;}
+.wc-fp-item.act .wc-fp-check{background:#111110;border-color:#111110;}
+.wc-fp-item.act .wc-fp-check::after{content:'✓';font-size:0.5rem;color:#fff;}
+.wc-fp-label{font-size:0.68rem;color:#111110;flex:1;}
+.wc-fp-count{font-size:0.5rem;color:#7a7870;}
+.wc-fp-clr{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;cursor:pointer;padding:2px 0;margin-top:4px;}
+
+/* C RIGHT PANEL */
+.wc-right{padding:24px 32px;}
+.wc-right-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--wc-border);}
+.wc-rh-count{font-size:0.62rem;color:#7a7870;}
+.wc-rh-right{display:flex;align-items:center;gap:8px;}
+.wc-sort-sel{font-size:0.56rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:1px solid var(--wc-border);padding:5px 10px;color:#7a7870;cursor:pointer;}
+
+/* C LIST VIEW */
+.wc-list{display:flex;flex-direction:column;gap:0;}
+.wc-list-row{display:grid;grid-template-columns:64px 1fr auto;gap:0 16px;align-items:center;padding:16px 12px 16px 0;border-bottom:1px solid var(--wc-border);cursor:pointer;border-left:3px solid transparent;transition:padding-left 150ms,border-color 150ms;}
+.wc-list-row:hover{padding-left:8px;border-left-color:#9a7d3a;}
+.wc-list-row:first-child{border-top:1px solid var(--wc-border);}
+.wc-l-date{background:#111110;padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.wc-l-date-n{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.8rem;color:#9a7d3a;line-height:1;}
+.wc-l-date-m{font-size:0.42rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.38);}
+.wc-l-info{}
+.wc-l-meta{font-size:0.48rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#7a7870;display:flex;align-items:center;gap:7px;margin-bottom:4px;}
+.wc-l-h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.15rem;color:#111110;line-height:1.1;margin-bottom:5px;}
+.wc-l-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.wc-l-tag{font-size:0.44rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 7px;border:1px solid var(--wc-border);color:#7a7870;}
+.wc-l-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+.wc-l-price{font-size:0.62rem;font-weight:700;color:#111110;white-space:nowrap;}
+.wc-l-cta{font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#9a7d3a;color:#111110;border:none;padding:7px 14px;white-space:nowrap;transition:background 150ms;}
+.wc-l-cta:hover{background:#c4a055;}
+
+/* C GRID VIEW */
+.wc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;display:none;}
+.wc-g-card{background:#f4f2ee;border:1px solid var(--wc-border);overflow:hidden;cursor:pointer;transition:transform 150ms;}
+.wc-g-card:hover{transform:translateY(-2px);}
+.wc-g-img{height:160px;position:relative;}
+.wc-g-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.wc-g-pill{position:absolute;top:0;left:0;z-index:2;}
+.wc-g-body{padding:14px 16px 16px;}
+.wc-g-date{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.wc-g-h3{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.0rem;color:#111110;line-height:1.15;margin-bottom:8px;}
+.wc-g-row{display:flex;align-items:center;justify-content:space-between;}
+.wc-g-price{font-size:0.58rem;font-weight:700;color:#111110;}
+.wc-g-cta{font-size:0.52rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#111110;color:#fff;border:none;padding:6px 12px;transition:background 150ms;}
+.wc-g-cta:hover{background:#9a7d3a;color:#111110;}
+
+.wc-loadmore{padding:28px 0;text-align:center;border-top:1px solid var(--wc-border);margin-top:16px;}
+.wc-lm-btn{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:transparent;border:2px solid #111110;color:#111110;padding:11px 28px;cursor:pointer;transition:all 150ms;}
+.wc-lm-btn:hover{background:#111110;color:#fff;}
+@media(max-width:1024px){.wc-layout{grid-template-columns:1fr;}.wc-filter-panel{position:static;max-height:none;}.wc-right{padding:20px;}}
+@media(max-width:600px){.wc-right{padding:12px;}.wc-list-row{grid-template-columns:50px 1fr;}.wc-l-right{display:none;}}
+</style>
+<script>
+function wcToggleView(v){
+  const list=document.getElementById('wc-list');
+  const grid=document.getElementById('wc-grid');
+  const btns=document.querySelectorAll('.wc-vbtn');
+  btns.forEach(b=>b.classList.remove('act'));
+  document.getElementById('wc-vbtn-'+v).classList.add('act');
+  if(v==='list'){list.style.display='flex';grid.style.display='none';}
+  else{list.style.display='none';grid.style.display='grid';}
+}
+</script>
+<div class="wc">
+<nav class="wc-nav">
+  <div class="wc-nav-logo"><span class="gj-wordmark" style="color:#111110;">GRAND<span class="gj-diamond"></span>JUNCTION</span></div>
+  <div class="wc-nav-links"><a class="wc-nav-link act">What's On</a><a class="wc-nav-link">Visit</a><a class="wc-nav-link">Hire</a><a class="wc-nav-link">Get Involved</a></div>
+  <div class="wc-nav-actions"><button class="wc-search">&#9906;</button><button class="wc-member">Join as Member</button><button class="wc-donate">Donate</button></div>
+  <button class="wc-mob-tog" onclick="this.closest('.wc-nav').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="wc-mob-menu"><a class="wc-mob-link">What's On</a><a class="wc-mob-link">Visit</a><a class="wc-mob-link">Hire</a><a class="wc-mob-link">Get Involved</a></div>
+
+<header class="wc-header">
+  <div class="wc-breadcrumb">Grand Junction <span>›</span> What's On</div>
+  <div class="wc-header-inner">
+    <h1 class="wc-header-h1">What's On</h1>
+    <div class="wc-header-right"><div class="wc-header-count">36 events · March–May 2026</div><div class="wc-view-toggle"><button class="wc-vbtn act" id="wc-vbtn-list" onclick="wcToggleView('list')" title="List view">☰</button><button class="wc-vbtn" id="wc-vbtn-grid" onclick="wcToggleView('grid')" title="Grid view">▦</button></div></div>
+  </div>
+</header>
+
+<div class="wc-layout">
+  <aside class="wc-filter-panel">
+    <input class="wc-fp-search" type="search" placeholder="Search events…" aria-label="Search">
+    <div class="wc-fp-section">
+      <h3 class="wc-fp-h3">Event Type</h3>
+      <div class="wc-fp-item act"><div class="wc-fp-check"></div><span class="wc-fp-label">All Types</span><span class="wc-fp-count">36</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Music</span><span class="wc-fp-count">8</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Heritage Tours</span><span class="wc-fp-count">6</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Workshops</span><span class="wc-fp-count">9</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Community</span><span class="wc-fp-count">5</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Theatre</span><span class="wc-fp-count">4</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Children &amp; Families</span><span class="wc-fp-count">4</span></div>
+    </div>
+    <div class="wc-fp-section">
+      <h3 class="wc-fp-h3">Audience</h3>
+      <div class="wc-fp-item act"><div class="wc-fp-check"></div><span class="wc-fp-label">All Ages</span><span class="wc-fp-count">36</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Adults (18+)</span><span class="wc-fp-count">22</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Children</span><span class="wc-fp-count">4</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">SEND</span><span class="wc-fp-count">2</span></div>
+    </div>
+    <div class="wc-fp-section">
+      <h3 class="wc-fp-h3">Price</h3>
+      <div class="wc-fp-item act"><div class="wc-fp-check"></div><span class="wc-fp-label">Any Price</span><span class="wc-fp-count">36</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Free</span><span class="wc-fp-count">12</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Pay What You Can</span><span class="wc-fp-count">3</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Under £10</span><span class="wc-fp-count">8</span></div>
+    </div>
+    <div class="wc-fp-section">
+      <h3 class="wc-fp-h3">Accessibility</h3>
+      <div class="wc-fp-item act"><div class="wc-fp-check"></div><span class="wc-fp-label">Step-free (all events)</span><span class="wc-fp-count">36</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">BSL interpreted</span><span class="wc-fp-count">4</span></div>
+      <div class="wc-fp-item"><div class="wc-fp-check"></div><span class="wc-fp-label">Relaxed performance</span><span class="wc-fp-count">3</span></div>
+    </div>
+    <button class="wc-fp-clr">Clear all filters</button>
+  </aside>
+
+  <main class="wc-right">
+    <div class="wc-right-header">
+      <div class="wc-rh-count">Showing 36 events · All types · March–May 2026</div>
+      <div class="wc-rh-right"><select class="wc-sort-sel"><option>Soonest first</option><option>Alphabetical</option><option>Free first</option></select></div>
+    </div>
+
+    <!-- LIST VIEW -->
+    <div class="wc-list" id="wc-list">
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">1</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-music" style="font-size:0.44rem;">Music</span> 7:30pm · All ages · Spring Season</div><div class="wc-l-h3">Evening Concert Series — Opening Night</div><div class="wc-l-tags"><span class="wc-l-tag">Step-free</span><span class="wc-l-tag">All ages</span><span class="wc-l-tag">Spring Season</span></div></div><div class="wc-l-right"><span class="wc-l-price">From £12</span><button class="wc-l-cta">Book</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">2</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-heritage" style="font-size:0.44rem;">Heritage Tour</span> 2:00pm · Adult · Heritage Programme</div><div class="wc-l-h3">Chapel of St Sepulchre Walking Tour</div><div class="wc-l-tags"><span class="wc-l-tag">Free</span><span class="wc-l-tag">Guided</span><span class="wc-l-tag">Step-free</span></div></div><div class="wc-l-right"><span class="wc-l-price">Free</span><button class="wc-l-cta">Reserve</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">4</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-family" style="font-size:0.44rem;">Families</span> 10:00am · Ages 5+ · Community Arts</div><div class="wc-l-h3">Arabic Dance Workshop for Families</div><div class="wc-l-tags"><span class="wc-l-tag">Free</span><span class="wc-l-tag">All welcome</span><span class="wc-l-tag">Ages 5+</span></div></div><div class="wc-l-right"><span class="wc-l-price">Free</span><button class="wc-l-cta">Register</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">7</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-send" style="font-size:0.44rem;">SEND</span> 8:00pm · 18+ · SEND Programme</div><div class="wc-l-h3">VIP Club Night — SEND Inclusive Evening</div><div class="wc-l-tags"><span class="wc-l-tag">18+</span><span class="wc-l-tag">SEND friendly</span><span class="wc-l-tag">Free carers</span></div></div><div class="wc-l-right"><span class="wc-l-price">£5 / Free carers</span><button class="wc-l-cta">Book</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">10</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-workshop" style="font-size:0.44rem;">Workshop</span> 6:30pm · Adult · Spring Season</div><div class="wc-l-h3">Life Drawing — Spring Term Week 4</div><div class="wc-l-tags"><span class="wc-l-tag">18+</span><span class="wc-l-tag">Adult</span><span class="wc-l-tag">Step-free</span></div></div><div class="wc-l-right"><span class="wc-l-price">£8 members / £12</span><button class="wc-l-cta">Book</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">12</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-community" style="font-size:0.44rem;">Community</span> 11:00am · All ages · Canal Sessions</div><div class="wc-l-h3">Community Singing Group — Drop In</div><div class="wc-l-tags"><span class="wc-l-tag">Free</span><span class="wc-l-tag">All welcome</span><span class="wc-l-tag">Step-free</span></div></div><div class="wc-l-right"><span class="wc-l-price">Free</span><button class="wc-l-cta">Drop in</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">14</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-theatre" style="font-size:0.44rem;">Theatre</span> 7:30pm · Adult · Spring Season</div><div class="wc-l-h3">Places We Carry — New Writing Night</div><div class="wc-l-tags"><span class="wc-l-tag">Adult</span><span class="wc-l-tag">Spring Season</span></div></div><div class="wc-l-right"><span class="wc-l-price">£8 / £5 concession</span><button class="wc-l-cta">Book</button></div></div>
+      <div class="wc-list-row"><div class="wc-l-date"><div class="wc-l-date-n">15</div><div class="wc-l-date-m">Mar</div></div><div class="wc-l-info"><div class="wc-l-meta"><span class="pill pill-family" style="font-size:0.44rem;">Families</span> 10:00am · Ages 6–11 · Community Arts</div><div class="wc-l-h3">Saturday Art Club — Ages 6–11</div><div class="wc-l-tags"><span class="wc-l-tag">Children</span><span class="wc-l-tag">£4</span><span class="wc-l-tag">Free members</span></div></div><div class="wc-l-right"><span class="wc-l-price">£4 / Free members</span><button class="wc-l-cta">Book</button></div></div>
+    </div>
+
+    <!-- GRID VIEW (hidden by default) -->
+    <div class="wc-grid" id="wc-grid">
+      <div class="wc-g-card"><div class="wc-g-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8d8c8;"></div><div class="wc-g-pill"><span class="pill pill-music">Music</span></div></div><div class="wc-g-body"><div class="wc-g-date">Sat 1 Mar · 7:30pm</div><h3 class="wc-g-h3">Evening Concert Series — Opening Night</h3><div class="wc-g-row"><span class="wc-g-price">From £12</span><button class="wc-g-cta">Book</button></div></div></div>
+      <div class="wc-g-card"><div class="wc-g-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;"></div><div class="wc-g-pill"><span class="pill pill-heritage">Heritage Tour</span></div></div><div class="wc-g-body"><div class="wc-g-date">Sun 2 Mar · 2:00pm</div><h3 class="wc-g-h3">Chapel of St Sepulchre Walking Tour</h3><div class="wc-g-row"><span class="wc-g-price">Free</span><button class="wc-g-cta">Reserve</button></div></div></div>
+      <div class="wc-g-card"><div class="wc-g-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;"></div><div class="wc-g-pill"><span class="pill pill-family">Families</span></div></div><div class="wc-g-body"><div class="wc-g-date">Tue 4 Mar · 10:00am</div><h3 class="wc-g-h3">Arabic Dance Workshop for Families</h3><div class="wc-g-row"><span class="wc-g-price">Free</span><button class="wc-g-cta">Register</button></div></div></div>
+      <div class="wc-g-card"><div class="wc-g-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8d8d8;"></div><div class="wc-g-pill"><span class="pill pill-send">SEND</span></div></div><div class="wc-g-body"><div class="wc-g-date">Fri 7 Mar · 8:00pm</div><h3 class="wc-g-h3">VIP Club Night — SEND Inclusive Evening</h3><div class="wc-g-row"><span class="wc-g-price">£5 / Free carers</span><button class="wc-g-cta">Book</button></div></div></div>
+    </div>
+    <div class="wc-loadmore"><button class="wc-lm-btn">Load more events (28 remaining)</button></div>
+  </main>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>What's On</h4><a>All Events</a><a>Workshops</a><a>Heritage Tours</a><a>Community</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>Heritage Hub</a><a>The Café</a><a>Accessibility</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>Donate</a><a>Membership</a><a>Hire a Space</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-c -->
+
+<!-- ═══════════════ VARIATION D — OPEN ACCESS ═══════════════
+  Layout: High-contrast light page, accessibility-first
+  Large readable filters, prominent FREE badge system
+  Active filter tags shown below search bar
+  Cormorant Garamond for card titles
+  Reassurance info on every card (age, access, price clearly shown)
+  A11y-banner persists at top
+ ═══════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-d">
+<style>
+.wd{background:#fff;color:#111110;--wd-bg:#fff;--wd-warm:#f5f1eb;--wd-dark:#111110;--wd-mid:#585550;--wd-border:#d0ccc4;--wd-green:#1a5e3a;--wd-gold:#8a6e30;}
+.wd-a11y{background:#f5f1eb;border-bottom:1px solid var(--wd-border);padding:5px 32px;display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+.wd-a11y-chip{font-size:0.5rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:3px 8px;border:1px solid;display:inline-flex;align-items:center;gap:3px;}
+.wd-a11y-chip.grn{border-color:#1a5e3a;color:#1a5e3a;}
+.wd-a11y-chip.blu{border-color:#1a4a6a;color:#1a4a6a;}
+.wd-a11y-chip.teal{border-color:#1a5a5a;color:#1a5a5a;}
+.wd-nav{height:68px;background:#fff;border-bottom:2px solid #111110;display:flex;align-items:center;padding:0 32px;position:sticky;top:48px;z-index:200;}
+.wd-nav-logo{flex-shrink:0;display:flex;flex-direction:column;}
+.wd-nav-logo-main{font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#111110;display:flex;align-items:center;}
+.wd-nav-logo-sub{font-size:0.42rem;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;font-weight:600;margin-top:1px;}
+.wd-nav-links{display:flex;align-items:center;gap:0;flex:1;margin-left:28px;}
+.wd-nav-link{padding:0 14px;height:68px;display:flex;align-items:center;font-size:0.66rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#585550;border-bottom:3px solid transparent;transition:all 150ms;white-space:nowrap;}
+.wd-nav-link:hover,.wd-nav-link.act{color:#111110;border-bottom-color:#1a5e3a;}
+.wd-nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.wd-search{width:32px;height:32px;background:transparent;border:1px solid var(--wd-border);color:#585550;font-size:0.88rem;display:flex;align-items:center;justify-content:center;}
+.wd-member{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 14px;background:transparent;border:2px solid #111110;color:#111110;transition:all 150ms;}
+.wd-member:hover{background:#111110;color:#fff;}
+.wd-donate{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:8px 18px;background:#1a5e3a;border:none;color:#fff;transition:background 150ms;}
+.wd-donate:hover{background:#246e48;}
+.wd-mob-tog{display:none;background:none;border:none;color:#111110;font-size:1.2rem;padding:10px;margin-left:auto;}
+.wd-mob-menu{display:none;background:#fff;border-bottom:3px solid #1a5e3a;flex-direction:column;}
+.wd-mob-menu.open{display:flex;}
+.wd-mob-link{padding:14px 20px;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#585550;border-bottom:1px solid var(--wd-border);}
+@media(max-width:900px){.wd-nav-links{display:none;}.wd-nav-actions{display:none;}.wd-mob-tog{display:block;}.wd-nav{padding:0 16px;}}
+
+/* D PAGE HEADER */
+.wd-header{background:#fff;border-bottom:2px solid #111110;padding:36px 40px 24px;}
+.wd-breadcrumb{font-size:0.52rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#585550;margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.wd-breadcrumb span{color:#1a5e3a;}
+.wd-header-h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:3.4rem;font-weight:400;font-style:italic;color:#111110;line-height:0.92;margin-bottom:10px;}
+.wd-header-meta{font-size:0.64rem;color:#585550;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.wd-header-count{font-weight:700;color:#1a5e3a;}
+.wd-header-note{font-size:0.58rem;color:#585550;background:rgba(26,94,58,0.06);border-left:3px solid #1a5e3a;padding:8px 14px;margin-top:12px;display:inline-block;}
+
+/* D SEARCH + FILTERS */
+.wd-searchbar{background:var(--wd-warm);border-bottom:1px solid var(--wd-border);padding:16px 40px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.wd-search-input{flex:1;min-width:200px;border:2px solid #111110;background:#fff;padding:11px 16px;font-size:0.82rem;font-family:'Open Sans',sans-serif;outline:none;color:#111110;}
+.wd-search-input:focus{border-color:#1a5e3a;}
+.wd-search-btn{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#111110;color:#fff;border:none;padding:11px 22px;cursor:pointer;white-space:nowrap;}
+.wd-filter-chips{background:#fff;border-bottom:1px solid var(--wd-border);padding:10px 40px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.wd-filter-lbl{font-size:0.52rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#585550;}
+.wd-fpill{font-size:0.6rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--wd-border);background:#fff;color:#585550;cursor:pointer;transition:all 150ms;}
+.wd-fpill:hover{border-color:#1a5e3a;color:#1a5e3a;}
+.wd-fpill.act{background:#1a5e3a;border-color:#1a5e3a;color:#fff;}
+.wd-fpill-free{background:rgba(26,94,58,0.08);border-color:#1a5e3a;color:#1a5e3a;}
+.wd-fpill-free.act,.wd-fpill-free:hover{background:#1a5e3a;color:#fff;}
+.wd-filter-sep{width:1px;height:20px;background:var(--wd-border);}
+.wd-clr{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1a5e3a;background:none;border:none;cursor:pointer;margin-left:auto;}
+@media(max-width:768px){.wd-searchbar,.wd-filter-chips{padding:12px 16px;}.wd-header{padding:24px 16px 20px;}}
+
+/* D MAIN LAYOUT */
+.wd-main{max-width:1280px;margin:0 auto;padding:32px 40px;}
+.wd-main-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.wd-main-count{font-size:0.66rem;color:#585550;}
+.wd-sort{font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:1px solid var(--wd-border);padding:6px 12px;color:#585550;cursor:pointer;}
+
+/* D CARD GRID — large, accessible cards */
+.wd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.wd-card{background:#fff;border:2px solid var(--wd-border);display:flex;flex-direction:column;overflow:hidden;cursor:pointer;transition:border-color 150ms,transform 150ms;}
+.wd-card:hover{border-color:#1a5e3a;transform:translateY(-2px);}
+.wd-card-img{height:180px;position:relative;}
+.wd-card-img .ph-lt{height:100%;position:absolute;inset:0;width:100%;}
+.wd-card-pill{position:absolute;top:0;left:0;z-index:2;}
+.wd-card-free-badge{position:absolute;top:0;right:0;z-index:2;background:#1a5e3a;color:#fff;font-size:0.48rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:4px 9px;}
+.wd-card-body{padding:16px 18px 14px;flex:1;display:flex;flex-direction:column;}
+.wd-card-date{font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1a5e3a;margin-bottom:5px;}
+.wd-card-h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-style:italic;line-height:1.2;color:#111110;margin-bottom:8px;flex:1;}
+.wd-card-access{display:flex;gap:5px;flex-wrap:wrap;padding:8px 18px;background:rgba(26,94,58,0.05);border-top:1px solid var(--wd-border);}
+.wd-card-acc-chip{font-size:0.5rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#1a5e3a;display:flex;align-items:center;gap:3px;}
+.wd-card-footer{padding:12px 18px;border-top:1px solid var(--wd-border);display:flex;align-items:center;justify-content:space-between;background:var(--wd-warm);}
+.wd-card-price{font-size:0.7rem;font-weight:700;color:#111110;}
+.wd-card-age{font-size:0.54rem;font-weight:600;color:#585550;}
+.wd-card-cta{font-size:0.6rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#1a5e3a;color:#fff;border:none;padding:9px 18px;transition:background 150ms;}
+.wd-card-cta:hover{background:#246e48;}
+.wd-loadmore{padding:32px 0;text-align:center;}
+.wd-lm-btn{font-size:0.66rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#111110;color:#fff;border:none;padding:14px 36px;cursor:pointer;transition:background 150ms;}
+.wd-lm-btn:hover{background:#1a5e3a;}
+@media(max-width:1024px){.wd-grid{grid-template-columns:1fr 1fr;}.wd-main{padding:24px;}}
+@media(max-width:600px){.wd-main{padding:16px;}.wd-grid{grid-template-columns:1fr;}.wd-header-h1{font-size:2.4rem;}}
+</style>
+
+<div class="wd">
+<div class="wd-a11y"><span class="wd-a11y-chip grn">♿ All events step-free</span><span class="wd-a11y-chip blu">👋 BSL available on selected events</span><span class="wd-a11y-chip teal">⭐ SEND friendly programme</span><div style="margin-left:auto;"><button style="font-size:0.52rem;font-weight:700;border:1px solid var(--wd-border);background:#fff;padding:3px 8px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;">🌐 EN</button></div></div>
+<nav class="wd-nav">
+  <div class="wd-nav-logo"><div class="wd-nav-logo-main">GRAND<span style="display:inline-block;width:8px;height:8px;background:#9a7d3a;transform:rotate(45deg);margin:0 6px;position:relative;top:-1px;"></span>JUNCTION</div><div class="wd-nav-logo-sub">At St Mary Magdalene · Paddington</div></div>
+  <div class="wd-nav-links"><a class="wd-nav-link act">What's On</a><a class="wd-nav-link">Visit</a><a class="wd-nav-link">Hire</a><a class="wd-nav-link">Get Involved</a></div>
+  <div class="wd-nav-actions"><button class="wd-search">&#9906;</button><button class="wd-member">Join as Member</button><button class="wd-donate">Donate</button></div>
+  <button class="wd-mob-tog" onclick="this.closest(\'.wd-nav\').nextElementSibling.classList.toggle('open')">☰</button>
+</nav>
+<div class="wd-mob-menu"><a class="wd-mob-link">What's On</a><a class="wd-mob-link">Visit</a><a class="wd-mob-link">Hire</a><a class="wd-mob-link">Get Involved</a></div>
+
+<header class="wd-header">
+  <div class="wd-breadcrumb">Grand Junction <span>›</span> What's On</div>
+  <h1 class="wd-header-h1">What's On</h1>
+  <div class="wd-header-meta"><span class="wd-header-count">36 events &amp; activities</span><span>March – May 2026</span></div>
+  <div class="wd-header-note">All Grand Junction events are held in a fully step-free building. Many events are free or low-cost. Prices are shown on every event.</div>
+</header>
+
+<div class="wd-searchbar">
+  <input class="wd-search-input" type="search" placeholder="Search events, workshops, tours…" aria-label="Search events">
+  <button class="wd-search-btn">Search</button>
+</div>
+<div class="wd-filter-chips">
+  <span class="wd-filter-lbl">Type:</span>
+  <button class="wd-fpill act">All</button>
+  <button class="wd-fpill">Music</button>
+  <button class="wd-fpill">Heritage Tours</button>
+  <button class="wd-fpill">Workshops</button>
+  <button class="wd-fpill">Community</button>
+  <button class="wd-fpill">Families</button>
+  <button class="wd-fpill">Theatre</button>
+  <div class="wd-filter-sep"></div>
+  <button class="wd-fpill wd-fpill-free">Free events only</button>
+  <div class="wd-filter-sep"></div>
+  <button class="wd-fpill">Adults</button>
+  <button class="wd-fpill">Children</button>
+  <button class="wd-fpill">All ages</button>
+  <button class="wd-clr">Clear all</button>
+</div>
+
+<div class="wd-main">
+  <div class="wd-main-header"><div class="wd-main-count">Showing all 36 events · March–May 2026</div><button class="wd-sort">Date: Soonest first ▾</button></div>
+  <div class="wd-grid">
+    <div class="wd-card"><div class="wd-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8d8c8;"></div><div class="wd-card-pill"><span class="pill pill-music">Music</span></div></div><div class="wd-card-body"><div class="wd-card-date">Sat 1 Mar · 7:30pm</div><h3 class="wd-card-h3">Evening Concert Series: Spring Opening</h3></div><div class="wd-card-access"><span class="wd-card-acc-chip">♿ Step-free</span><span class="wd-card-acc-chip">👤 All ages</span></div><div class="wd-card-footer"><div><span class="wd-card-price">From £12</span><div class="wd-card-age">All ages welcome</div></div><button class="wd-card-cta">Book Tickets</button></div></div>
+    <div class="wd-card"><div class="wd-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce8d8;"></div><div class="wd-card-pill"><span class="pill pill-heritage">Heritage Tour</span></div><div class="wd-card-free-badge">FREE</div></div><div class="wd-card-body"><div class="wd-card-date">Sun 2 Mar · 2:00pm</div><h3 class="wd-card-h3">Chapel of St Sepulchre Walking Tour</h3></div><div class="wd-card-access"><span class="wd-card-acc-chip">♿ Step-free</span><span class="wd-card-acc-chip">👤 Adult</span></div><div class="wd-card-footer"><div><span class="wd-card-price">Free</span><div class="wd-card-age">Donation welcome</div></div><button class="wd-card-cta">Reserve Place</button></div></div>
+    <div class="wd-card"><div class="wd-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4e8;"></div><div class="wd-card-pill"><span class="pill pill-family">Families</span></div><div class="wd-card-free-badge">FREE</div></div><div class="wd-card-body"><div class="wd-card-date">Tue 4 Mar · 10:00am</div><h3 class="wd-card-h3">Arabic Dance Workshop for Families</h3></div><div class="wd-card-access"><span class="wd-card-acc-chip">♿ Step-free</span><span class="wd-card-acc-chip">🌍 All welcome</span></div><div class="wd-card-footer"><div><span class="wd-card-price">Free</span><div class="wd-card-age">Ages 5+</div></div><button class="wd-card-cta">Register Free</button></div></div>
+    <div class="wd-card"><div class="wd-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8d8d8;"></div><div class="wd-card-pill"><span class="pill pill-send">SEND</span></div></div><div class="wd-card-body"><div class="wd-card-date">Fri 7 Mar · 8:00pm</div><h3 class="wd-card-h3">VIP Club Night — SEND Inclusive Evening</h3></div><div class="wd-card-access"><span class="wd-card-acc-chip">♿ Step-free</span><span class="wd-card-acc-chip">⭐ SEND friendly</span></div><div class="wd-card-footer"><div><span class="wd-card-price">£5</span><div class="wd-card-age">18+ · Free for carers</div></div><button class="wd-card-cta">Book Tickets</button></div></div>
+    <div class="wd-card"><div class="wd-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#e8e4d8;"></div><div class="wd-card-pill"><span class="pill pill-workshop">Workshop</span></div></div><div class="wd-card-body"><div class="wd-card-date">Mon 10 Mar · 6:30pm</div><h3 class="wd-card-h3">Life Drawing — Spring Term Week 4</h3></div><div class="wd-card-access"><span class="wd-card-acc-chip">♿ Step-free</span><span class="wd-card-acc-chip">👤 Adult</span></div><div class="wd-card-footer"><div><span class="wd-card-price">£8 members / £12</span><div class="wd-card-age">18+</div></div><button class="wd-card-cta">Book</button></div></div>
+    <div class="wd-card"><div class="wd-card-img"><div class="ph-lt" style="height:100%;position:absolute;inset:0;width:100%;background:#dce4d8;"></div><div class="wd-card-pill"><span class="pill pill-community">Community</span></div><div class="wd-card-free-badge">FREE</div></div><div class="wd-card-body"><div class="wd-card-date">Wed 12 Mar · 11:00am</div><h3 class="wd-card-h3">Community Singing Group — Drop In</h3></div><div class="wd-card-access"><span class="wd-card-acc-chip">♿ Step-free</span><span class="wd-card-acc-chip">🌍 All welcome</span></div><div class="wd-card-footer"><div><span class="wd-card-price">Free</span><div class="wd-card-age">All ages</div></div><button class="wd-card-cta">Drop In</button></div></div>
+  </div>
+  <div class="wd-loadmore"><button class="wd-lm-btn">Load more events (30 remaining)</button></div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · All events step-free</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>What's On</h4><a>All Events</a><a>Workshops</a><a>Heritage Tours</a><a>Community</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>Heritage Hub</a><a>The Café</a><a>Accessibility Statement</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>Donate</a><a>Membership</a><a>Hire a Space</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div>
+</div><!-- /var-d -->
+
+<!-- ═══════════════ VARIATION E — STAINED GLASS BOLD ═══════════════
+  Layout: Bebas Neue headers, colour-coded category rows
+  Each category is its own colour-banded section strip
+  Filter: colour-filled category row tabs at top
+  Cards: dark background, bold type, colour top stripe per category
+  E's burger/overlay nav
+ ═══════════════════════════════════════════════════════════════ -->
+<div class="variation" id="var-e">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+.we{background:#0b0b09;color:#fff;--we-gold:#9a7d3a;--we-border:rgba(255,255,255,0.06);}
+
+/* E NAV */
+.we-nav{height:56px;background:#0b0b09;border-bottom:1px solid rgba(154,125,58,0.15);display:flex;align-items:center;padding:0 32px;position:sticky;top:48px;z-index:500;}
+.we-nav-logo{flex-shrink:0;}
+.we-nav-spacer{flex:1;}
+.we-nav-actions{display:flex;align-items:center;gap:8px;}
+.we-nav-search{width:30px;height:30px;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.38);font-size:0.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.we-nav-member{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 14px;background:transparent;border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.55);transition:all 150ms;}
+.we-nav-member:hover{border-color:#9a7d3a;color:#9a7d3a;}
+.we-nav-donate{font-size:0.56rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:6px 16px;background:#9a7d3a;border:none;color:#0b0b09;transition:background 150ms;}
+.we-nav-donate:hover{background:#c4a055;}
+.we-burger{display:flex;flex-direction:column;justify-content:center;gap:5px;width:40px;height:40px;background:transparent;border:none;cursor:pointer;padding:8px;margin-right:8px;flex-shrink:0;order:-1;}
+.we-burger-line{display:block;width:22px;height:2px;background:#fff;transition:transform 300ms cubic-bezier(0.22,1,0.36,1),opacity 200ms,width 300ms;transform-origin:center;}
+.we-burger.open .we-burger-line:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.we-burger.open .we-burger-line:nth-child(2){opacity:0;width:0;}
+.we-burger.open .we-burger-line:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.we-dimmer{position:fixed;inset:0;z-index:440;background:rgba(11,11,9,0.6);opacity:0;pointer-events:none;transition:opacity 400ms;}
+.we-dimmer.active{opacity:1;pointer-events:auto;}
+.we-overlay{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);background:#1a5e3a;z-index:450;display:flex;flex-direction:column;padding:calc(56px + 48px + 24px) 52px 44px;transform:translateX(100%);transition:transform 420ms cubic-bezier(0.22,1,0.36,1);overflow-y:auto;}
+.we-overlay.open{transform:translateX(0);}
+.we-ov-link{font-family:'Bebas Neue',Impact,sans-serif;font-weight:400;font-size:3.6rem;color:rgba(255,255,255,0.55);line-height:0.95;letter-spacing:0.06em;text-transform:uppercase;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.08);cursor:pointer;display:flex;align-items:baseline;justify-content:space-between;transition:color 150ms,padding-left 180ms;}
+.we-ov-link:first-of-type{border-top:1px solid rgba(255,255,255,0.08);}
+.we-ov-link:hover,.we-ov-link.act{color:#fff;padding-left:10px;}
+.we-ov-link.act{color:#9a7d3a;}
+.we-ov-arrow{font-size:1.2rem;color:rgba(255,255,255,0.18);font-family:'Open Sans',sans-serif;font-weight:300;transition:color 150ms;}
+.we-ov-link:hover .we-ov-arrow{color:#9a7d3a;}
+.we-ov-rule{width:32px;height:2px;background:rgba(255,255,255,0.2);margin:8px 0 16px;}
+.we-ov-sec{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:20px;}
+.we-ov-sec-link{font-size:0.54rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.38);padding:4px 10px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;transition:all 150ms;}
+.we-ov-sec-link:hover{color:#fff;border-color:rgba(255,255,255,0.4);}
+.we-ov-ctas{display:flex;gap:8px;margin-top:auto;}
+.we-ov-donate{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:10px 24px;background:#9a7d3a;border:none;color:#0b0b09;cursor:pointer;transition:background 150ms;}
+.we-ov-member{font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:10px 18px;background:transparent;border:2px solid rgba(255,255,255,0.22);color:rgba(255,255,255,0.7);cursor:pointer;transition:all 150ms;}
+.we-page{transition:transform 420ms cubic-bezier(0.22,1,0.36,1);}
+.we-page.shifted{transform:translateX(calc(min(520px,100vw) * -0.5));}
+@media(max-width:900px){.we-nav-member{display:none;}}
+@media(max-width:600px){.we-overlay{width:100vw;}.we-page.shifted{transform:none;}}
+
+/* E PAGE HEADER */
+.we-header{background:#0b0b09;padding:40px 48px 32px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.we-breadcrumb{font-size:0.5rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.18);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.we-breadcrumb span{color:#9a7d3a;}
+.we-header-h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:6rem;color:#fff;line-height:0.85;letter-spacing:0.06em;margin-bottom:8px;}
+.we-header-meta{font-size:0.6rem;color:rgba(255,255,255,0.3);display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.we-header-count{font-weight:700;color:#9a7d3a;}
+@media(max-width:768px){.we-header{padding:28px 20px 20px;}.we-header-h1{font-size:4rem;}}
+
+/* E CATEGORY TABS — colour-filled row */
+.we-cattabs{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;border-bottom:1px solid rgba(255,255,255,0.04);}
+.we-ct{flex-shrink:0;padding:14px 20px;cursor:pointer;border-bottom:3px solid transparent;transition:all 150ms;display:flex;align-items:center;gap:8px;}
+.we-ct:hover{border-bottom-color:rgba(255,255,255,0.2);}
+.we-ct.act{border-bottom-color:#9a7d3a;}
+.we-ct-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.we-ct-label{font-family:'Bebas Neue',Impact,sans-serif;font-size:1rem;letter-spacing:0.1em;color:rgba(255,255,255,0.4);transition:color 150ms;}
+.we-ct.act .we-ct-label,.we-ct:hover .we-ct-label{color:#fff;}
+.we-ct-n{font-size:0.5rem;font-weight:700;color:rgba(255,255,255,0.2);}
+
+/* E FILTER ROW */
+.we-filterrow{background:#111110;padding:12px 48px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,0.04);}
+.we-fl{font-size:0.5rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.we-fpill{font-size:0.54rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 11px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);background:transparent;cursor:pointer;transition:all 150ms;}
+.we-fpill:hover{border-color:#9a7d3a;color:#9a7d3a;}
+.we-fpill.act{background:#9a7d3a;border-color:#9a7d3a;color:#0b0b09;}
+.we-filter-sep{width:1px;height:18px;background:rgba(255,255,255,0.06);}
+.we-sort{font-size:0.52rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:transparent;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.35);padding:4px 10px;cursor:pointer;margin-left:auto;}
+@media(max-width:768px){.we-filterrow{padding:10px 16px;}}
+
+/* E MAIN — colour-banded category sections */
+.we-main{max-width:1280px;margin:0 auto;padding:0 48px 48px;}
+
+/* Section header per category */
+.we-section{margin-top:40px;}
+.we-section-head{display:flex;align-items:center;gap:16px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.we-section-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
+.we-section-h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.8rem;color:#fff;letter-spacing:0.08em;}
+.we-section-count{font-size:0.52rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.we-section-all{font-size:0.52rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9a7d3a;background:none;border:none;cursor:pointer;margin-left:auto;}
+
+/* Event cards — dark, colour top stripe */
+.we-card-row{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;}
+.we-card{background:#1a1a18;display:flex;flex-direction:column;overflow:hidden;cursor:pointer;transition:transform 160ms;border-top:3px solid;}
+.we-card:hover{transform:translateY(-4px);}
+.we-card-img{height:150px;position:relative;}
+.we-card-img .ph-dk{height:100%;position:absolute;inset:0;width:100%;}
+.we-card-body{padding:14px 16px 16px;flex:1;display:flex;flex-direction:column;}
+.we-card-date{font-size:0.52rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#9a7d3a;margin-bottom:4px;}
+.we-card-h3{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.2rem;color:#fff;line-height:1.0;letter-spacing:0.04em;margin-bottom:6px;flex:1;}
+.we-card-tags{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:10px;}
+.we-card-tag{font-size:0.44rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 6px;border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.3);}
+.we-card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid rgba(255,255,255,0.06);}
+.we-card-price{font-size:0.62rem;font-weight:700;color:#fff;}
+.we-card-cta{font-size:0.52rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#9a7d3a;color:#0b0b09;border:none;padding:7px 13px;transition:background 150ms;}
+.we-card-cta:hover{background:#c4a055;}
+.we-loadmore{padding:32px 0;text-align:center;margin-top:24px;border-top:1px solid rgba(255,255,255,0.05);}
+.we-lm-btn{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.4rem;letter-spacing:0.1em;background:transparent;border:2px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);padding:10px 40px;cursor:pointer;transition:all 150ms;}
+.we-lm-btn:hover{border-color:#9a7d3a;color:#9a7d3a;}
+@media(max-width:1024px){.we-card-row{grid-template-columns:repeat(2,1fr);}.we-main{padding:0 24px 36px;}}
+@media(max-width:600px){.we-main{padding:0 16px 28px;}.we-card-row{grid-template-columns:1fr;}.we-header-h1{font-size:3.5rem;}}
+</style>
+<script>
+(function(){
+  function weToggle(){
+    const ov=document.getElementById('we-ov');
+    const bg=document.getElementById('we-dm');
+    const pg=document.getElementById('we-pg');
+    const br=document.getElementById('we-br');
+    const open=ov.classList.contains('open');
+    if(open){ov.classList.remove('open');bg.classList.remove('active');if(pg)pg.classList.remove('shifted');br.classList.remove('open');br.setAttribute('aria-expanded','false');}
+    else{ov.classList.add('open');bg.classList.add('active');if(pg)pg.classList.add('shifted');br.classList.add('open');br.setAttribute('aria-expanded','true');}
+  }
+  function weClose(){
+    document.getElementById('we-ov').classList.remove('open');
+    document.getElementById('we-dm').classList.remove('active');
+    const pg=document.getElementById('we-pg');if(pg)pg.classList.remove('shifted');
+    document.getElementById('we-br').classList.remove('open');
+    document.getElementById('we-br').setAttribute('aria-expanded','false');
+  }
+  window.weToggle=weToggle;window.weClose=weClose;
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')weClose();});
+})();
+</script>
+
+<div class="we">
+<div class="we-dimmer" id="we-dm" onclick="weClose()"></div>
+<div class="we-overlay" id="we-ov">
+  <a class="we-ov-link act" onclick="weClose()">What's On<span class="we-ov-arrow">→</span></a>
+  <a class="we-ov-link" onclick="weClose()">Visit<span class="we-ov-arrow">→</span></a>
+  <a class="we-ov-link" onclick="weClose()">Hire<span class="we-ov-arrow">→</span></a>
+  <a class="we-ov-link" onclick="weClose()">Get Involved<span class="we-ov-arrow">→</span></a>
+  <div class="we-ov-rule"></div>
+  <div class="we-ov-sec"><a class="we-ov-sec-link">Heritage Hub</a><a class="we-ov-sec-link">The Café</a><a class="we-ov-sec-link">Accessibility</a><a class="we-ov-sec-link">About</a></div>
+  <div class="we-ov-ctas"><button class="we-ov-donate" onclick="weClose()">Donate</button><button class="we-ov-member" onclick="weClose()">Join as Member</button></div>
+  <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:20px;">St Mary Magdalene · Paddington · London W9</div>
+</div>
+<nav class="we-nav">
+  <button class="we-burger" id="we-br" onclick="weToggle()" aria-label="Open menu" aria-expanded="false" aria-controls="we-ov"><span class="we-burger-line"></span><span class="we-burger-line"></span><span class="we-burger-line"></span></button>
+  <div class="we-nav-logo"><span style="font-family:'Open Sans',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#fff;display:inline-flex;align-items:center;">GRAND<span style="display:inline-block;width:9px;height:9px;background:#9a7d3a;transform:rotate(45deg);margin:0 7px;position:relative;top:-1px;"></span>JUNCTION</span></div>
+  <div class="we-nav-spacer"></div>
+  <div class="we-nav-actions"><button class="we-nav-search">&#9906;</button><button class="we-nav-member">Join as Member</button><button class="we-nav-donate">Donate</button></div>
+</nav>
+
+<div id="we-pg" class="we-page">
+<header class="we-header">
+  <div class="we-breadcrumb">Grand Junction <span>›</span> What's On</div>
+  <h1 class="we-header-h1">What's On</h1>
+  <div class="we-header-meta"><span class="we-header-count">36 events</span><span>March – May 2026</span></div>
+</header>
+
+<div class="we-cattabs">
+  <div class="we-ct act"><div class="we-ct-dot" style="background:#1c1a16;"></div><div class="we-ct-label">All</div><span class="we-ct-n">36</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#1a5e3a;"></div><div class="we-ct-label">Music</div><span class="we-ct-n">8</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#8a6e30;"></div><div class="we-ct-label">Heritage</div><span class="we-ct-n">6</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#1a4a6a;"></div><div class="we-ct-label">Workshops</div><span class="we-ct-n">9</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#3a5a1a;"></div><div class="we-ct-label">Community</div><span class="we-ct-n">5</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#4a2a6a;"></div><div class="we-ct-label">Families</div><span class="we-ct-n">4</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#6a1a28;"></div><div class="we-ct-label">Theatre</div><span class="we-ct-n">4</span></div>
+  <div class="we-ct"><div class="we-ct-dot" style="background:#1a3a5a;"></div><div class="we-ct-label">SEND</div><span class="we-ct-n">2</span></div>
+</div>
+<div class="we-filterrow">
+  <span class="we-fl">Audience:</span>
+  <button class="we-fpill act">All ages</button><button class="we-fpill">Adults</button><button class="we-fpill">Children</button>
+  <div class="we-filter-sep"></div>
+  <span class="we-fl">Price:</span>
+  <button class="we-fpill">Any</button><button class="we-fpill">Free</button><button class="we-fpill">Under £10</button>
+  <div class="we-filter-sep"></div>
+  <button class="we-fpill" style="border-color:#1a5e3a;color:#5abf88;">Step-free (all)</button>
+  <button class="we-sort">Sort: Soonest ▾</button>
+</div>
+
+<div class="we-main">
+  <!-- MUSIC SECTION -->
+  <div class="we-section">
+    <div class="we-section-head"><div class="we-section-dot" style="background:#1a5e3a;"></div><div class="we-section-h2">Music</div><div class="we-section-count">8 events</div><button class="we-section-all">View all music →</button></div>
+    <div class="we-card-row">
+      <div class="we-card" style="border-top-color:#1a5e3a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181e18;" data-label="Concert series"></div></div><div class="we-card-body"><div class="we-card-date">Sat 1 Mar · 7:30pm</div><h3 class="we-card-h3">Concert Series Opening</h3><div class="we-card-tags"><span class="we-card-tag">All ages</span><span class="we-card-tag">Step-free</span></div><div class="we-card-footer"><span class="we-card-price">From £12</span><button class="we-card-cta">Book</button></div></div></div>
+      <div class="we-card" style="border-top-color:#1a5e3a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181e18;" data-label="Concert evening 2"></div></div><div class="we-card-body"><div class="we-card-date">Sat 15 Mar · 7:30pm</div><h3 class="we-card-h3">Concert Series Evening 2</h3><div class="we-card-tags"><span class="we-card-tag">All ages</span><span class="we-card-tag">Spring Season</span></div><div class="we-card-footer"><span class="we-card-price">From £12</span><button class="we-card-cta">Book</button></div></div></div>
+      <div class="we-card" style="border-top-color:#1a5e3a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181e18;" data-label="Canal Sessions jazz"></div></div><div class="we-card-body"><div class="we-card-date">Sat 22 Mar · 7:30pm</div><h3 class="we-card-h3">Canal Sessions: Jazz Night</h3><div class="we-card-tags"><span class="we-card-tag">All ages</span><span class="we-card-tag">Canal Sessions</span></div><div class="we-card-footer"><span class="we-card-price">£10 / £7 members</span><button class="we-card-cta">Book</button></div></div></div>
+      <div class="we-card" style="border-top-color:#1a5e3a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#181e18;" data-label="World music evening"></div></div><div class="we-card-body"><div class="we-card-date">Fri 28 Mar · 8:00pm</div><h3 class="we-card-h3">World Music Evening</h3><div class="we-card-tags"><span class="we-card-tag">18+</span><span class="we-card-tag">Spring Season</span></div><div class="we-card-footer"><span class="we-card-price">From £12</span><button class="we-card-cta">Book</button></div></div></div>
+    </div>
+  </div>
+
+  <!-- HERITAGE SECTION -->
+  <div class="we-section">
+    <div class="we-section-head"><div class="we-section-dot" style="background:#8a6e30;"></div><div class="we-section-h2">Heritage Tours</div><div class="we-section-count">6 events</div><button class="we-section-all">View all heritage →</button></div>
+    <div class="we-card-row">
+      <div class="we-card" style="border-top-color:#8a6e30;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1810;" data-label="Walking tour"></div></div><div class="we-card-body"><div class="we-card-date">Sun 2 Mar · 2:00pm</div><h3 class="we-card-h3">St Sepulchre Walking Tour</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">Guided</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Reserve</button></div></div></div>
+      <div class="we-card" style="border-top-color:#8a6e30;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1810;" data-label="Stained glass tour"></div></div><div class="we-card-body"><div class="we-card-date">Sun 9 Mar · 2:00pm</div><h3 class="we-card-h3">Stained Glass Deep Dive</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">Heritage Prog.</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Reserve</button></div></div></div>
+      <div class="we-card" style="border-top-color:#8a6e30;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1810;" data-label="Victorian craftsmanship talk"></div></div><div class="we-card-body"><div class="we-card-date">Sat 14 Mar · 3:00pm</div><h3 class="we-card-h3">Victorian Craftsmanship Talk</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">Adult</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Reserve</button></div></div></div>
+      <div class="we-card" style="border-top-color:#8a6e30;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#1a1810;" data-label="North Paddington history walk"></div></div><div class="we-card-body"><div class="we-card-date">Sun 23 Mar · 2:00pm</div><h3 class="we-card-h3">North Paddington History Walk</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">Outdoor</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Reserve</button></div></div></div>
+    </div>
+  </div>
+
+  <!-- COMMUNITY SECTION -->
+  <div class="we-section">
+    <div class="we-section-head"><div class="we-section-dot" style="background:#3a5a1a;"></div><div class="we-section-h2">Community</div><div class="we-section-count">5 events</div><button class="we-section-all">View all →</button></div>
+    <div class="we-card-row">
+      <div class="we-card" style="border-top-color:#3a5a1a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#141a10;" data-label="Arabic dance workshop"></div></div><div class="we-card-body"><div class="we-card-date">Tue 4 Mar · 10:00am</div><h3 class="we-card-h3">Arabic Dance Workshop</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">Families</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Register</button></div></div></div>
+      <div class="we-card" style="border-top-color:#3a5a1a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#141a10;" data-label="Singing group"></div></div><div class="we-card-body"><div class="we-card-date">Wed 12 Mar · 11:00am</div><h3 class="we-card-h3">Community Singing Drop In</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">All ages</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Drop in</button></div></div></div>
+      <div class="we-card" style="border-top-color:#3a5a1a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#141a10;" data-label="You Are Here project"></div></div><div class="we-card-body"><div class="we-card-date">Fri 20 Mar · 6:00pm</div><h3 class="we-card-h3">You Are Here — Open Session</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">Community Arts</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Register</button></div></div></div>
+      <div class="we-card" style="border-top-color:#3a5a1a;"><div class="we-card-img"><div class="ph-dk" style="height:100%;position:absolute;inset:0;width:100%;background:#141a10;" data-label="Community craft session"></div></div><div class="we-card-body"><div class="we-card-date">Wed 26 Mar · 11:00am</div><h3 class="we-card-h3">Community Craft Session</h3><div class="we-card-tags"><span class="we-card-tag">Free</span><span class="we-card-tag">All welcome</span></div><div class="we-card-footer"><span class="we-card-price">Free</span><button class="we-card-cta">Drop in</button></div></div></div>
+    </div>
+  </div>
+
+  <div class="we-loadmore"><button class="we-lm-btn">Load More Events</button></div>
+</div>
+
+<footer class="gj-footer">
+  <div class="gj-footer-grid">
+    <div><div class="gj-footer-wm">GRAND<span class="gj-diamond"></span>JUNCTION</div><div class="gj-footer-addr">St Mary Magdalene Church, Rowington Close, London W9 2PR<br>Tue–Sun · 10am–6pm · Free entry</div><a class="gj-footer-about">About Grand Junction →</a></div>
+    <div class="gj-footer-col"><h4>What's On</h4><a>All Events</a><a>Workshops</a><a>Heritage Tours</a><a>Community</a></div>
+    <div class="gj-footer-col"><h4>Visit</h4><a>Plan Your Visit</a><a>Heritage Hub</a><a>The Café</a><a>Accessibility</a></div>
+    <div class="gj-footer-col"><h4>Get Involved</h4><a>Donate</a><a>Membership</a><a>Hire a Space</a><a>Contact</a></div>
+  </div>
+  <div class="gj-footer-bottom"><p>© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p><div class="gj-footer-links"><a>Privacy</a><a>Safeguarding</a><a>Accessibility</a></div></div>
+</footer>
+</div><!-- /we-page -->
+</div><!-- /we -->
+</div><!-- /var-e -->
+
+<script>
+function showVar(v){
+  const mask=document.getElementById('tmask');
+  mask.classList.add('on');
+  setTimeout(()=>{
+    document.querySelectorAll('.variation').forEach(el=>el.classList.remove('active'));
+    document.querySelectorAll('.vbtn').forEach(el=>el.classList.remove('active'));
+    document.getElementById('var-'+v).classList.add('active');
+    document.getElementById('vbtn-'+v).classList.add('active');
+    window.scrollTo(0,50);
+    mask.classList.remove('on');
+  },200);
+}
+
+// Chip/pill toggles
+document.querySelectorAll('.wa-fpill,.wb-fpill,.wc-fpill,.wd-fpill,.we-fpill,.wb-cattab,.we-ct').forEach(el=>{
+  el.addEventListener('click',function(){
+    const grp=this.closest('.wa-filterbar,.wb-cattabs,.wb-filterbar,.wc-cattabs,.wd-filter-chips,.we-cattabs,.we-filterrow');
+    if(grp){
+      const sametype=grp.querySelectorAll('.'+this.className.split(' ')[0]);
+      if(sametype.length>1){sametype.forEach(s=>s.classList.remove('act'));}
+    }
+    this.classList.toggle('act');
+  });
+});
+
+// Filter panel item toggles (C)
+document.querySelectorAll('.wc-fp-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    item.classList.toggle('act');
+    const chk=item.querySelector('.wc-fp-check');
+    if(chk){if(item.classList.contains('act'))chk.innerHTML='<span style="font-size:0.5rem;color:#fff;">✓</span>';else chk.innerHTML='';}
+  });
+});
+</script>
+</body>
+</html>
