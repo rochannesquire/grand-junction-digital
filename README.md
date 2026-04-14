@@ -1,7 +1,7 @@
 # Grand Junction — Digital Experience & Strategy
 
 **Project:** Grand Junction website redesign and digital strategy  
-**Venue:** St Mary Magdalene Church, Rowington Close, London W9 2PR  
+**Venue:** St Mary Magdalene Church, Rowington Close, London W2 5TF  
 **Website:** [grandjunction.org.uk](https://grandjunction.org.uk)  
 **Consultant:** Rochanne Squire  
 
@@ -92,5 +92,5 @@ tags or CSS `background-image` as real photography arrives.
 
 | Role | Name |
 |------|------|
-| Consultant / Project Lead | Rochanne Squire |
+| Consultant | Rochanne Squire |
 | Venue | Grand Junction / Paddington Development Trust |
