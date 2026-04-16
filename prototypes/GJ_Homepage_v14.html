@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Junction — Arts, Culture & Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: #212721; color: #fff; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+
+/* ── MENU OVERLAY ───────────────────────────────────────────── */
+#overlay-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1999;
+  opacity: 0; pointer-events: none; transition: opacity 0.38s;
+}
+#overlay-backdrop.open { opacity: 1; pointer-events: auto; }
+#menu-overlay {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 480px;
+  z-index: 2000; background: #215732;
+  transform: translateX(100%); transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column; padding: 28px 32px;
+  overflow-y: auto; box-shadow: -4px 0 32px rgba(0,0,0,0.4);
+}
+#menu-overlay.open { transform: translateX(0); }
+.menu-close {
+  align-self: flex-end; background: none; border: none; color: #fff;
+  font-size: 28px; line-height: 1; padding: 4px 8px; margin-bottom: 24px;
+}
+.menu-items { display: flex; flex-direction: column; flex: 1; }
+.menu-item { border-bottom: 1px solid rgba(255,255,255,0.18); }
+.menu-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0; cursor: pointer; user-select: none;
+}
+.menu-title { font-family: 'Platypi', serif; font-size: 32px; font-weight: 700; color: #fff; opacity: 0.75; transition: opacity 0.2s; }
+.menu-item.active .menu-title { font-size: 34px; opacity: 1; }
+.menu-arrow { font-size: 18px; color: rgba(255,255,255,0.40); transition: transform 0.25s; }
+.menu-item.active .menu-arrow { color: rgba(255,255,255,0.65); transform: rotate(90deg); }
+.menu-subnav { display: none; flex-direction: column; padding-bottom: 12px; }
+.menu-item.active .menu-subnav { display: flex; }
+.menu-subnav a {
+  padding: 9px 0 9px 4px; font-size: 14px; color: rgba(255,255,255,0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.menu-subnav a:before { content: '– '; color: rgba(255,255,255,0.30); }
+.menu-subnav a:last-child { border-bottom: none; }
+.menu-footer {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.menu-util {
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 50px;
+  padding: 5px 12px; font-size: 12px; color: rgba(255,255,255,0.60);
+  background: none;
+}
+
+/* ── NAVIGATION ─────────────────────────────────────────────── */
+#main-nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 48px); max-width: 1392px; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 64px;
+  background: rgba(33,39,33,0.55);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: 14px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+}
+.nav-logo img { height: 28px; width: auto; display: block; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-icon-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.7); font-size: 20px;
+}
+.nav-burger {
+  position: relative; width: 52px; height: 46px;
+  background: none; border: none; cursor: pointer;
+}
+.nav-burger-diamond {
+  position: absolute; width: 32px; height: 32px; background: #9f7d23;
+  transform: rotate(-45deg); left: 4.4px; top: -0.2px;
+}
+.nav-burger span {
+  position: absolute; left: 18px; width: 18px; height: 2px;
+  background: #fff; border-radius: 1px;
+}
+.nav-burger span:nth-child(2) { top: 14px; }
+.nav-burger span:nth-child(3) { top: 21px; }
+.nav-burger span:nth-child(4) { top: 28px; }
+
+/* ── HERO ───────────────────────────────────────────────────── */
+#hero {
+  position: relative; width: 100%; height: 800px; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://www.figma.com/api/mcp/asset/99887222-26bd-4b8e-87ae-537bc0d6cdba');
+  background-size: cover; background-position: center top;
+}
+.hero-bg::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #212621 0%, rgba(33,38,33,0.75) 49.5%, rgba(33,38,33,0.5) 66%, rgba(33,38,33,0.2) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  left: 50%; transform: translateX(-50%);
+  width: 1280px; padding-top: 228px; opacity: 0.84;
+}
+.hero-location {
+  font-size: 12px; font-weight: 800; letter-spacing: 3.08px;
+  text-transform: uppercase; color: rgba(255,255,255,0.75);
+  margin-bottom: 32px;
+}
+.hero-h1 {
+  font-family: 'Platypi', serif; font-size: 90px; font-weight: 600;
+  line-height: 90px; color: #fff; margin: 0;
+}
+.hero-h1-gold { color: #9f7d23; }
+.hero-sub {
+  font-size: 16px; line-height: 26px; color: rgba(255,255,255,0.78);
+  margin-top: 20px; max-width: 560px;
+}
+.hero-ctas { display: flex; gap: 12px; margin-top: 32px; }
+.btn-hero-primary {
+  background: #fff; color: #215749; border: none;
+  padding: 15px 30px; border-radius: 12px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.84px; text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+.btn-hero-primary:hover { opacity: 0.9; }
+.btn-hero-outline {
+  background: rgba(33,39,33,0.5); color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  padding: 15px 30px; border-radius: 12px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.84px; text-transform: uppercase;
+  transition: background 0.2s;
+}
+.btn-hero-outline:hover { background: rgba(255,255,255,0.12); }
+.hero-dots {
+  position: absolute; right: 42px; bottom: 26px; z-index: 2;
+  display: flex; gap: 8px; align-items: center;
+}
+.hero-dot { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.28); cursor: pointer; }
+.hero-dot.active { width: 36px; background: #fff; }
+.hero-dot:not(.active) { width: 28px; }
+
+/* ── QUICK LINKS ────────────────────────────────────────────── */
+#quick-links {
+  position: absolute; bottom: 0; z-index: 10;
+  left: 50%; transform: translateX(-50%);
+}
+.ql-bar {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(11,11,9,0.42); border: 1px solid rgba(255,255,255,0.10);
+  border-bottom: none; border-radius: 20px 20px 0 0;
+  padding: 17px 25px; box-shadow: 0 -2px 32px rgba(0,0,0,0.20);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.ql-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 12px; text-decoration: none;
+}
+.ql-item:first-child { padding-left: 0; }
+.ql-item:last-child { padding-right: 0; }
+.ql-circle {
+  width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; position: relative;
+}
+.ql-circle-inner {
+  position: absolute; inset: 5px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.ql-circle-inner-gold { border-color: #9f7d23; }
+.ql-icon { width: 22px; height: 22px; position: relative; z-index: 1; }
+.ql-icon img { width: 100%; height: 100%; object-fit: contain; }
+.ql-text { display: flex; flex-direction: column; gap: 3px; }
+.ql-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2.2px;
+  text-transform: uppercase; color: #fff; white-space: nowrap;
+}
+.ql-desc { font-size: 11px; color: rgba(255,255,255,0.65); line-height: 1.5; max-width: 143px; }
+.ql-sep { width: 1px; height: 32px; background: rgba(255,255,255,0.10); flex-shrink: 0; }
+
+/* ── DONATE TAB ─────────────────────────────────────────────── */
+#donate-tab {
+  position: fixed; right: 0; top: 350px; z-index: 999;
+}
+#donate-tab a {
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  background: rgba(171,202,233,0.88); color: #212721;
+  font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  padding: 22px 10px; border-radius: 0 0 0 12px;
+  text-decoration: none;
+}
+
+/* ── SEPARATOR ──────────────────────────────────────────────── */
+.sep-gold {
+  position: relative; height: 28px; overflow: hidden;
+  background: #212721; line-height: 0;
+}
+.sep-gold img {
+  position: absolute; left: -3.52%; right: -3.47%; top: 0; bottom: 0;
+  width: 107%; height: 100%; transform: scaleY(-1);
+  object-fit: fill;
+}
+.sep-green {
+  position: relative; height: 28px; overflow: hidden;
+  background: #fff; line-height: 0;
+}
+.sep-green-inner {
+  position: absolute; left: -4%; right: -4%; top: 0; bottom: 0;
+  background: #215732; transform: skewY(-1.4deg); transform-origin: top left;
+}
+
+/* ── WHAT'S ON ──────────────────────────────────────────────── */
+#whats-on {
+  background: #004d1f; position: relative; padding: 76px 0 80px; overflow: hidden;
+}
+.wo-pattern {
+  position: absolute; left: -191px; top: 49px; width: 780px; height: 780px;
+  pointer-events: none; mix-blend-mode: multiply; opacity: 0.6;
+}
+.wo-pattern img { width: 100%; height: 100%; object-fit: contain; }
+.wo-inner {
+  max-width: 1440px; margin: 0 auto; position: relative; z-index: 1;
+}
+.wo-header { text-align: center; position: relative; margin-bottom: 20px; padding: 0 80px; }
+.wo-label {
+  font-size: 12px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; display: block; margin-bottom: 4px;
+}
+.wo-h2 {
+  font-family: 'Platypi', serif; font-size: 56px; font-weight: 600;
+  color: #fff; line-height: 1.15; margin: 0;
+}
+.wo-cal-btn {
+  position: absolute; right: 80px; top: 50%;
+  background: #9f7d23; border: 1.5px solid #9f7d23; color: #212721;
+  padding: 10px 22px; border-radius: 12px; font-size: 14px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  transform: translateY(-50%); white-space: nowrap;
+}
+.wo-intro {
+  font-size: 15px; line-height: 24.75px; color: #fff;
+  text-align: center; max-width: 577px;
+  margin: 0 auto 32px; padding: 0 80px;
+}
+
+/* ── CAROUSEL ───────────────────────────────────────────────── */
+.carousel-viewport {
+  overflow: hidden; width: 100%; padding: 14px 0 36px; cursor: grab;
+  user-select: none;
+}
+.carousel-viewport.dragging { cursor: grabbing; }
+.carousel-track {
+  display: flex; align-items: center; gap: 16px;
+  will-change: transform; transition: transform 0.42s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Event cards */
+.ev-card {
+  flex-shrink: 0; width: 280px;
+  background: #111209; border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+  opacity: 0.80; transition: width 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.42s, box-shadow 0.42s, border-color 0.42s;
+}
+.ev-card.featured {
+  width: 420px; opacity: 1;
+  border: 5px solid #9f7d23;
+  box-shadow: 0 8px 32px rgba(33,87,74,0.20);
+}
+.ev-img { position: relative; height: 200px; flex-shrink: 0; overflow: hidden; transition: height 0.42s cubic-bezier(0.4,0,0.2,1); }
+.ev-card.featured .ev-img { height: 280px; }
+.ev-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.ev-img-placeholder { width: 100%; height: 100%; background: #1f261f; }
+.ev-badge {
+  position: absolute; top: 12px; right: 11px; z-index: 2;
+  font-size: 12px; font-weight: 700; letter-spacing: 1.54px; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 50px;
+}
+.badge-green  { background: #215749; color: #fff; }
+.badge-gold   { background: #9f7d23; color: #fff; }
+.badge-maroon { background: #862633; color: #fff; }
+.badge-azure  { background: #abcae9; color: #212721; }
+.badge-tours  { background: rgba(0,0,0,0.38); border: 1.5px solid #9f7d23; color: #9f7d23; }
+.ev-body { padding: 16px 18px 0; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.ev-date { font-size: 12px; font-weight: 800; letter-spacing: 1.54px; text-transform: uppercase; color: #9f7d23; }
+.ev-card.featured .ev-date { font-size: 13px; }
+.ev-title {
+  font-family: 'Platypi', serif; font-size: 18px; font-weight: 600;
+  color: #fff; line-height: 22px; margin: 0;
+}
+.ev-card.featured .ev-title { font-size: 22px; line-height: 28px; }
+.ev-desc { font-size: 13px; line-height: 20px; color: rgba(255,255,255,0.62); font-weight: 400; margin: 0; }
+.ev-card.featured .ev-desc { font-size: 15px; }
+.ev-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.ev-tag {
+  font-size: 12px; font-weight: 400; letter-spacing: 0.88px;
+  padding: 5px 11px; border-radius: 50px;
+}
+.tag-free  { background: #abcae9; color: #212721; }
+.tag-gold  { background: rgba(159,125,35,0.2); color: rgba(255,255,255,0.62); }
+.tag-outline { border: 1.5px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.62); }
+.tag-azure-outline { background: rgba(159,125,35,0.2); border: 1px solid #abcae9; color: #abcae9; }
+.ev-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px 16px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto;
+}
+.ev-price { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.72); }
+.ev-card.featured .ev-price { font-size: 15px; }
+.ev-btn {
+  background: none; border: 1.5px solid #9f7d23; color: #9f7d23;
+  padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  transition: background 0.2s, color 0.2s;
+}
+.ev-btn:hover { background: #9f7d23; color: #fff; }
+.ev-card.featured .ev-btn { font-size: 14px; padding: 8px 16px; border-radius: 12px; }
+.carousel-nav { display: flex; justify-content: center; gap: 12px; padding: 4px 0; }
+.carousel-btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,1); background: none; color: #fff;
+  font-size: 17px; display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.carousel-btn:hover { border-color: #9f7d23; color: #9f7d23; }
+
+/* ── EXPERIENCE ─────────────────────────────────────────────── */
+#experience { background: #212721; padding: 80px 0; }
+.exp-inner { max-width: 1440px; margin: 0 auto; padding: 0 80px; }
+.exp-spotlight {
+  font-size: 12px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; margin-bottom: 8px;
+}
+.exp-h2-row { position: relative; margin-bottom: 48px; }
+.exp-h2 {
+  font-family: 'Platypi', serif; font-size: 56px; font-weight: 600;
+  color: #fff; line-height: 64px; margin: 0;
+}
+.btn-about {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  background: none; border: 1.5px solid #9f7d23; color: #9f7d23;
+  padding: 10px 22px; border-radius: 12px; font-size: 14px; font-weight: 600;
+  text-transform: uppercase;
+}
+/* Heritage + Café rows */
+.exp-row { display: grid; grid-template-columns: 839fr 414fr; gap: 27px; margin-bottom: 20px; }
+.exp-row-2 { display: grid; grid-template-columns: 839fr 414fr; gap: 27px; }
+.exp-card {
+  border-radius: 12px; overflow: hidden; position: relative;
+}
+.exp-card-heritage {
+  background: rgba(159,125,35,0.07); border: 1px solid rgba(159,125,35,0.28);
+  height: 325px; display: grid; grid-template-columns: 490px 1fr;
+}
+.exp-card-cafe {
+  background: rgba(159,125,35,0.07); border: 1px solid rgba(159,125,35,0.28);
+  height: 325px; display: grid; grid-template-columns: 1fr 441px;
+}
+.exp-card-membership {
+  background: rgba(42,55,70,0.42); border: 1px solid rgba(255,255,255,0.08);
+  grid-row: 1 / 3;
+  padding: 32px 28px 0;
+}
+.exp-img-heritage {
+  height: 325px; overflow: hidden; position: relative; margin-left: -49px;
+}
+.exp-img-heritage img { width: 100%; height: 100%; object-fit: cover; }
+.exp-img-heritage-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(42,45,33,0) 35%, rgba(42,45,33,0.5) 55%, #2a2d21 100%);
+}
+.exp-img-cafe { height: 325px; overflow: hidden; position: relative; }
+.exp-img-cafe img { width: 100%; height: 100%; object-fit: cover; }
+.exp-img-cafe-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(270deg, rgba(42,45,33,0) 35%, rgba(42,45,33,0.55) 65%, #2a2d21 100%);
+}
+.exp-card-body { padding: 35px 28px; display: flex; flex-direction: column; }
+.exp-cafe-body { padding: 39px 42px; display: flex; flex-direction: column; }
+.exp-label {
+  font-size: 12px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; margin-bottom: 10px;
+}
+.exp-h3 {
+  font-family: 'Platypi', serif; font-size: 22px; font-weight: 600;
+  color: #fff; line-height: 28px; margin: 0 0 8px;
+}
+.exp-desc {
+  font-size: 14px; line-height: 22px; color: rgba(255,255,255,0.62);
+  font-weight: 400; margin: 0;
+}
+.exp-bullets { list-style: none; margin: 12px 0 20px; display: flex; flex-direction: column; gap: 6px; }
+.exp-bullets li {
+  font-size: 14px; line-height: 22px; color: rgba(255,255,255,0.62);
+  display: flex; align-items: center; gap: 10px;
+}
+.exp-bullets li::before {
+  content: ''; display: inline-block; width: 8px; height: 8px;
+  background: #9f7d23; transform: rotate(45deg); flex-shrink: 0;
+}
+.exp-info-rows { margin: 18px 0; display: flex; flex-direction: column; gap: 12px; }
+.exp-info-row { display: flex; gap: 12px; font-size: 13px; line-height: normal; }
+.exp-info-label { font-weight: 700; color: rgba(255,255,255,0.88); width: 82px; flex-shrink: 0; }
+.exp-info-val { color: rgba(255,255,255,0.62); }
+.btn-gold-filled {
+  background: #9f7d23; border: none; color: #212721;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.72px; width: 224px; margin-top: auto;
+}
+.btn-gold-outline {
+  background: none; border: 1.5px solid #9f7d23; color: #9f7d23;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; width: 156px; margin-top: auto;
+}
+/* Membership */
+.mem-h2 {
+  font-family: 'Platypi', serif; font-size: 26px; font-weight: 600;
+  color: #fff; line-height: 32px; margin: 8px 0;
+}
+.mem-desc { font-size: 14px; line-height: 22px; color: rgba(255,255,255,0.62); margin: 0 0 16px; }
+.mem-tiers { display: flex; flex-direction: column; gap: 0; margin-bottom: 14px; }
+.mem-tier {
+  background: rgba(26,42,58,0.5); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 13px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px; cursor: pointer;
+}
+.mem-tier-name { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; }
+.mem-tier-desc { font-size: 12px; color: rgba(255,255,255,0.62); margin-top: 2px; }
+.mem-tier-arrow { color: rgba(255,255,255,0.35); font-size: 16px; }
+.btn-mem-options {
+  background: none; border: 1.5px solid #abcae9; color: #abcae9;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; width: 231px;
+}
+.mem-donate {
+  background: rgba(171,202,233,0.5); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0 0 10px 10px; padding: 32px 30px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin: 16px -28px -32px;
+}
+.mem-donate-text h4 {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #fff; margin: 0 0 8px;
+}
+.mem-donate-text p { font-size: 12px; line-height: normal; color: rgba(255,255,255,0.8); width: 240px; }
+.btn-donate {
+  background: #abcae9; border: none; color: #212721;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+}
+
+/* ── NEWSLETTER ─────────────────────────────────────────────── */
+#newsletter {
+  background: #004d1f; position: relative; overflow: hidden;
+  padding: 80px 80px;
+}
+.nl-pattern {
+  position: absolute; left: -162px; top: -95px;
+  width: 830px; height: 830px; pointer-events: none;
+}
+.nl-pattern img { width: 100%; height: 100%; object-fit: contain; }
+.nl-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 380px 1fr; gap: 64px;
+  max-width: 1280px; margin: 0 auto;
+}
+.nl-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; margin-bottom: 8px;
+}
+.nl-h2 {
+  font-family: 'Platypi', serif; font-size: 56px; font-weight: 600;
+  color: #fff; line-height: 58px; margin: 0 0 16px;
+}
+.nl-sub { font-size: 15px; line-height: 24px; color: rgba(255,255,255,0.78); }
+.nl-interests-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.75);
+  margin-bottom: 16px;
+}
+.nl-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.nl-tag {
+  border: 1.5px solid rgba(255,255,255,0.32); color: rgba(255,255,255,0.82);
+  background: none; padding: 8px 16px; border-radius: 50px;
+  font-size: 12px; letter-spacing: 0.96px; cursor: pointer;
+  transition: background 0.2s;
+}
+.nl-tag:hover, .nl-tag.active { background: rgba(255,255,255,0.12); }
+.nl-tag-gold { border-color: rgba(196,162,75,0.7); color: #c4a24b; }
+.nl-email-row {
+  display: flex; background: rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.28); border-radius: 12px; overflow: hidden;
+  height: 52px;
+}
+.nl-email-row input {
+  flex: 1; background: none; border: none; outline: none;
+  padding: 0 20px; font-size: 15px; color: #fff; font-family: 'Nunito', sans-serif;
+}
+.nl-email-row input::placeholder { color: rgba(255,255,255,0.5); }
+.nl-submit {
+  background: #9f7d23; border: none; color: #fff;
+  padding: 0 24px; font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; border-radius: 9px; margin: 3px;
+}
+
+/* ── FOOTER ─────────────────────────────────────────────────── */
+#footer {
+  background: #212721; border-top: 2.5px solid #9f7d23;
+  padding: 50px 0 0;
+}
+.footer-inner {
+  max-width: 1440px; margin: 0 auto; padding: 0 80px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 317px 1fr 280px 280px 280px 280px;
+  gap: 0; padding-bottom: 32px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-brand { padding-right: 20px; }
+.footer-logo { height: 22.62px; width: 236px; object-fit: cover; margin-bottom: 16px; }
+.footer-addr {
+  font-size: 13px; line-height: 22px; color: rgba(255,255,255,0.5);
+  font-style: normal; margin-bottom: 0;
+}
+.footer-phone { font-size: 13px; color: rgba(255,255,255,0.5); margin: 0; }
+.footer-about { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: underline; display: block; margin-bottom: 14px; }
+.footer-a11y { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0; }
+.footer-a11y-tag {
+  font-size: 11px; color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.22); padding: 4px 10px; border-radius: 50px;
+}
+.footer-col { padding: 0 10px; }
+.footer-col-heading {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #9f7d23; margin-bottom: 18px; display: block;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 20px; }
+.footer-col a:hover { color: #fff; }
+.footer-supported {
+  display: flex; align-items: center; gap: 24px;
+  padding: 24px 0; flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.footer-sup-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+}
+.footer-sup-pdt {
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 5px;
+  padding: 7px 14px; font-size: 11px; color: rgba(255,255,255,0.4);
+}
+.footer-sup-pdt-2 {
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 5px;
+  padding: 7px 14px; font-size: 11px; color: rgba(255,255,255,0.4);
+}
+.footer-sup-img { height: 36px; width: auto; opacity: 0.68; object-fit: contain; }
+.footer-sup-img-sm { height: 30px; width: auto; opacity: 0.68; object-fit: contain; }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0;
+}
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.32); }
+.footer-legal { font-size: 12px; color: rgba(255,255,255,0.38); white-space: pre; }
+
+/* ── SOCIAL ICONS ───────────────────────────────────────────── */
+.footer-socials { display: flex; gap: 8px; margin-top: 16px; }
+.social-circle {
+  width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.6); font-size: 13px;
+}
+</style>
+</head>
+<body>
+
+<div id="overlay-backdrop" id="overlayBackdrop"></div>
+<div id="menu-overlay">
+  <button class="menu-close" id="menuClose">&times;</button>
+  <nav class="menu-items">
+    <div class="menu-item active">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">What's On</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">All Events</a><a href="#">Music &amp; Performance</a>
+        <a href="#">Theatre</a><a href="#">Workshops &amp; Classes</a>
+        <a href="#">Heritage Tours</a><a href="#">Community Events</a>
+        <a href="#">Children &amp; Families</a><a href="#">Past Events</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">Visit</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">Plan Your Visit</a><a href="#">Heritage Hub</a>
+        <a href="#">The Café</a><a href="#">Accessibility</a><a href="#">How to Find Us</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">Hire</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">All Spaces &amp; Packages</a><a href="#">Weddings &amp; Celebrations</a>
+        <a href="#">Filming &amp; Photoshoots</a><a href="#">Meetings &amp; Away Days</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">Get Involved</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">Donate</a><a href="#">Membership</a>
+        <a href="#">Partners</a><a href="#">Volunteer</a><a href="#">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="menu-footer">
+    <button class="menu-util">About</button>
+    <button class="menu-util">Contact</button>
+    <button class="menu-util">Accessibility</button>
+    <button class="menu-util">Safeguarding</button>
+  </div>
+</div>
+
+<nav id="main-nav">
+  <a class="nav-logo" href="/">
+    <img src="https://www.figma.com/api/mcp/asset/7ad0f712-ce3c-4d74-8147-17630ba8e4ed" alt="Grand Junction">
+  </a>
+  <div class="nav-right">
+    <button class="nav-icon-btn" aria-label="Search">⌕</button>
+    <button class="nav-icon-btn" aria-label="Account">
+      <img src="https://www.figma.com/api/mcp/asset/3ba2c940-1b2c47e3-be17-211e9a5ba299" style="width:22px;height:22px;" alt="">
+    </button>
+    <button class="nav-burger" id="menuOpen" aria-label="Menu">
+      <div class="nav-burger-diamond"></div>
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="donate-tab"><a href="/donate">Donate</a></div>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-location">St Mary Magdalene · Paddington · London W2</p>
+    <h1 class="hero-h1">Arts, Culture<br><span class="hero-h1-gold">&amp; Community</span></h1>
+    <p class="hero-sub">A multi-arts venue for everyone in Paddington - music, theatre, heritage, workshops and a canal-side café.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero-primary">See What's On</button>
+      <button class="btn-hero-outline">Plan Your Visit</button>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot active"></div>
+    <div class="hero-dot"></div>
+    <div class="hero-dot"></div>
+  </div>
+  <div id="quick-links">
+    <div class="ql-bar">
+      <a href="/whats-on" class="ql-item">
+        <div class="ql-circle" style="background: rgba(33,87,73,0.75);">
+          <div class="ql-circle-inner"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/e94b6e81-9ba7-4ccb-8f52-ef8ee9c77b63" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">What's On</span>
+          <span class="ql-desc">Book live events, classes, workshops &amp; tours</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/heritage" class="ql-item">
+        <div class="ql-circle" style="background: rgba(138,110,48,0.75);">
+          <div class="ql-circle-inner"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/0af30454-7511-4e9a-a7f1-73c18bda1596" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Heritage Hub</span>
+          <span class="ql-desc">Nine centuries of stories and history to explore</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/support" class="ql-item">
+        <div class="ql-circle" style="background: rgba(171,202,233,0.75);">
+          <div class="ql-circle-inner" style="border-color:rgba(255,255,255,0.30);"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/b18e9ca3-d14a-4f06-9520-6710f858d479" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Be Involved</span>
+          <span class="ql-desc">Join as a member, donate, support our community</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/hire" class="ql-item">
+        <div class="ql-circle" style="background: rgba(134,38,51,0.75);">
+          <div class="ql-circle-inner"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/0b24bac0-1a23-43c3-86cb-210e024aee9c" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Hire a Space</span>
+          <span class="ql-desc">Book stunning spaces for events, weddings &amp; shoots</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/visit" class="ql-item">
+        <div class="ql-circle" style="background: rgba(33,39,33,0.85); border: 1px solid rgba(159,125,35,0.5);">
+          <div class="ql-circle-inner ql-circle-inner-gold"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/6ff9e809-05be-4750-abdb-10197ef1357a" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Visit Us</span>
+          <span class="ql-desc">Plan your trip, access &amp; café</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="sep-gold">
+  <img src="https://www.figma.com/api/mcp/asset/5a04f085-ddef-4c79-a407-122ca372d49e" alt="">
+</div>
+
+<section id="whats-on">
+  <div class="wo-pattern"><img src="https://www.figma.com/api/mcp/asset/8ceedb78-3503-4fd0-b1b9-f2ad905b23c1" alt=""></div>
+  <div class="wo-inner">
+    <div class="wo-header">
+      <span class="wo-label">Featured This Season</span>
+      <h2 class="wo-h2">What's On</h2>
+      <button class="wo-cal-btn">Full Calendar ›</button>
+    </div>
+    <p class="wo-intro">Grand Junction offers a full programme of live music, theatre, classes and workshops, exhibitions, tours and talks, with something for all ages, local or visiting.</p>
+
+    <div class="carousel-viewport" id="evViewport">
+      <div class="carousel-track" id="evTrack">
+
+        <div class="ev-card" data-idx="0">
+          <div class="ev-img"><div class="ev-img-placeholder"></div>
+            <span class="ev-badge badge-green">Community</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Sat 18 Apr · 2pm – 5pm</span>
+            <h3 class="ev-title">Loved &amp; Wanted Spring Festival</h3>
+            <p class="ev-desc">Our fun-filled spring festival celebrating Paddington's creativity, heritage and community spirit.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-free">Free</span>
+              <span class="ev-tag tag-outline">Family</span>
+              <span class="ev-tag tag-outline">All Ages</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card featured" data-idx="1">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/daf3b79a-1f25-4ddc-a838-2a9d941c3b91" alt="Poppy Ackroyd">
+            <span class="ev-badge badge-gold">Live Music</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Wed 10 Jun · 7.30pm</span>
+            <h3 class="ev-title">Poppy Ackroyd</h3>
+            <p class="ev-desc">The UK's most inventive pianist-composer makes her Grand Junction debut.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-gold">18+</span>
+              <span class="ev-tag tag-gold">Licensed Bar</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">£21 + bf</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="2">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/eee67bcd-38e3-4f08-8579-ea1e6b73d2f1" alt="Cinderella Ice Cream Seller">
+            <span class="ev-badge badge-gold">Live Theatre</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Wed 27 May · 11am &amp; 2pm</span>
+            <h3 class="ev-title">Cinderella Ice Cream Seller</h3>
+            <p class="ev-desc">May half term — a delicious retelling of a fairytale classic with live music and theatrical magic. Ages 5+.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-outline">Family</span>
+              <span class="ev-tag tag-gold">Age 5+</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Pay What You Can</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="3">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/8f7f9649-1929-43a5-af6d-087f9ad2fe86" alt="VIP Club Night">
+            <span class="ev-badge badge-maroon">SEND</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Fri 24 Jul · 6.30pm</span>
+            <h3 class="ev-title">VIP Club Night</h3>
+            <p class="ev-desc">West London's inclusive club night welcoming adults with learning disabilities and those without.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-gold">Accessible</span>
+              <span class="ev-tag tag-gold">18+</span>
+              <span class="ev-tag tag-gold">Carers free</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">£7</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="4">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/890a0626-5b65-4620-acd8-6ab80aa795ca" alt="Stone Light and Colour">
+            <span class="ev-badge badge-tours">Tours</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Sat 25 Jul · 2pm – 3pm</span>
+            <h3 class="ev-title">Stone, Light &amp; Colour</h3>
+            <p class="ev-desc">Explore the extraordinary Victorian neo-Gothic architecture and vibrant stained glass of St Mary Magdalene.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-gold">All Ages</span>
+              <span class="ev-tag tag-gold">Walk-ins Welcome</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">£5</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="5">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/c32ecab1-4048-46d5-a0f7-8719cb7a3249" alt="Echoes of Us">
+            <span class="ev-badge badge-azure">Workshop</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Every Tue · 1pm</span>
+            <h3 class="ev-title">Echoes of Us</h3>
+            <p class="ev-desc">A 10-week creative storytelling workshop for African and Caribbean adults (18+) in Paddington.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-azure-outline">Free</span>
+              <span class="ev-tag tag-gold">18+</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="6">
+          <div class="ev-img"><div class="ev-img-placeholder"></div>
+            <span class="ev-badge badge-azure">Class</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Every Mon · 20 Apr – 6 Jul</span>
+            <h3 class="ev-title">Language Café (English)</h3>
+            <p class="ev-desc">A friendly session to meet local people, improve your English and gain confidence. Everyone welcome.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-free">Free</span>
+              <span class="ev-tag tag-outline">Beginners</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+    </div><!-- /viewport -->
+
+    <div class="carousel-nav">
+      <button class="carousel-btn" id="evPrev">&#8592;</button>
+      <button class="carousel-btn" id="evNext">&#8594;</button>
+    </div>
+  </div>
+</section>
+
+<div class="sep-green"><div class="sep-green-inner"></div></div>
+
+<section id="experience">
+  <div class="exp-inner">
+    <p class="exp-spotlight">In the Spotlight</p>
+    <div class="exp-h2-row">
+      <h2 class="exp-h2">Experience<br>Grand Junction</h2>
+      <button class="btn-about">About Us ›</button>
+    </div>
+
+    <div class="exp-row">
+      <!-- Heritage card -->
+      <div class="exp-card exp-card-heritage">
+        <div class="exp-img-heritage">
+          <img src="https://www.figma.com/api/mcp/asset/da91e7ad-3d3d-4aeb-86b0-7862a7d35e76" alt="Heritage">
+          <div class="exp-img-heritage-overlay"></div>
+        </div>
+        <div class="exp-card-body">
+          <span class="exp-label">Heritage Hub</span>
+          <h3 class="exp-h3">Nine Centuries of Stories to Discover</h3>
+          <ul class="exp-bullets">
+            <li>Grade I listed neo-Gothic church</li>
+            <li>Guided heritage tours available</li>
+            <li>Interactive digital guide</li>
+            <li>Step-free access</li>
+          </ul>
+          <button class="btn-gold-filled">Explore Our Heritage ›</button>
+        </div>
+      </div>
+      <!-- Membership card — spans both rows -->
+      <div class="exp-card exp-card-membership" style="grid-row: 1 / 3;">
+        <span class="exp-label">Become Part of Our Community</span>
+        <h3 class="mem-h2">Join Grand Junction</h3>
+        <p class="mem-desc">Become a part of something that matters. Your membership directly supports the arts, community programmes and the conservation of this remarkable building.</p>
+        <div class="mem-tiers">
+          <div class="mem-tier">
+            <div><div class="mem-tier-name">Friend</div><div class="mem-tier-desc">Community access &amp; regular updates</div></div>
+            <span class="mem-tier-arrow">›</span>
+          </div>
+          <div class="mem-tier">
+            <div><div class="mem-tier-name">Supporter</div><div class="mem-tier-desc">Priority booking &amp; exclusive events</div></div>
+            <span class="mem-tier-arrow">›</span>
+          </div>
+          <div class="mem-tier">
+            <div><div class="mem-tier-name">Patron</div><div class="mem-tier-desc">Deeper engagement &amp; recognition</div></div>
+            <span class="mem-tier-arrow">›</span>
+          </div>
+        </div>
+        <button class="btn-mem-options">See Membership Options ›</button>
+        <div class="mem-donate">
+          <div class="mem-donate-text">
+            <h4>Support Us With a Donation</h4>
+            <p>Not ready to join? A one-off gift directly funds our programme and community work</p>
+          </div>
+          <button class="btn-donate">Donate</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="height:20px;"></div>
+
+    <div class="exp-row">
+      <!-- Café card -->
+      <div class="exp-card exp-card-cafe">
+        <div class="exp-cafe-body">
+          <span class="exp-label">The Café · Canal-Side</span>
+          <h3 class="exp-h3">Coffee, Lunch &amp; the Canal</h3>
+          <p class="exp-desc">Freshly made food and great coffee on the Regent's Canal terrace. A warm, welcoming space open to everyone - no event ticket required.</p>
+          <div class="exp-info-rows">
+            <div class="exp-info-row"><span class="exp-info-label">Open</span><span class="exp-info-val">Saturday - Thursday · 9am - 4pm</span></div>
+            <div class="exp-info-row"><span class="exp-info-label">Find us</span><span class="exp-info-val">Rowington Close, W2 · Regent's Canal side</span></div>
+            <div class="exp-info-row"><span class="exp-info-label">Also offers</span><span class="exp-info-val">Private hire &amp; catering for events</span></div>
+          </div>
+          <button class="btn-gold-outline">Visit the Café ›</button>
+        </div>
+        <div class="exp-img-cafe">
+          <img src="https://www.figma.com/api/mcp/asset/bda17f66-f179-46bb-b142-575f2bddd3d3" alt="Café">
+          <div class="exp-img-cafe-overlay"></div>
+        </div>
+      </div>
+      <!-- empty cell — membership spans here -->
+      <div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep-gold" style="background:#004d1f;">
+  <img src="https://www.figma.com/api/mcp/asset/5a04f085-ddef-4c79-a407-122ca372d49e" alt="" style="transform:none;">
+</div>
+
+<section id="newsletter">
+  <div class="nl-pattern"><img src="https://www.figma.com/api/mcp/asset/37a27e97-7340-49b1-9e9a-3ee9aa56e3da" alt=""></div>
+  <div class="nl-inner">
+    <div>
+      <p class="nl-label">Hear From Grand Junction</p>
+      <h2 class="nl-h2">Stay<br>Connected</h2>
+      <p class="nl-sub">Choose the updates that matter to you — events, heritage, workshops, community news.</p>
+    </div>
+    <div>
+      <p class="nl-interests-label">What Interests You?</p>
+      <div class="nl-tags">
+        <button class="nl-tag active">What's On</button>
+        <button class="nl-tag">Workshops &amp; Classes</button>
+        <button class="nl-tag">Free &amp; Local</button>
+        <button class="nl-tag">Hire &amp; Events</button>
+        <button class="nl-tag">Support &amp; Give</button>
+        <button class="nl-tag">Partnerships</button>
+        <button class="nl-tag">Volunteer</button>
+        <button class="nl-tag nl-tag-gold">Become a Member</button>
+      </div>
+      <div class="nl-email-row">
+        <input type="email" placeholder="Your email address">
+        <button class="nl-submit">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep-gold"><img src="https://www.figma.com/api/mcp/asset/5a04f085-ddef-4c79-a407-122ca372d49e" alt=""></div>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img class="footer-logo" src="https://www.figma.com/api/mcp/asset/3cda328b-5b48-4e8c-8476-11987340fb51" alt="Grand Junction">
+        <address class="footer-addr">
+          At St Mary Magdalene's<br>Paddington<br>Rowington Close, London W2 5TF
+        </address>
+        <p class="footer-phone">020 7266 8258</p>
+        <a href="/about" class="footer-about">About Grand Junction →</a>
+        <div class="footer-a11y">
+          <span class="footer-a11y-tag">Wheelchair accessible</span>
+          <span class="footer-a11y-tag">BSL available</span>
+          <span class="footer-a11y-tag">SEND welcome</span>
+        </div>
+        <div class="footer-socials">
+          <div class="social-circle">ig</div>
+          <div class="social-circle">fb</div>
+          <div class="social-circle">yt</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">What's On</span>
+        <ul>
+          <li><a href="#">All Events</a></li>
+          <li><a href="#">Music &amp; Performance</a></li>
+          <li><a href="#">Heritage Tours</a></li>
+          <li><a href="#">Workshops &amp; Classes</a></li>
+          <li><a href="#">Community Events</a></li>
+          <li><a href="#">Children &amp; Families</a></li>
+          <li><a href="#">Past Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Visit</span>
+        <ul>
+          <li><a href="#">Plan Your Visit</a></li>
+          <li><a href="#">Heritage Hub</a></li>
+          <li><a href="#">The Café</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="#">How to Find Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Hire</span>
+        <ul>
+          <li><a href="#">All Spaces &amp; Packages</a></li>
+          <li><a href="#">Weddings &amp; Celebrations</a></li>
+          <li><a href="#">Filming &amp; Photoshoots</a></li>
+          <li><a href="#">Meetings &amp; Away Days</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Get Involved</span>
+        <ul>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Membership</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Volunteer</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-supported">
+      <span class="footer-sup-label">Supported by</span>
+      <span class="footer-sup-pdt">PDT</span>
+      <img class="footer-sup-img" src="https://www.figma.com/api/mcp/asset/282bc0e1-6e28-460e-b22a-43110c60b2d7" alt="Arts Council England">
+      <img class="footer-sup-img-sm" src="https://www.figma.com/api/mcp/asset/a46ba236-525b-478e-943a-152fb294238b" alt="Bloomberg Philanthropies">
+      <span class="footer-sup-pdt-2">National Lottery Heritage Fund</span>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p>
+      <p class="footer-legal">Privacy  ·  Safeguarding  ·  Accessibility  ·  Terms</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── HERO SLIDES ──────────────────────────────────────────────
+// Hero bg loaded via CSS background-image
+// Single image — no rotation needed. Dots are decorative for prototype.
+
+// ── BURGER MENU ──────────────────────────────────────────────
+const overlay  = document.getElementById('menu-overlay');
+const backdrop = document.getElementById('overlayBackdrop');
+document.getElementById('menuOpen').addEventListener('click', () => {
+  overlay.classList.add('open'); backdrop.classList.add('open');
+});
+document.getElementById('menuClose').addEventListener('click', () => {
+  overlay.classList.remove('open'); backdrop.classList.remove('open');
+});
+backdrop.addEventListener('click', () => {
+  overlay.classList.remove('open'); backdrop.classList.remove('open');
+});
+function toggleMenuItem(header) {
+  const item = header.parentElement;
+  const wasActive = item.classList.contains('active');
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+  if (!wasActive) item.classList.add('active');
+}
+
+// ── CAROUSEL ────────────────────────────────────────────────
+(function() {
+  const viewport  = document.getElementById('evViewport');
+  const track     = document.getElementById('evTrack');
+  const cards     = Array.from(track.querySelectorAll('.ev-card'));
+  const prevBtn   = document.getElementById('evPrev');
+  const nextBtn   = document.getElementById('evNext');
+  const CARD_STD  = 280;
+  const CARD_FEAT = 420;
+  const GAP       = 16;
+  let currentIdx  = 1;
+  let isDragging  = false;
+  let dragStartX  = 0;
+  let dragOffset  = 0;
+  let baseOffset  = 0;
+
+  function centerFeatured(animate) {
+    const vpW = viewport.clientWidth;
+    let leftOf = 0;
+    for (let i = 0; i < currentIdx; i++) {
+      leftOf += (cards[i].classList.contains('featured') ? CARD_FEAT : CARD_STD) + GAP;
+    }
+    baseOffset = vpW / 2 - CARD_FEAT / 2 - leftOf;
+    track.style.transition = animate ? 'transform 0.42s cubic-bezier(0.4,0,0.2,1)' : 'none';
+    track.style.transform  = `translateX(${baseOffset}px)`;
+  }
+
+  function setFeatured(idx) {
+    if (idx < 0 || idx >= cards.length) return;
+    cards[currentIdx].classList.remove('featured');
+    currentIdx = idx;
+    cards[currentIdx].classList.add('featured');
+    centerFeatured(true);
+  }
+
+  // Init
+  centerFeatured(false);
+
+  prevBtn.addEventListener('click', () => setFeatured(Math.max(0, currentIdx - 1)));
+  nextBtn.addEventListener('click', () => setFeatured(Math.min(cards.length - 1, currentIdx + 1)));
+
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      if (Math.abs(dragOffset) > 8) return;
+      if (i !== currentIdx) setFeatured(i);
+    });
+  });
+
+  viewport.addEventListener('mousedown', e => {
+    isDragging = true; dragStartX = e.clientX; dragOffset = 0;
+    viewport.classList.add('dragging');
+    track.style.transition = 'none';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    dragOffset = e.clientX - dragStartX;
+    track.style.transform = `translateX(${baseOffset + dragOffset}px)`;
+  });
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false; viewport.classList.remove('dragging');
+    const threshold = (CARD_STD + GAP) * 0.35;
+    if      (dragOffset < -threshold && currentIdx < cards.length - 1) setFeatured(currentIdx + 1);
+    else if (dragOffset >  threshold && currentIdx > 0)                  setFeatured(currentIdx - 1);
+    else centerFeatured(true);
+    dragOffset = 0;
+  });
+
+  // Touch
+  let touchStartX = 0;
+  viewport.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; track.style.transition = 'none'; }, {passive:true});
+  viewport.addEventListener('touchmove',  e => {
+    const dx = e.touches[0].clientX - touchStartX;
+    track.style.transform = `translateX(${baseOffset + dx}px)`;
+  }, {passive:true});
+  viewport.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const threshold = (CARD_STD + GAP) * 0.35;
+    if (dx < -threshold && currentIdx < cards.length - 1) setFeatured(currentIdx + 1);
+    else if (dx > threshold && currentIdx > 0) setFeatured(currentIdx - 1);
+    else centerFeatured(true);
+  });
+
+  window.addEventListener('resize', () => centerFeatured(false));
+})();
+
+// ── INTEREST TAGS ────────────────────────────────────────────
+document.querySelectorAll('.nl-tag').forEach(t => {
+  t.addEventListener('click', () => t.classList.toggle('active'));
+});
+</script>
+</body>
+</html>
