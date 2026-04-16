@@ -17,17 +17,18 @@ grand-junction-digital/
 
 ## Interactive HTML Prototypes
 
-Five design directions across three pages. Open directly in a browser — no build step required.
+Latest prototype (v14) and the original five design directions across three pages. Open directly in a browser — no build step required.
 
 ### Live URLs
 
-| Prototype | URL |
+| Prototypes | URL |
 |-----------|-----|
-| Homepage — all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_Variations_v3.html |
-| What's On — all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_WhatsOn_Variations.html |
-| Heritage Hub — all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_HeritageHub_Variations.html |
+| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_Variations_v3.html |
+| Homepage - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_Variations_v3.html |
+| What's On - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_WhatsOn_Variations.html |
+| Heritage Hub - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_HeritageHub_Variations.html |
 
-### Variation Reference
+### Original Variation Reference
 
 | ID | Name | Concept |
 |----|------|---------|
@@ -40,24 +41,10 @@ Five design directions across three pages. Open directly in a browser — no bui
 ### How to use the prototypes
 
 - Open any URL above directly in a browser (Chrome or Firefox recommended)
-- Use the **toolbar at the top** to switch between variations A–E
+- Use the **toolbar at the top** to switch between variations A–E of original
 - Variation E: click the **burger icon top left** to open the overlay navigation
 - All interactive elements (filters, toggles, overlays, tabs) are live — click to explore
 - Source code is fully inspectable — open browser DevTools to review CSS and JS
-
----
-
-## Design Tokens (quick reference)
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| Gold | `#9a7d3a` | Primary CTA, active states, rules |
-| Gold light | `#c4a055` | Hover states |
-| Teal | `#1a5e3a` | Secondary action, heritage sections |
-| Near-black | `#111110` | Primary text, dark backgrounds |
-| Off-white | `#f7f4ef` | Warm page backgrounds |
-| Body font | Open Sans | All body and UI text — all variations |
-| Display font | Bebas Neue (E) / DM Serif Display (A) / Libre Baskerville (B) / Playfair Display (C) / Cormorant Garamond (D) | Direction-dependent |
 
 ---
 
