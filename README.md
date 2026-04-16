@@ -23,7 +23,7 @@ Latest prototype (v14) and the original five design directions across three page
 
 | Prototypes | URL |
 |-----------|-----|
-| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_v13.html |
+| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_v14.html |
 | Homepage - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_Variations_v3.html |
 | What's On - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_WhatsOn_Variations.html |
 | Heritage Hub - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_HeritageHub_Variations.html |
