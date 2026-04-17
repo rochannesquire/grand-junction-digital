@@ -17,13 +17,13 @@ grand-junction-digital/
 
 ## Interactive HTML Prototypes
 
-Latest prototype (v16) and the original five design directions across three pages. Open directly in a browser — no build step required.
+Latest prototype, previous iterations and the original five design directions across three pages. Open directly in a browser — no build step required.
 
 ### Live URLs
 
 | Prototypes | URL |
 |-----------|-----|
-| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_v16.html |
+| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_v17.html |
 | Homepage - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_Variations_v3.html |
 | What's On - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_WhatsOn_Variations.html |
 | Heritage Hub - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_HeritageHub_Variations.html |
