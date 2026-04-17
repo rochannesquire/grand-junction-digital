@@ -17,13 +17,13 @@ grand-junction-digital/
 
 ## Interactive HTML Prototypes
 
-Latest prototype (v14) and the original five design directions across three pages. Open directly in a browser — no build step required.
+Latest prototype (v16) and the original five design directions across three pages. Open directly in a browser — no build step required.
 
 ### Live URLs
 
 | Prototypes | URL |
 |-----------|-----|
-| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_v14.html |
+| Homepage - current variation | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_v16.html |
 | Homepage - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_Homepage_Variations_v3.html |
 | What's On - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_WhatsOn_Variations.html |
 | Heritage Hub - all 5 variations | https://rochannesquire.github.io/grand-junction-digital/prototypes/GJ_HeritageHub_Variations.html |
@@ -42,7 +42,7 @@ Latest prototype (v14) and the original five design directions across three page
 
 - Open any URL above directly in a browser (Chrome or Firefox recommended)
 - Use the **toolbar at the top** to switch between variations A–E of original
-- Variation E: click the **burger icon top left** to open the overlay navigation
+- Burger Menu: click the **burger icon top left** to open the overlay navigation
 - All interactive elements (filters, toggles, overlays, tabs) are live — click to explore
 - Source code is fully inspectable — open browser DevTools to review CSS and JS
 
