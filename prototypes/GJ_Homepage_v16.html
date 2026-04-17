@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grand Junction — Arts, Culture & Community</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Platypi:ital,wght@0,300..800;1,300..800&family=Nunito:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & BASE ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Nunito', sans-serif; background: #212721; color: #fff; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; font-family: 'Nunito', sans-serif; }
+
+/* ── MENU OVERLAY ───────────────────────────────────────────── */
+#overlay-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1999;
+  opacity: 0; pointer-events: none; transition: opacity 0.38s;
+}
+#overlay-backdrop.open { opacity: 1; pointer-events: auto; }
+#menu-overlay {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 480px;
+  z-index: 2000; background: #215732;
+  transform: translateX(100%); transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+  display: flex; flex-direction: column; padding: 28px 32px;
+  overflow-y: auto; box-shadow: -4px 0 32px rgba(0,0,0,0.4);
+}
+#menu-overlay.open { transform: translateX(0); }
+.menu-close {
+  align-self: flex-end; background: none; border: none; color: #fff;
+  font-size: 28px; line-height: 1; padding: 4px 8px; margin-bottom: 24px;
+}
+.menu-items { display: flex; flex-direction: column; flex: 1; }
+.menu-item { border-bottom: 1px solid rgba(255,255,255,0.18); }
+.menu-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 0; cursor: pointer; user-select: none;
+}
+.menu-title { font-family: 'Platypi', serif; font-size: 32px; font-weight: 700; color: #fff; opacity: 0.75; transition: opacity 0.2s; }
+.menu-item.active .menu-title { font-size: 34px; opacity: 1; }
+.menu-arrow { font-size: 18px; color: rgba(255,255,255,0.40); transition: transform 0.25s; }
+.menu-item.active .menu-arrow { color: rgba(255,255,255,0.65); transform: rotate(90deg); }
+.menu-subnav { display: none; flex-direction: column; padding-bottom: 12px; }
+.menu-item.active .menu-subnav { display: flex; }
+.menu-subnav a {
+  padding: 9px 0 9px 4px; font-size: 14px; color: rgba(255,255,255,0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.menu-subnav a:before { content: '– '; color: rgba(255,255,255,0.30); }
+.menu-subnav a:last-child { border-bottom: none; }
+.menu-footer {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.18);
+}
+.menu-util {
+  border: 1px solid rgba(255,255,255,0.25); border-radius: 50px;
+  padding: 5px 12px; font-size: 12px; color: rgba(255,255,255,0.60);
+  background: none;
+}
+
+/* ── NAVIGATION ─────────────────────────────────────────────── */
+#main-nav {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 48px); max-width: 1392px; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px; height: 64px;
+  background: rgba(33,39,33,0.55);
+  backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,0.10); border-radius: 14px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.35);
+}
+.nav-logo img { height: 28px; width: auto; display: block; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-icon-btn {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.7);
+}
+.nav-icon-btn svg {
+  width: 20px; height: 20px;
+  stroke: currentColor; fill: none;
+  stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.nav-burger {
+  width: 52px; height: 46px;
+  background: none; border: none; cursor: pointer;
+  padding: 0; display: block; flex-shrink: 0;
+}
+.nav-burger svg { display: block; }
+
+/* ── HERO ───────────────────────────────────────────────────── */
+#hero {
+  position: relative; width: 100%; height: 900px; overflow: hidden;
+}
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center top;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #212621 0%, rgba(33,38,33,0.75) 49.5%, rgba(33,38,33,0.5) 66%, rgba(33,38,33,0.2) 100%);
+}
+.hero-bg { position: absolute; inset: 0; }
+.hero-content {
+  position: relative; z-index: 2;
+  left: 50%; transform: translateX(-50%);
+  width: 1280px; padding-top: 228px; opacity: 0.84;
+}
+.hero-location {
+  font-size: 12px; font-weight: 800; letter-spacing: 3.08px;
+  text-transform: uppercase; color: rgba(255,255,255,0.75);
+  margin-bottom: 32px;
+}
+.hero-h1 {
+  font-family: 'Platypi', serif; font-size: 90px; font-weight: 600;
+  line-height: 90px; color: #fff; margin: 0;
+}
+.hero-h1-gold { color: #9f7d23; }
+.hero-sub {
+  font-size: 16px; line-height: 26px; color: rgba(255,255,255,0.78);
+  margin-top: 20px; max-width: 560px;
+}
+.hero-ctas { display: flex; gap: 12px; margin-top: 32px; }
+.btn-hero-primary {
+  background: #fff; color: #215749; border: none;
+  padding: 15px 30px; border-radius: 12px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.84px; text-transform: uppercase;
+  transition: opacity 0.2s;
+}
+.btn-hero-primary:hover { opacity: 0.9; }
+.btn-hero-outline {
+  background: rgba(33,39,33,0.5); color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  padding: 15px 30px; border-radius: 12px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.84px; text-transform: uppercase;
+  transition: background 0.2s;
+}
+.btn-hero-outline:hover { background: rgba(255,255,255,0.12); }
+.hero-dots {
+  position: absolute; right: 42px; bottom: 26px; z-index: 2;
+  display: flex; gap: 8px; align-items: center;
+}
+.hero-dot { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.28); cursor: pointer; }
+.hero-dot.active { width: 36px; background: #fff; }
+.hero-dot:not(.active) { width: 28px; }
+
+/* ── QUICK LINKS ────────────────────────────────────────────── */
+#quick-links {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+  display: flex; justify-content: center;
+}
+.ql-bar {
+  display: flex; align-items: center; gap: 0;
+  background: rgba(11,11,9,0.42); border: 1px solid rgba(255,255,255,0.10);
+  border-bottom: none; border-radius: 20px 20px 0 0;
+  padding: 17px 25px; box-shadow: 0 -2px 32px rgba(0,0,0,0.20);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+.ql-item {
+  display: flex; align-items: center; gap: 0;
+  padding: 0 12px; text-decoration: none; overflow: hidden;
+}
+.ql-item:first-child { padding-left: 0; }
+.ql-item:last-child { padding-right: 0; }
+.ql-circle {
+  width: 72px; height: 72px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; position: relative;
+  transition: transform 0.25s ease;
+}
+.ql-item:hover .ql-circle { transform: scale(1.06); }
+.ql-circle-inner {
+  position: absolute; inset: 5px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.ql-circle-inner-gold { border-color: #9f7d23; }
+.ql-icon { width: 22px; height: 22px; position: relative; z-index: 1; }
+.ql-icon img { width: 100%; height: 100%; object-fit: contain; }
+/* Text panel — hidden by default, expands on hover */
+.ql-text {
+  display: flex; flex-direction: column; gap: 3px;
+  max-width: 0; overflow: hidden; opacity: 0;
+  transition: max-width 0.35s ease, opacity 0.25s ease, margin-left 0.35s ease;
+  margin-left: 0;
+  pointer-events: none;
+}
+.ql-item:hover .ql-text {
+  max-width: 160px; opacity: 1; margin-left: 12px;
+}
+.ql-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2.2px;
+  text-transform: uppercase; color: #fff; white-space: nowrap;
+}
+.ql-desc { font-size: 11px; color: rgba(255,255,255,0.65); line-height: 1.5; width: 143px; }
+.ql-sep { width: 1px; height: 32px; background: rgba(255,255,255,0.10); flex-shrink: 0; }
+
+/* ── DONATE TAB ─────────────────────────────────────────────── */
+#donate-tab {
+  position: fixed; right: 0; top: 350px; z-index: 999;
+  cursor: pointer; transition: filter 0.25s ease;
+}
+#donate-tab:hover { filter: brightness(1.1); }
+#donate-tab svg { display: block; }
+
+/* ── SEPARATORS ─────────────────────────────────────────────── */
+.sep-gold {
+  display: block; width: 100%; line-height: 0;
+  background: #212721;
+}
+.sep-gold svg { display: block; width: 100%; }
+.sep-green {
+  display: block; width: 100%; line-height: 0;
+  background: #004d1f;
+}
+.sep-green svg { display: block; width: 100%; }
+
+/* ── WHAT'S ON ──────────────────────────────────────────────── */
+#whats-on {
+  background: #004d1f; position: relative; padding: 96px 0 80px; overflow: hidden;
+}
+.wo-pattern {
+  position: absolute; left: -191px; top: 49px; width: 780px; height: 780px;
+  pointer-events: none; mix-blend-mode: multiply; opacity: 0.6;
+}
+.wo-pattern img { width: 100%; height: 100%; object-fit: contain; }
+.wo-inner {
+  max-width: 1440px; margin: 0 auto; position: relative; z-index: 1;
+}
+.wo-header { text-align: left; position: relative; margin-bottom: 20px; padding: 0 80px; }
+.wo-label {
+  font-size: 12px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; display: block; margin-bottom: 4px;
+}
+.wo-h2 {
+  font-family: 'Platypi', serif; font-size: 56px; font-weight: 600;
+  color: #fff; line-height: 1.15; margin: 0;
+}
+.wo-cal-btn {
+  position: absolute; right: 80px; top: 50%;
+  background: #9f7d23; border: 1.5px solid #9f7d23; color: #212721;
+  padding: 10px 22px; border-radius: 12px; font-size: 14px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  transform: translateY(-50%); white-space: nowrap;
+  transition: background 0.22s, transform 0.22s, box-shadow 0.22s; cursor: pointer;
+}
+.wo-cal-btn:hover {
+  background: #b8960f;
+  transform: translateY(calc(-50% - 2px));
+  box-shadow: 0 6px 18px rgba(159,125,35,0.4);
+}
+.wo-intro {
+  font-size: 15px; line-height: 24.75px; color: #fff;
+  text-align: left; max-width: 577px;
+  margin: 0 0 32px; padding: 0 80px;
+}
+
+/* ── CAROUSEL ───────────────────────────────────────────────── */
+.carousel-viewport {
+  width: 100%; padding: 40px 0 36px; cursor: grab;
+  user-select: none; position: relative;
+}
+.carousel-viewport.dragging { cursor: grabbing; }
+.carousel-track {
+  display: flex; align-items: center; gap: 16px;
+}
+
+/* Event cards */
+.ev-card {
+  flex-shrink: 0; width: 345px; height: 460px;
+  background: #111209; border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; overflow: hidden;
+  display: flex; flex-direction: column;
+  opacity: 0.75;
+  transform: scale(0.88);
+  transform-origin: center center;
+  transition: opacity 0.42s ease, transform 0.42s ease,
+              box-shadow 0.42s ease, border-color 0.42s ease;
+}
+.ev-card.featured {
+  opacity: 1;
+  transform: scale(1.22);
+  border: 5px solid #9f7d23;
+  box-shadow: 0 16px 56px rgba(0,0,0,0.5);
+}
+.ev-img { position: relative; height: 200px; flex-shrink: 0; overflow: hidden; transition: height 0.42s cubic-bezier(0.4,0,0.2,1); }
+.ev-img img { transition: transform 0.4s ease; }
+.ev-card:hover .ev-img img { transform: scale(1.04); }
+/* featured card image scales with the card via transform:scale(1.22) */
+.ev-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.ev-img-placeholder { width: 100%; height: 100%; background: #1f261f; }
+.ev-badge {
+  position: absolute; top: 12px; right: 11px; z-index: 2;
+  font-size: 12px; font-weight: 700; letter-spacing: 1.54px; text-transform: uppercase;
+  padding: 5px 11px; border-radius: 50px;
+}
+.badge-green  { background: #215749; color: #fff; }
+.badge-gold   { background: #9f7d23; color: #fff; }
+.badge-maroon { background: #862633; color: #fff; }
+.badge-azure  { background: #abcae9; color: #212721; }
+.badge-tours  { background: rgba(0,0,0,0.38); border: 1.5px solid #9f7d23; color: #9f7d23; }
+.ev-body { padding: 16px 18px 0; flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.ev-date { font-size: 12px; font-weight: 800; letter-spacing: 1.54px; text-transform: uppercase; color: #9f7d23; }
+.ev-card.featured .ev-date { font-size: 13px; }
+.ev-title {
+  font-family: 'Platypi', serif; font-size: 18px; font-weight: 600;
+  color: #fff; line-height: 22px; margin: 0;
+}
+.ev-card.featured .ev-title { font-size: 22px; line-height: 28px; }
+.ev-desc { font-size: 13px; line-height: 20px; color: rgba(255,255,255,0.62); font-weight: 400; margin: 0; }
+.ev-card.featured .ev-desc { font-size: 15px; }
+.ev-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; padding-bottom: 8px; }
+.ev-tag {
+  font-size: 12px; font-weight: 400; letter-spacing: 0.88px;
+  padding: 5px 11px; border-radius: 50px;
+}
+.tag-free  { background: #abcae9; color: #212721; }
+.tag-gold  { background: rgba(159,125,35,0.2); color: rgba(255,255,255,0.62); }
+.tag-outline { border: 1.5px solid rgba(255,255,255,0.28); color: rgba(255,255,255,0.62); }
+.tag-azure-outline { background: rgba(159,125,35,0.2); border: 1px solid #abcae9; color: #abcae9; }
+.ev-foot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 18px 16px; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto;
+}
+.ev-price { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.72); }
+.ev-card.featured .ev-price { font-size: 15px; }
+.ev-btn {
+  background: none; border: 1.5px solid #9f7d23; color: #9f7d23;
+  padding: 8px 16px; border-radius: 12px; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  transition: background 0.2s, color 0.2s;
+}
+.ev-btn:hover { background: #9f7d23; color: #fff; }
+.ev-card.featured .ev-btn { font-size: 14px; padding: 8px 16px; border-radius: 12px; }
+.carousel-nav { display: flex; justify-content: center; gap: 12px; padding: 16px 0 24px; }
+.carousel-btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,1); background: none; color: #fff;
+  font-size: 17px; display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.carousel-btn:hover { border-color: #9f7d23; color: #9f7d23; }
+
+/* ── EXPERIENCE ─────────────────────────────────────────────── */
+#experience { background: #212721; padding: 80px 0; }
+.exp-inner { max-width: 1440px; margin: 0 auto; padding: 0 80px; }
+.exp-spotlight {
+  font-size: 12px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; margin-bottom: 8px;
+}
+.exp-h2-row { position: relative; margin-bottom: 48px; }
+.exp-h2 {
+  font-family: 'Platypi', serif; font-size: 56px; font-weight: 600;
+  color: #fff; line-height: 64px; margin: 0;
+}
+.btn-about {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  background: none; border: 1.5px solid #9f7d23; color: #9f7d23;
+  padding: 10px 22px; border-radius: 12px; font-size: 14px; font-weight: 600;
+  text-transform: uppercase;
+  transition: background 0.22s, color 0.22s, transform 0.22s, box-shadow 0.22s;
+  cursor: pointer;
+}
+.btn-about:hover {
+  background: #9f7d23; color: #212721;
+  transform: translateY(calc(-50% - 2px));
+  box-shadow: 0 6px 18px rgba(159,125,35,0.35);
+}
+/* Heritage + Café rows — replaced with 2/3 + 1/3 spanning grid */
+.exp-grid {
+  display: grid;
+  grid-template-columns: 839fr 414fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+.exp-grid-left {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.exp-grid-right {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+}
+.exp-card {
+  border-radius: 12px; overflow: hidden; position: relative;
+}
+.exp-card-heritage {
+  background: rgba(159,125,35,0.07); border: 1px solid rgba(159,125,35,0.28);
+  height: 325px; display: grid; grid-template-columns: 490px 1fr;
+}
+.exp-card-cafe {
+  background: rgba(159,125,35,0.07); border: 1px solid rgba(159,125,35,0.28);
+  height: 325px; display: grid; grid-template-columns: 58% 42%;
+}
+.exp-card-membership {
+  background: rgba(42,55,70,0.42); border: 1px solid rgba(255,255,255,0.08);
+  flex: 1;
+  padding: 28px 28px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.exp-img-heritage {
+  height: 325px; overflow: hidden; position: relative; margin-left: -49px;
+}
+.exp-img-heritage img { width: 100%; height: 100%; object-fit: cover; }
+.exp-img-heritage-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(42,45,33,0) 35%, rgba(42,45,33,0.5) 55%, #2a2d21 100%);
+}
+.exp-img-cafe { height: 100%; min-height: 200px; overflow: hidden; position: relative; }
+.exp-img-cafe img { width: 100%; height: 100%; object-fit: cover; }
+.exp-img-cafe-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(270deg, rgba(42,45,33,0) 35%, rgba(42,45,33,0.55) 65%, #2a2d21 100%);
+}
+.exp-card-body { padding: 35px 28px; display: flex; flex-direction: column; }
+.exp-cafe-body { padding: 39px 42px; display: flex; flex-direction: column; }
+.exp-label {
+  font-size: 12px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; margin-bottom: 10px;
+}
+.exp-h3 {
+  font-family: 'Platypi', serif; font-size: 22px; font-weight: 600;
+  color: #fff; line-height: 28px; margin: 0 0 8px;
+}
+.exp-desc {
+  font-size: 14px; line-height: 22px; color: rgba(255,255,255,0.62);
+  font-weight: 400; margin: 0;
+}
+.exp-bullets { list-style: none; margin: 12px 0 20px; display: flex; flex-direction: column; gap: 6px; }
+.exp-bullets li {
+  font-size: 14px; line-height: 22px; color: rgba(255,255,255,0.62);
+  display: flex; align-items: center; gap: 10px;
+}
+.exp-bullets li::before {
+  content: ''; display: inline-block; width: 8px; height: 8px;
+  background: #9f7d23; transform: rotate(45deg); flex-shrink: 0;
+}
+.exp-info-rows { margin: 18px 0; display: flex; flex-direction: column; gap: 12px; }
+.exp-info-row { display: flex; gap: 12px; font-size: 13px; line-height: normal; }
+.exp-info-label { font-weight: 700; color: rgba(255,255,255,0.88); width: 82px; flex-shrink: 0; }
+.exp-info-val { color: rgba(255,255,255,0.62); }
+.btn-gold-filled {
+  background: #9f7d23; border: none; color: #212721;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.72px; width: 224px; margin-top: auto;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s; cursor: pointer;
+}
+.btn-gold-filled:hover {
+  background: #b8960f; transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(159,125,35,0.4);
+}
+.btn-gold-outline {
+  background: none; border: 1.5px solid #9f7d23; color: #9f7d23;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; width: 156px; margin-top: auto;
+  transition: background 0.2s, color 0.2s, transform 0.2s; cursor: pointer;
+}
+.btn-gold-outline:hover {
+  background: #9f7d23; color: #212721; transform: translateY(-2px);
+}
+.btn-mem-options {
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-mem-options:hover { background: #abcae9; color: #212721; transform: translateY(-2px); }
+.btn-donate { transition: background 0.2s, transform 0.2s; }
+.btn-donate:hover { background: #8ab0c9; transform: translateY(-2px); }
+/* Membership */
+.mem-h2 {
+  font-family: 'Platypi', serif; font-size: 26px; font-weight: 600;
+  color: #fff; line-height: 32px; margin: 8px 0;
+}
+.mem-desc { font-size: 13px; line-height: 20px; color: rgba(255,255,255,0.62); margin: 0 0 14px; }
+.mem-tiers { display: flex; flex-direction: column; gap: 0; margin-bottom: 12px; }
+.mem-tier {
+  background: rgba(26,42,58,0.5); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px; padding: 11px 16px;
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 6px; cursor: pointer;
+}
+.mem-tier-name { font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #fff; }
+.mem-tier-desc { font-size: 12px; color: rgba(255,255,255,0.62); margin-top: 2px; }
+.mem-tier-arrow { color: rgba(255,255,255,0.35); font-size: 16px; }
+.btn-mem-options {
+  background: none; border: 1.5px solid #abcae9; color: #abcae9;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; width: 231px;
+}
+.mem-donate {
+  background: rgba(171,202,233,0.5); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0 0 10px 10px;
+  padding: 28px 30px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+  /* Edge-to-edge: compensates for card's 28px side padding */
+  margin: auto -28px 0;
+  flex-shrink: 0;
+}
+.mem-donate-text h4 {
+  font-size: 12px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  color: #fff; margin: 0 0 8px;
+}
+.mem-donate-text p { font-size: 12px; line-height: normal; color: rgba(255,255,255,0.8); width: 240px; }
+.btn-donate {
+  background: #abcae9; border: none; color: #212721;
+  padding: 10px 22px; border-radius: 12px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
+}
+
+/* ── NEWSLETTER ─────────────────────────────────────────────── */
+#newsletter {
+  background: #004d1f; position: relative; overflow: hidden;
+  padding: 80px 80px;
+}
+.nl-pattern {
+  position: absolute; left: -162px; top: -95px;
+  width: 830px; height: 830px; pointer-events: none;
+}
+.nl-pattern img { width: 100%; height: 100%; object-fit: contain; }
+.nl-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 380px 1fr; gap: 64px;
+  max-width: 1280px; margin: 0 auto;
+}
+.nl-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2.42px;
+  text-transform: uppercase; color: #9f7d23; margin-bottom: 8px;
+}
+.nl-h2 {
+  font-family: 'Platypi', serif; font-size: 56px; font-weight: 600;
+  color: #fff; line-height: 58px; margin: 0 0 16px;
+}
+.nl-sub { font-size: 15px; line-height: 24px; color: rgba(255,255,255,0.78); }
+.nl-interests-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.75);
+  margin-bottom: 16px;
+}
+.nl-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.nl-tag {
+  border: 1.5px solid rgba(255,255,255,0.32); color: rgba(255,255,255,0.82);
+  background: none; padding: 8px 16px; border-radius: 50px;
+  font-size: 12px; letter-spacing: 0.96px; cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.nl-tag:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
+.nl-tag.active { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.6); }
+.nl-tag-gold { border-color: rgba(196,162,75,0.7); color: #c4a24b; }
+.nl-email-row {
+  display: flex; background: rgba(255,255,255,0.10);
+  border: 1.5px solid rgba(255,255,255,0.28); border-radius: 12px; overflow: hidden;
+  height: 52px;
+}
+.nl-email-row input {
+  flex: 1; background: none; border: none; outline: none;
+  padding: 0 20px; font-size: 15px; color: #fff; font-family: 'Nunito', sans-serif;
+}
+.nl-email-row input::placeholder { color: rgba(255,255,255,0.5); }
+.nl-submit {
+  background: #9f7d23; border: none; color: #fff;
+  padding: 0 24px; font-size: 13px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.5px; border-radius: 9px; margin: 3px; cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.nl-submit:hover { background: #b8960f; transform: translateY(-1px); }
+
+/* ── FOOTER ─────────────────────────────────────────────────── */
+#footer {
+  background: #212721; border-top: 2.5px solid #9f7d23;
+  padding: 50px 0 0;
+}
+.footer-inner {
+  max-width: 1440px; margin: 0 auto; padding: 0 80px;
+}
+.footer-top {
+  display: grid;
+  grid-template-columns: 280px 1fr 1fr 1fr 1fr;
+  gap: 0; padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  margin-bottom: 0;
+}
+.footer-middle {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-wrap: nowrap;
+}
+.footer-middle-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;
+}
+.footer-socials-right {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.social-circle-footer {
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  opacity: 0.7;
+}
+.social-circle-footer:hover { transform: scale(1.12) translateY(-2px); opacity: 1; }
+.footer-brand { padding-right: 20px; }
+.footer-logo { height: 22.62px; width: 236px; object-fit: cover; margin-bottom: 16px; }
+.footer-addr {
+  font-size: 13px; line-height: 22px; color: rgba(255,255,255,0.5);
+  font-style: normal; margin-bottom: 0;
+}
+.footer-phone { font-size: 13px; color: rgba(255,255,255,0.5); margin: 0; }
+.footer-about { font-size: 13px; color: rgba(255,255,255,0.5); text-decoration: underline; display: block; margin-bottom: 14px; }
+.footer-a11y { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0; }
+.footer-a11y-tag {
+  font-size: 11px; color: rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.22); padding: 4px 10px; border-radius: 50px;
+}
+.footer-col { padding: 0 8px 0 24px; }
+.footer-col-heading {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+  color: #9f7d23; margin-bottom: 18px; display: block;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col a { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 20px; }
+.footer-col a:hover { color: #fff; }
+
+.footer-sup-label {
+  font-size: 11px; font-weight: 800; letter-spacing: 2px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3);
+}
+.footer-sup-pdt {
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 5px;
+  padding: 7px 14px; font-size: 11px; color: rgba(255,255,255,0.4);
+}
+.footer-sup-pdt-2 {
+  border: 1px solid rgba(255,255,255,0.15); border-radius: 5px;
+  padding: 7px 14px; font-size: 11px; color: rgba(255,255,255,0.4);
+}
+.footer-sup-img { height: 36px; width: auto; opacity: 0.68; object-fit: contain; }
+.footer-sup-img-sm { height: 30px; width: auto; opacity: 0.68; object-fit: contain; }
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0;
+}
+.footer-copy { font-size: 12px; color: rgba(255,255,255,0.32); }
+.footer-legal { font-size: 12px; color: rgba(255,255,255,0.38); white-space: pre; }
+
+/* ── ANIMATIONS & TRANSITIONS ───────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* Hero content staggered entry */
+.hero-location { animation: fadeInUp 0.8s 0.2s ease both; }
+.hero-h1       { animation: fadeInUp 0.8s 0.4s ease both; }
+.hero-sub      { animation: fadeInUp 0.8s 0.6s ease both; }
+.hero-ctas     { animation: fadeInUp 0.8s 0.75s ease both; }
+#quick-links   { animation: fadeInUp 0.9s 0.9s ease both; }
+/* Scroll-reveal base state */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+/* Card hover lifts — transition set on visible state to override reveal transition */
+.exp-card-heritage.reveal.visible,
+.exp-card-cafe.reveal.visible,
+.exp-card-membership.reveal.visible {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.exp-card-heritage:hover, .exp-card-cafe:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+/* Membership tier hover */
+.mem-tier { transition: background 0.2s, border-color 0.2s, transform 0.2s; }
+.mem-tier:hover { transform: translateX(4px); border-color: rgba(159,125,35,0.5); }
+</style>
+</head>
+<body>
+
+<div id="overlay-backdrop" id="overlayBackdrop"></div>
+<div id="menu-overlay">
+  <button class="menu-close" id="menuClose">&times;</button>
+  <nav class="menu-items">
+    <div class="menu-item active">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">What's On</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">All Events</a><a href="#">Music &amp; Performance</a>
+        <a href="#">Theatre</a><a href="#">Workshops &amp; Classes</a>
+        <a href="#">Heritage Tours</a><a href="#">Community Events</a>
+        <a href="#">Children &amp; Families</a><a href="#">Past Events</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">Visit</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">Plan Your Visit</a><a href="#">Heritage Hub</a>
+        <a href="#">The Café</a><a href="#">Accessibility</a><a href="#">How to Find Us</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">Hire</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">All Spaces &amp; Packages</a><a href="#">Weddings &amp; Celebrations</a>
+        <a href="#">Filming &amp; Photoshoots</a><a href="#">Meetings &amp; Away Days</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <div class="menu-header" onclick="toggleMenuItem(this)">
+        <span class="menu-title">Get Involved</span><span class="menu-arrow">›</span>
+      </div>
+      <div class="menu-subnav">
+        <a href="#">Donate</a><a href="#">Membership</a>
+        <a href="#">Partners</a><a href="#">Volunteer</a><a href="#">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <div class="menu-footer">
+    <button class="menu-util">About</button>
+    <button class="menu-util">Contact</button>
+    <button class="menu-util">Accessibility</button>
+    <button class="menu-util">Safeguarding</button>
+  </div>
+</div>
+
+<nav id="main-nav">
+  <a class="nav-logo" href="/">
+    <img src="https://www.figma.com/api/mcp/asset/7ad0f712-ce3c-4d74-8147-17630ba8e4ed" alt="Grand Junction">
+  </a>
+  <div class="nav-right">
+    <button class="nav-icon-btn" aria-label="Search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+    </button>
+    <button class="nav-icon-btn" aria-label="Account">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+    </button>
+    <button class="nav-burger" id="menuOpen" aria-label="Menu">
+      <svg width="52" height="46" viewBox="0 0 52 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_burger)">
+          <rect width="32" height="32" transform="translate(4.42896 22.429) rotate(-45)" fill="#9F7D23"/>
+          <rect x="18" y="14" width="18" height="2" rx="1" fill="white"/>
+          <rect x="18" y="21" width="18" height="2" rx="1" fill="white"/>
+          <rect x="18" y="28" width="18" height="2" rx="1" fill="white"/>
+        </g>
+        <defs>
+          <clipPath id="clip0_burger">
+            <rect width="52" height="46" fill="white"/>
+          </clipPath>
+        </defs>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<a id="donate-tab" href="/donate" aria-label="Donate">
+  <svg width="42" height="110" viewBox="0 0 42 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_donate)">
+      <path d="M12 110C5.37258 110 4.57341e-06 104.627 4.28372e-06 98L5.24537e-07 12C2.34843e-07 5.37258 5.37258 1.59051e-06 12 1.30082e-06L41.7593 0L41.7593 110L12 110Z" fill="#ABCAE9"/>
+      <path d="M24.8796 78.76C24.8796 79.024 24.8116 79.228 24.6756 79.372C24.5316 79.508 24.3276 79.576 24.0636 79.576L17.2356 79.576C16.9716 79.576 16.7716 79.508 16.6356 79.372C16.4916 79.228 16.4196 79.024 16.4196 78.76L16.4196 76.432C16.4196 75.016 16.7836 73.924 17.5116 73.156C18.2396 72.38 19.2836 71.992 20.6436 71.992C21.3236 71.992 21.9276 72.092 22.4556 72.292C22.9756 72.484 23.4156 72.772 23.7756 73.156C24.1356 73.532 24.4116 73.996 24.6036 74.548C24.7876 75.092 24.8796 75.72 24.8796 76.432L24.8796 78.76ZM23.6076 78.04L23.6076 76.528C23.6076 76.032 23.5476 75.604 23.4276 75.244C23.2996 74.876 23.1156 74.572 22.8756 74.332C22.6276 74.084 22.3196 73.9 21.9516 73.78C21.5756 73.66 21.1396 73.6 20.6436 73.6C19.6516 73.6 18.9116 73.844 18.4236 74.332C17.9356 74.82 17.6916 75.552 17.6916 76.528L17.6916 78.04L23.6076 78.04ZM24.9996 66.6434C24.9996 67.4594 24.8196 68.1754 24.4596 68.7914C24.0996 69.3994 23.5956 69.8714 22.9476 70.2074C22.2916 70.5434 21.5236 70.7114 20.6436 70.7114C19.9796 70.7114 19.3836 70.6154 18.8556 70.4234C18.3196 70.2314 17.8636 69.9594 17.4876 69.6074C17.1036 69.2474 16.8116 68.8194 16.6116 68.3234C16.4036 67.8194 16.2996 67.2594 16.2996 66.6434C16.2996 65.8194 16.4796 65.1034 16.8396 64.4954C17.1916 63.8874 17.6916 63.4154 18.3396 63.0794C18.9876 62.7434 19.7516 62.5754 20.6316 62.5754C21.2956 62.5754 21.8956 62.6714 22.4316 62.8634C22.9676 63.0554 23.4276 63.3314 23.8116 63.6914C24.1956 64.0434 24.4916 64.4714 24.6996 64.9754C24.8996 65.4714 24.9996 66.0274 24.9996 66.6434ZM23.6796 66.6434C23.6796 66.1234 23.5596 65.6834 23.3196 65.3234C23.0796 64.9554 22.7316 64.6754 22.2756 64.4834C21.8196 64.2834 21.2756 64.1834 20.6436 64.1834C19.6836 64.1834 18.9396 64.3994 18.4116 64.8314C17.8836 65.2554 17.6196 65.8594 17.6196 66.6434C17.6196 67.1554 17.7396 67.5954 17.9796 67.9634C18.2116 68.3314 18.5556 68.6154 19.0116 68.8154C19.4596 69.0074 20.0036 69.1034 20.6436 69.1034C21.5956 69.1034 22.3396 68.8874 22.8756 68.4554C23.4116 68.0234 23.6796 67.4194 23.6796 66.6434ZM24.9756 60.2935C24.9756 60.5255 24.9116 60.7055 24.7836 60.8335C24.6556 60.9535 24.4716 61.0135 24.2316 61.0135L17.0916 61.0135C16.8436 61.0135 16.6556 60.9535 16.5276 60.8335C16.3916 60.7055 16.3236 60.5415 16.3236 60.3415C16.3236 60.1575 16.3596 60.0215 16.4316 59.9335C16.4956 59.8375 16.6076 59.7255 16.7676 59.5975L22.7316 55.0015L22.7316 55.3135L17.0556 55.3135C16.8236 55.3135 16.6436 55.2535 16.5156 55.1335C16.3876 55.0055 16.3236 54.8255 16.3236 54.5935C16.3236 54.3615 16.3876 54.1855 16.5156 54.0655C16.6436 53.9455 16.8236 53.8855 17.0556 53.8855L24.2556 53.8855C24.4796 53.8855 24.6556 53.9415 24.7836 54.0535C24.9116 54.1655 24.9756 54.3175 24.9756 54.5095C24.9756 54.6935 24.9396 54.8415 24.8676 54.9535C24.7956 55.0575 24.6796 55.1735 24.5196 55.3015L18.5556 59.8855L18.5556 59.5855L24.2316 59.5855C24.4716 59.5855 24.6556 59.6455 24.7836 59.7655C24.9116 59.8855 24.9756 60.0615 24.9756 60.2935ZM24.9756 51.9529C24.9756 52.1449 24.9316 52.3009 24.8436 52.4209C24.7556 52.5329 24.6396 52.6009 24.4956 52.6249C24.3436 52.6489 24.1756 52.6209 23.9916 52.5409L16.9716 49.3729C16.7396 49.2689 16.5756 49.1449 16.4796 49.0009C16.3756 48.8489 16.3236 48.6769 16.3236 48.4849C16.3236 48.3009 16.3756 48.1369 16.4796 47.9929C16.5756 47.8409 16.7396 47.7129 16.9716 47.6089L23.9916 44.4289C24.1756 44.3409 24.3436 44.3089 24.4956 44.3329C24.6476 44.3569 24.7676 44.4249 24.8556 44.5369C24.9356 44.6489 24.9756 44.7969 24.9756 44.9809C24.9756 45.2049 24.9236 45.3809 24.8196 45.5089C24.7076 45.6289 24.5396 45.7369 24.3156 45.8329L22.5036 46.6129L22.9236 45.9649L22.9236 51.0289L22.5036 50.3809L24.3156 51.1489C24.5476 51.2529 24.7156 51.3609 24.8196 51.4729C24.9236 51.5849 24.9756 51.7449 24.9756 51.9529ZM18.0876 48.5089L22.0836 50.1889L21.6996 50.5009L21.6996 46.4929L22.0836 46.7929L18.0876 48.4849L18.0876 48.5089ZM24.9756 41.2368C24.9756 41.4848 24.9076 41.6768 24.7716 41.8128C24.6276 41.9408 24.4316 42.0048 24.1836 42.0048L17.7036 42.0048L17.7036 44.3448C17.7036 44.5528 17.6476 44.7168 17.5356 44.8368C17.4156 44.9488 17.2556 45.0048 17.0556 45.0048C16.8476 45.0048 16.6916 44.9488 16.5876 44.8368C16.4756 44.7168 16.4196 44.5528 16.4196 44.3448L16.4196 38.1288C16.4196 37.9208 16.4756 37.7608 16.5876 37.6488C16.6916 37.5288 16.8476 37.4688 17.0556 37.4688C17.2556 37.4688 17.4156 37.5288 17.5356 37.6488C17.6476 37.7608 17.7036 37.9208 17.7036 38.1288L17.7036 40.4688L24.1836 40.4688C24.4316 40.4688 24.6276 40.5328 24.7716 40.6608C24.9076 40.7888 24.9756 40.9808 24.9756 41.2368ZM24.8796 35.7756C24.8796 36.0396 24.8116 36.2436 24.6756 36.3876C24.5316 36.5236 24.3276 36.5916 24.0636 36.5916L17.2356 36.5916C16.9716 36.5916 16.7716 36.5236 16.6356 36.3876C16.4916 36.2436 16.4196 36.0396 16.4196 35.7756L16.4196 31.4916C16.4196 31.2916 16.4716 31.1396 16.5756 31.0356C16.6796 30.9236 16.8276 30.8676 17.0196 30.8676C17.2196 30.8676 17.3756 30.9236 17.4876 31.0356C17.5916 31.1396 17.6436 31.2916 17.6436 31.4916L17.6436 35.1156L19.9716 35.1156L19.9716 31.7556C19.9716 31.5476 20.0236 31.3916 20.1276 31.2876C20.2316 31.1836 20.3836 31.1316 20.5836 31.1316C20.7836 31.1316 20.9356 31.1836 21.0396 31.2876C21.1436 31.3916 21.1956 31.5476 21.1956 31.7556L21.1956 35.1156L23.6556 35.1156L23.6556 31.4916C23.6556 31.2916 23.7076 31.1396 23.8116 31.0356C23.9156 30.9236 24.0676 30.8676 24.2676 30.8676C24.4676 30.8676 24.6196 30.9236 24.7236 31.0356C24.8276 31.1396 24.8796 31.2916 24.8796 31.4916L24.8796 35.7756Z" fill="#212721"/>
+    </g>
+    <defs>
+      <clipPath id="clip0_donate">
+        <path d="M12 110C5.37258 110 4.57341e-06 104.627 4.28372e-06 98L5.24537e-07 12C2.34843e-07 5.37258 5.37258 1.59051e-06 12 1.30082e-06L41.7593 0L41.7593 110L12 110Z" fill="white"/>
+      </clipPath>
+    </defs>
+  </svg>
+</a>
+
+<section id="hero">
+  <div class="hero-slide active" id="heroSlide0" style="background-image:url('https://www.figma.com/api/mcp/asset/99887222-26bd-4b8e-87ae-537bc0d6cdba');"></div>
+  <div class="hero-slide" id="heroSlide1" style="background-image:url('https://rochannesquire.github.io/grand-junction-digital/assets/Photo%C2%A9EllieKurttz_%20Olive%20Jar_PRO_021.JPG');"></div>
+  <div class="hero-slide" id="heroSlide2" style="background-image:url('https://rochannesquire.github.io/grand-junction-digital/assets/Evening-Event-Featured-Image.jpg');"></div>
+  <div class="hero-content">
+    <p class="hero-location">St Mary Magdalene · Paddington · London W2</p>
+    <h1 class="hero-h1">Arts, Culture<br><span class="hero-h1-gold">&amp; Community</span></h1>
+    <p class="hero-sub">A multi-arts venue for everyone in Paddington - music, theatre, heritage, workshops and a canal-side café.</p>
+    <div class="hero-ctas">
+      <button class="btn-hero-primary">See What's On</button>
+      <button class="btn-hero-outline">Plan Your Visit</button>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots">
+    <div class="hero-dot active" data-slide="0"></div>
+    <div class="hero-dot" data-slide="1"></div>
+    <div class="hero-dot" data-slide="2"></div>
+  </div>
+  <div id="quick-links">
+    <div class="ql-bar">
+      <a href="/whats-on" class="ql-item">
+        <div class="ql-circle" style="background: rgba(33,87,73,0.75);">
+          <div class="ql-circle-inner"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/e94b6e81-9ba7-4ccb-8f52-ef8ee9c77b63" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">What's On</span>
+          <span class="ql-desc">Book live events, classes, workshops &amp; tours</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/heritage" class="ql-item">
+        <div class="ql-circle" style="background: rgba(138,110,48,0.75);">
+          <div class="ql-circle-inner"></div>
+          <div class="ql-icon">
+          <svg width="18" height="22" viewBox="0 0 18 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 10C18 15.55 14.16 20.74 9 22C3.84 20.74 0 15.55 0 10L0 4L9 0L18 4V10ZM9 20C12.75 19 16 14.54 16 10.22L16 5.3L9 2.18L2 5.3L2 10.22C2 14.54 5.25 19 9 20Z" fill="white"/>
+          </svg>
+        </div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Heritage Hub</span>
+          <span class="ql-desc">Nine centuries of stories and history to explore</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/support" class="ql-item">
+        <div class="ql-circle" style="background: rgba(171,202,233,0.75);">
+          <div class="ql-circle-inner" style="border-color:rgba(255,255,255,0.30);"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/b18e9ca3-d14a-4f06-9520-6710f858d479" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Be Involved</span>
+          <span class="ql-desc">Join as a member, donate, support our community</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/hire" class="ql-item">
+        <div class="ql-circle" style="background: rgba(134,38,51,0.75);">
+          <div class="ql-circle-inner"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/0b24bac0-1a23-43c3-86cb-210e024aee9c" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Hire a Space</span>
+          <span class="ql-desc">Book stunning spaces for events, weddings &amp; shoots</span>
+        </div>
+      </a>
+      <div class="ql-sep"></div>
+      <a href="/visit" class="ql-item">
+        <div class="ql-circle" style="background: rgba(33,39,33,0.85); border: 1px solid rgba(159,125,35,0.5);">
+          <div class="ql-circle-inner ql-circle-inner-gold"></div>
+          <div class="ql-icon"><img src="https://www.figma.com/api/mcp/asset/6ff9e809-05be-4750-abdb-10197ef1357a" alt=""></div>
+        </div>
+        <div class="ql-text">
+          <span class="ql-label">Visit Us</span>
+          <span class="ql-desc">Plan your trip, access &amp; café</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="whats-on" style="position:relative;">
+  <!-- Gold triangle divider sits at top of section, overlapping hero bottom -->
+  <div style="position:absolute;top:0;left:0;width:100%;line-height:0;z-index:2;pointer-events:none;">
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
+      <polygon points="0,0 1440,0 1440,48 0,24" fill="#9f7d23"/>
+    </svg>
+  </div>
+  <div class="wo-pattern"><img src="https://www.figma.com/api/mcp/asset/8ceedb78-3503-4fd0-b1b9-f2ad905b23c1" alt=""></div>
+  <div class="wo-inner">
+    <div class="wo-header">
+      <span class="wo-label">Featured This Season</span>
+      <h2 class="wo-h2">What's On</h2>
+      <button class="wo-cal-btn">Full Calendar ›</button>
+    </div>
+    <p class="wo-intro">Grand Junction offers a full programme of live music, theatre, classes and workshops, exhibitions, tours and talks, with something for all ages, local or visiting.</p>
+
+  </div><!-- /wo-inner -->
+  <div class="carousel-viewport" id="evViewport">
+    <div class="carousel-track" id="evTrack">
+
+        <div class="ev-card" data-idx="-1">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/c32ecab1-4048-46d5-a0f7-8719cb7a3249" alt="Echoes of Us">
+            <span class="ev-badge badge-azure">Workshop</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Every Tue · 1pm</span>
+            <h3 class="ev-title">Echoes of Us</h3>
+            <p class="ev-desc">A 10-week creative storytelling workshop for African and Caribbean adults (18+) in Paddington.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-azure-outline">Free</span>
+              <span class="ev-tag tag-gold">18+</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="0">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/22ffee56-e831-42f0-bc76-61e0ee4e20a1" alt="Loved &amp; Wanted Spring Festival">
+            <span class="ev-badge badge-green">Community</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Sat 18 Apr · 2pm – 5pm</span>
+            <h3 class="ev-title">Loved &amp; Wanted Spring Festival</h3>
+            <p class="ev-desc">Our fun-filled spring festival celebrating Paddington's creativity, heritage and community spirit.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-free">Free</span>
+              <span class="ev-tag tag-outline">Family</span>
+              <span class="ev-tag tag-outline">All Ages</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="1">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/7e7d6b4d-5b83-4a5c-b60e-1a48e2acad3d" alt="Poppy Ackroyd">
+            <span class="ev-badge badge-gold">Live Music</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Wed 10 Jun · 7.30pm</span>
+            <h3 class="ev-title">Poppy Ackroyd</h3>
+            <p class="ev-desc">The UK's most inventive pianist-composer makes her Grand Junction debut.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-gold">18+</span>
+              <span class="ev-tag tag-gold">Licensed Bar</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">£21 + bf</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="2">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/9b7ef83b-5eae-45e2-9d73-90ed2e94fadf" alt="Cinderella Ice Cream Seller">
+            <span class="ev-badge badge-gold">Live Theatre</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Wed 27 May · 11am &amp; 2pm</span>
+            <h3 class="ev-title">Cinderella Ice Cream Seller</h3>
+            <p class="ev-desc">May half term — a delicious retelling of a fairytale classic with live music and theatrical magic. Ages 5+.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-outline">Family</span>
+              <span class="ev-tag tag-gold">Age 5+</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Pay What You Can</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="3">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/caeac505-3354-4d63-a422-41ae39baf38a" alt="VIP Club Night">
+            <span class="ev-badge badge-maroon">SEND</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Fri 24 Jul · 6.30pm</span>
+            <h3 class="ev-title">VIP Club Night</h3>
+            <p class="ev-desc">West London's inclusive club night welcoming adults with learning disabilities and those without.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-gold">Accessible</span>
+              <span class="ev-tag tag-gold">18+</span>
+              <span class="ev-tag tag-gold">Carers free</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">£7</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="4">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/20814d94-0224-4082-8345-fca19226fb80" alt="Stone Light and Colour">
+            <span class="ev-badge badge-tours">Tours</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Sat 25 Jul · 2pm – 3pm</span>
+            <h3 class="ev-title">Stone, Light &amp; Colour</h3>
+            <p class="ev-desc">Explore the extraordinary Victorian neo-Gothic architecture and vibrant stained glass of St Mary Magdalene.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-gold">All Ages</span>
+              <span class="ev-tag tag-gold">Walk-ins Welcome</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">£5</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="5">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/13654eba-cb87-4286-b5a5-20665234af23" alt="Echoes of Us">
+            <span class="ev-badge badge-azure">Workshop</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Every Tue · 1pm</span>
+            <h3 class="ev-title">Echoes of Us</h3>
+            <p class="ev-desc">A 10-week creative storytelling workshop for African and Caribbean adults (18+) in Paddington.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-azure-outline">Free</span>
+              <span class="ev-tag tag-gold">18+</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+        <div class="ev-card" data-idx="6">
+          <div class="ev-img">
+            <img src="https://www.figma.com/api/mcp/asset/75ff3126-813c-4bfa-b0e3-3270de4d7867" alt="Language Café (English)">
+            <span class="ev-badge badge-azure">Class</span>
+          </div>
+          <div class="ev-body">
+            <span class="ev-date">Every Mon · 20 Apr – 6 Jul</span>
+            <h3 class="ev-title">Language Café (English)</h3>
+            <p class="ev-desc">A friendly session to meet local people, improve your English and gain confidence. Everyone welcome.</p>
+            <div class="ev-tags">
+              <span class="ev-tag tag-free">Free</span>
+              <span class="ev-tag tag-outline">Beginners</span>
+            </div>
+          </div>
+          <div class="ev-foot">
+            <span class="ev-price">Free</span>
+            <button class="ev-btn">Book Tickets ›</button>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+  </div><!-- /viewport -->
+  <div class="carousel-nav" id="carouselNav">
+    <button class="carousel-btn" id="evPrev">&#8592;</button>
+    <button class="carousel-btn" id="evNext">&#8594;</button>
+  </div>
+</section>
+
+
+
+<section id="experience">
+  <div class="exp-inner">
+    <p class="exp-spotlight">In the Spotlight</p>
+    <div class="exp-h2-row">
+      <h2 class="exp-h2">Experience<br>Grand Junction</h2>
+      <button class="btn-about">About Us ›</button>
+    </div>
+
+    <div class="exp-grid">
+      <!-- LEFT column: Heritage (top) + Café (bottom) -->
+      <div class="exp-grid-left">
+        <!-- Heritage card -->
+        <div class="exp-card exp-card-heritage">
+          <div class="exp-img-heritage">
+            <img src="https://www.figma.com/api/mcp/asset/bde7a3dc-14e3-4226-a5fb-6fefd5ae60ff" alt="Heritage">
+            <div class="exp-img-heritage-overlay"></div>
+          </div>
+          <div class="exp-card-body">
+            <span class="exp-label">Heritage Hub</span>
+            <h3 class="exp-h3">Nine Centuries of Stories to Discover</h3>
+            <ul class="exp-bullets">
+              <li>Grade I listed neo-Gothic church</li>
+              <li>Guided heritage tours available</li>
+              <li>Interactive digital guide</li>
+              <li>Step-free access</li>
+            </ul>
+            <button class="btn-gold-filled">Explore Our Heritage ›</button>
+          </div>
+        </div>
+        <!-- Café card -->
+        <div class="exp-card exp-card-cafe">
+          <div class="exp-cafe-body">
+            <span class="exp-label">The Café · Canal-Side</span>
+            <h3 class="exp-h3">Coffee, Lunch &amp; the Canal</h3>
+            <p class="exp-desc">A warm, welcoming space open to everyone, with freshly made food, great coffee — no event ticket required.</p>
+            <div class="exp-info-rows">
+              <div class="exp-info-row"><span class="exp-info-label">Open</span><span class="exp-info-val">Saturday - Thursday · 9am - 4pm</span></div>
+              <div class="exp-info-row"><span class="exp-info-label">Find us</span><span class="exp-info-val">Rowington Close, W2 · Regent's Canal side</span></div>
+              <div class="exp-info-row"><span class="exp-info-label">Also offers</span><span class="exp-info-val">Private hire &amp; catering for events</span></div>
+            </div>
+            <button class="btn-gold-outline">Visit the Café ›</button>
+          </div>
+          <div class="exp-img-cafe">
+            <img src="https://www.figma.com/api/mcp/asset/cd991448-69a6-4102-bc28-a7925982051a" alt="Café">
+            <div class="exp-img-cafe-overlay"></div>
+          </div>
+        </div>
+      </div>
+      <!-- RIGHT column: Membership spanning full height -->
+      <div class="exp-grid-right">
+        <div class="exp-card exp-card-membership">
+          <span class="exp-label">Become Part of Our Community</span>
+          <h3 class="mem-h2">Join Grand Junction</h3>
+          <p class="mem-desc">Become a part of something that matters. Your membership directly supports the arts, community programmes and the conservation of this remarkable building.</p>
+          <div class="mem-tiers">
+            <div class="mem-tier">
+              <div><div class="mem-tier-name">Friend</div><div class="mem-tier-desc">Community access &amp; regular updates</div></div>
+              <span class="mem-tier-arrow">›</span>
+            </div>
+            <div class="mem-tier">
+              <div><div class="mem-tier-name">Supporter</div><div class="mem-tier-desc">Priority booking &amp; exclusive events</div></div>
+              <span class="mem-tier-arrow">›</span>
+            </div>
+            <div class="mem-tier">
+              <div><div class="mem-tier-name">Patron</div><div class="mem-tier-desc">Deeper engagement &amp; recognition</div></div>
+              <span class="mem-tier-arrow">›</span>
+            </div>
+          </div>
+          <button class="btn-mem-options">See Membership Options ›</button>
+          <div class="mem-spacer" style="flex:1;min-height:16px;"></div>
+          <div class="mem-donate">
+            <div class="mem-donate-text">
+              <h4>Support Us With a Donation</h4>
+              <p>Not ready to join? A one-off gift directly funds our programme and community work</p>
+            </div>
+            <button class="btn-donate">Donate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+<section id="newsletter">
+  <div class="nl-pattern"><img src="https://www.figma.com/api/mcp/asset/ba909816-7971-476a-a52c-250c370bcf2a" alt=""></div>
+  <div class="nl-inner">
+    <div>
+      <p class="nl-label">Hear From Grand Junction</p>
+      <h2 class="nl-h2">Stay<br>Connected</h2>
+      <p class="nl-sub">Choose the updates that matter to you — events, heritage, workshops, community news.</p>
+    </div>
+    <div>
+      <p class="nl-interests-label">What Interests You?</p>
+      <div class="nl-tags">
+        <button class="nl-tag active">What's On</button>
+        <button class="nl-tag">Workshops &amp; Classes</button>
+        <button class="nl-tag">Free &amp; Local</button>
+        <button class="nl-tag">Hire &amp; Events</button>
+        <button class="nl-tag">Support &amp; Give</button>
+        <button class="nl-tag">Partnerships</button>
+        <button class="nl-tag">Volunteer</button>
+        <button class="nl-tag nl-tag-gold">Become a Member</button>
+      </div>
+      <div class="nl-email-row">
+        <input type="email" placeholder="Your email address">
+        <button class="nl-submit">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img class="footer-logo" src="https://www.figma.com/api/mcp/asset/3cda328b-5b48-4e8c-8476-11987340fb51" alt="Grand Junction">
+        <address class="footer-addr">
+          At St Mary Magdalene's<br>Paddington<br>Rowington Close, London W2 5TF
+        </address>
+        <p class="footer-phone">020 7266 8258</p>
+        <a href="/about" class="footer-about">About Grand Junction →</a>
+        <div class="footer-a11y">
+          <span class="footer-a11y-tag">Wheelchair accessible</span>
+          <span class="footer-a11y-tag">BSL available</span>
+          <span class="footer-a11y-tag">SEND welcome</span>
+        </div>
+
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">What's On</span>
+        <ul>
+          <li><a href="#">All Events</a></li>
+          <li><a href="#">Music &amp; Performance</a></li>
+          <li><a href="#">Heritage Tours</a></li>
+          <li><a href="#">Workshops &amp; Classes</a></li>
+          <li><a href="#">Community Events</a></li>
+          <li><a href="#">Children &amp; Families</a></li>
+          <li><a href="#">Past Events</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Visit</span>
+        <ul>
+          <li><a href="#">Plan Your Visit</a></li>
+          <li><a href="#">Heritage Hub</a></li>
+          <li><a href="#">The Café</a></li>
+          <li><a href="#">Accessibility</a></li>
+          <li><a href="#">How to Find Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Hire</span>
+        <ul>
+          <li><a href="#">All Spaces &amp; Packages</a></li>
+          <li><a href="#">Weddings &amp; Celebrations</a></li>
+          <li><a href="#">Filming &amp; Photoshoots</a></li>
+          <li><a href="#">Meetings &amp; Away Days</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <span class="footer-col-heading">Get Involved</span>
+        <ul>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Membership</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Volunteer</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Partners row + socials -->
+    <div class="footer-middle">
+      <div class="footer-middle-logos">
+        <span class="footer-sup-label">Supported by</span>
+        <span class="footer-sup-pdt">PDT</span>
+        <span class="footer-sup-pdt">Arts Council England</span>
+        <span class="footer-sup-pdt">Bloomberg Philanthropies</span>
+        <span class="footer-sup-pdt-2">National Lottery Heritage Fund</span>
+      </div>
+      <!-- Social icons — pushed to right -->
+      <div class="footer-socials-right">
+        <a href="#" class="social-circle-footer" aria-label="Instagram">
+          <svg width="41" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20.5" r="19.5" stroke="#9F7D23" stroke-opacity="0.5"/>
+            <path d="M20 8.21C16.74 8.21 16.333 8.225 15.053 8.284C13.775 8.345 12.905 8.551 12.14 8.856C11.351 9.17 10.681 9.592 10.014 10.277C9.347 10.961 8.935 11.648 8.63 12.459C8.333 13.244 8.131 14.137 8.072 15.449C8.012 16.763 8 17.181 8 20.527C8 23.873 8.015 24.291 8.072 25.605C8.132 26.916 8.333 27.81 8.63 28.595C8.936 29.404 9.347 30.093 10.014 30.778C10.681 31.461 11.35 31.885 12.14 32.198C12.906 32.502 13.776 32.711 15.053 32.771C16.333 32.833 16.74 32.845 20 32.845C23.26 32.845 23.667 32.83 24.947 32.771C26.224 32.71 27.095 32.502 27.86 32.198C28.648 31.884 29.319 31.461 29.986 30.778C30.652 30.093 31.065 29.407 31.37 28.595C31.666 27.81 31.869 26.916 31.928 25.605C31.988 24.291 32 23.873 32 20.527C32 17.181 31.985 16.763 31.928 15.449C31.868 14.138 31.666 13.243 31.37 12.459C31.064 11.649 30.652 10.961 29.986 10.277C29.319 9.592 28.651 9.169 27.86 8.856C27.095 8.551 26.224 8.344 24.947 8.284C23.667 8.222 23.26 8.21 20 8.21ZM20 10.427C23.203 10.427 23.585 10.443 24.85 10.5C26.02 10.556 26.655 10.755 27.077 10.926C27.639 11.148 28.037 11.415 28.459 11.845C28.878 12.276 29.138 12.686 29.355 13.263C29.519 13.696 29.715 14.348 29.768 15.549C29.825 16.848 29.838 17.238 29.838 20.527C29.838 23.816 29.823 24.207 29.764 25.506C29.703 26.707 29.508 27.359 29.343 27.792C29.119 28.369 28.864 28.777 28.444 29.21C28.025 29.64 27.62 29.907 27.064 30.13C26.644 30.299 25.999 30.5 24.829 30.554C23.555 30.613 23.18 30.626 19.97 30.626C16.759 30.626 16.384 30.611 15.111 30.55C13.94 30.487 13.295 30.287 12.875 30.118C12.306 29.888 11.915 29.626 11.496 29.195C11.075 28.765 10.806 28.349 10.596 27.779C10.431 27.347 10.237 26.685 10.176 25.484C10.131 24.191 10.115 23.792 10.115 20.512C10.115 17.232 10.131 16.831 10.176 15.522C10.237 14.321 10.431 13.661 10.596 13.229C10.806 12.644 11.075 12.244 11.496 11.812C11.915 11.382 12.306 11.105 12.875 10.89C13.295 10.72 13.926 10.52 15.096 10.458C16.371 10.412 16.746 10.397 19.955 10.397L20 10.427ZM20 14.202C16.595 14.202 13.838 17.035 13.838 20.527C13.838 24.022 16.598 26.852 20 26.852C23.405 26.852 26.162 24.019 26.162 20.527C26.162 17.032 23.402 14.202 20 14.202ZM20 24.633C17.79 24.633 16 22.796 16 20.527C16 18.259 17.79 16.422 20 16.422C22.21 16.422 24 18.259 24 20.527C24 22.796 22.21 24.633 20 24.633ZM27.846 13.953C27.846 14.769 27.2 15.431 26.406 15.431C25.611 15.431 24.966 14.768 24.966 13.953C24.966 13.138 25.612 12.476 26.406 12.476C27.199 12.475 27.846 13.138 27.846 13.953Z" fill="white" fill-opacity="0.5"/>
+          </svg>
+        </a>
+        <a href="#" class="social-circle-footer" aria-label="Facebook">
+          <svg width="41" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20.5" r="19.5" stroke="#9F7D23" stroke-opacity="0.5"/>
+            <path d="M22 22.0693H24.5L25.5 17.9634H22V15.9105C22 14.8532 22 13.8575 24 13.8575H25.5V10.4086C25.174 10.3645 23.943 10.2649 22.643 10.2649C19.928 10.2649 18 11.9658 18 15.0893V17.9634H15V22.0693H18V30.7943H22V22.0693Z" fill="white" fill-opacity="0.5"/>
+          </svg>
+        </a>
+        <a href="#" class="social-circle-footer" aria-label="YouTube">
+          <svg width="41" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20.5" r="19.5" stroke="#9F7D23" stroke-opacity="0.5"/>
+            <path d="M31.495 14.5811C31.356 14.0697 31.091 13.6038 30.725 13.2283C30.359 12.8528 29.905 12.5806 29.407 12.4379C27.537 11.9236 20.011 11.9236 20.011 11.9236C20.011 11.9236 12.504 11.9133 10.615 12.4379C10.117 12.5806 9.663 12.8528 9.297 13.2283C8.931 13.6038 8.666 14.0697 8.527 14.5811C8.173 16.5463 7.998 18.5412 8.005 20.5398C7.999 22.5309 8.174 24.5181 8.527 26.4759C8.666 26.9873 8.931 27.4533 9.297 27.8287C9.663 28.2042 10.117 28.4765 10.615 28.6192C12.483 29.1345 20.011 29.1345 20.011 29.1345C20.011 29.1345 27.517 29.1345 29.407 28.6192C29.905 28.4765 30.359 28.2042 30.725 27.8287C31.091 27.4533 31.356 26.9873 31.495 26.4759C31.841 24.5174 32.008 22.5302 31.995 20.5398C32.01 18.5419 31.842 16.547 31.495 14.5811ZM17.609 24.2259V16.8425L23.873 20.5398L17.609 24.2259Z" fill="white" fill-opacity="0.5"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Grand Junction · Paddington Development Trust · Registered Charity</p>
+      <p class="footer-legal">Privacy  ·  Safeguarding  ·  Accessibility  ·  Terms</p>
+    </div>
+  </div>
+</footer>
+<script>
+
+// -- HERO SLIDESHOW --
+(function() {
+  var slides  = Array.from(document.querySelectorAll('.hero-slide'));
+  var dots    = Array.from(document.querySelectorAll('#heroDots .hero-dot'));
+  var current = 0;
+  var timer;
+  function goTo(idx) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = (idx + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+  function start() { clearInterval(timer); timer = setInterval(function() { goTo(current + 1); }, 6000); }
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() { goTo(parseInt(dot.dataset.slide,10)); start(); });
+  });
+  start();
+})();
+
+// -- BURGER MENU --
+const overlay  = document.getElementById('menu-overlay');
+const backdrop = document.getElementById('overlayBackdrop');
+document.getElementById('menuOpen').addEventListener('click', () => {
+  overlay.classList.add('open'); backdrop.classList.add('open');
+});
+document.getElementById('menuClose').addEventListener('click', () => {
+  overlay.classList.remove('open'); backdrop.classList.remove('open');
+});
+backdrop.addEventListener('click', () => {
+  overlay.classList.remove('open'); backdrop.classList.remove('open');
+});
+function toggleMenuItem(header) {
+  const item = header.parentElement;
+  const wasActive = item.classList.contains('active');
+  document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+  if (!wasActive) item.classList.add('active');
+}
+
+// -- CAROUSEL --
+(function() {
+  var CARD_W = 345; // CSS width — never changes
+  var GAP    = 16;
+  var T      = 'transform 0.42s cubic-bezier(0.25,0.46,0.45,0.94)';
+
+  var track   = document.getElementById('evTrack');
+  var cards   = Array.from(track.querySelectorAll('.ev-card'));
+  var prevBtn = document.getElementById('evPrev');
+  var nextBtn = document.getElementById('evNext');
+  console.log('[carousel] track:', track, 'cards:', cards.length, 'prev:', prevBtn, 'next:', nextBtn);
+  if (!track || !prevBtn || !nextBtn) { console.error('[carousel] MISSING ELEMENTS'); return; }
+  var active  = 2; // Poppy (index 2 after extra lead card)
+  var offset  = 0;
+  var dragging= false, ds = 0, dd = 0;
+
+  // Centre target: all cards are CARD_W in layout (scale doesn't affect flex)
+  function calcTarget() {
+    return window.innerWidth / 2 - CARD_W / 2 - (active * (CARD_W + GAP));
+  }
+
+  function applySnap(anim) {
+    offset = calcTarget();
+    track.style.transition = anim ? T : 'none';
+    track.style.transform  = 'translateX(' + offset + 'px)';
+    if (!anim) { track.getBoundingClientRect(); } // flush
+  }
+
+  function go(idx) {
+    idx = ((idx % cards.length) + cards.length) % cards.length;
+    cards[active].classList.remove('featured');
+    active = idx;
+    cards[active].classList.add('featured');
+    applySnap(true);
+  }
+
+  // Init
+  function init() {
+    cards.forEach(function(c, i) { c.classList.toggle('featured', i === active); });
+    applySnap(false);
+    console.log('[carousel] init: cards=' + cards.length + ' active=' + active + ' offset=' + offset);
+  }
+  init();
+  window.addEventListener('load',   function() { applySnap(false); });
+  window.addEventListener('resize', function() { applySnap(false); });
+
+  // Navigation
+  prevBtn.addEventListener('click', function() {
+    console.log('[carousel] prev clicked, active=' + active);
+    go(active - 1);
+  });
+  nextBtn.addEventListener('click', function() {
+    console.log('[carousel] next clicked, active=' + active);
+    go(active + 1);
+  });
+
+  // Click card to feature it
+  cards.forEach(function(card, i) {
+    card.addEventListener('click', function() {
+      if (Math.abs(dd) > 5) return;
+      if (i !== active) go(i);
+    });
+  });
+
+  // Drag — mousedown on track, move/up on document
+  track.addEventListener('mousedown', function(e) {
+    dragging = true; ds = e.clientX; dd = 0;
+    track.style.transition = 'none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    dd = e.clientX - ds;
+    track.style.transform = 'translateX(' + (offset + dd) + 'px)';
+  });
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    if      (dd < -60) go(active + 1);
+    else if (dd >  60) go(active - 1);
+    else applySnap(true);
+    dd = 0;
+  });
+
+  // Touch
+  track.addEventListener('touchstart', function(e) {
+    ds = e.touches[0].clientX; dd = 0;
+    track.style.transition = 'none';
+  }, {passive: true});
+  track.addEventListener('touchmove', function(e) {
+    dd = e.touches[0].clientX - ds;
+    track.style.transform = 'translateX(' + (offset + dd) + 'px)';
+  }, {passive: true});
+  track.addEventListener('touchend', function() {
+    if      (dd < -60) go(active + 1);
+    else if (dd >  60) go(active - 1);
+    else applySnap(true);
+    dd = 0;
+  });
+})();
+
+// ── SCROLL REVEAL ────────────────────────────────────────────
+(function() {
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0 });
+  els.forEach(el => obs.observe(el));
+  // Fallback: reveal anything still hidden after 800ms
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 800);
+})();
+
+// ── INTEREST TAGS ────────────────────────────────────────────
+document.querySelectorAll('.nl-tag').forEach(t => {
+  t.addEventListener('click', () => t.classList.toggle('active'));
+});
+</script>
+</body>
+</html>
